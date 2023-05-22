@@ -1,12 +1,15 @@
-import  ResponsiveAppBar  from "./Components/Appbar"
 import './App.css'
-import Login from "./Pages/Login/Login"
-
+// import Login from "./Pages/Login/Login"
+import Admin from "./Pages/SuperAdmin/Admin/AddAdmin"
+// import Dashboard from './Pages/SuperAdmin/Dashboard/Dashboard'
 function App() {
   return (
     <>
-    {/* <ResponsiveAppBar/>       */}
-    <Login/>
+    {/* <ResponsiveAppBar/> */}
+    {/* <Login/> */}
+    <Admin/>
+    {/* <Dashboard/> */}
+
     </>
   )
 }

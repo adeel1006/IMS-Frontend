@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
-import logo from "../../assets/logo.png";
+import logo from "../../Assets/logo.png";
 import "./Login.css";
 const Login = () => {
   const [email, setEmail] = useState("");

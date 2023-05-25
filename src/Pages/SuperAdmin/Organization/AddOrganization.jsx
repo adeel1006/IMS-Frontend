@@ -1,36 +1,36 @@
 import React from "react";
-import { Box, TextField, Select, MenuItem } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import imgPlaceHolder from "../../../Assets/placeholder.jpg";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
-import "./AddAdmin.css";
+import "./AddOrganization.css";
 
-const AddAdmin = () => {
+const AddOrganization = () => {
   return (
     <>
       <Box className="container">
-        <Box className="new-adm-header">
-          <Box className="left-btns header-adm-btns">
+        <Box className="new-org-header">
+          <Box className="left-btns header-org-btns">
             <button className="back-btn">
               <KeyboardBackspaceIcon fontSize="small" />
               Back
             </button>
-            <h1>Add New Admin</h1>
+            <h1>Add New Organization</h1>
           </Box>
-          <Box className="right-btns header-adm-btns">
+          <Box className="right-btns header-org-btns">
             <button className="cancel-btn btn">Cancel</button>
             <button className="save-btn btn">Save</button>
           </Box>
         </Box>
 
-        <Box className="new-adm-form">
+        <Box className="new-org-form">
           <Box className="img-upload">
             <Box className="logo-upload">
               <img src={imgPlaceHolder} alt="image" />
             </Box>
             <Box className="heading">
-              <span className="Box-heading">Admin's Picture</span>
-              <span className="mandatory-asterik"> *</span>
+              <span className="Box-heading">Organization Logo</span>{" "}
+              <span className="mandatory-asterik">*</span>
               <p>Upload a high-res picture with face is clear</p>
             </Box>
             <label htmlFor="upload-btn" className="upload-img-btn">
@@ -41,8 +41,11 @@ const AddAdmin = () => {
           </Box>
 
           <Box className="name data-field">
-            <span className="form-left">Name</span>
-            <TextField size="small" placeholder="Full Name"></TextField>
+            <span className="form-left">Name of Organization</span>
+            <TextField
+              size="small"
+              placeholder="Name of Organization"
+            ></TextField>
           </Box>
 
           <Box className="email data-field">
@@ -51,22 +54,38 @@ const AddAdmin = () => {
             <TextField size="small" placeholder="Email Address" />
           </Box>
 
-          <Box className="org-name data-field">
-            <span className="form-left">Organization Name</span>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              //   value={age}
-              //   label="Age"
-              //   onChange={handleChange}
-            >
-              <MenuItem value={10}>Gigalabs</MenuItem>
-            </Select>
+          <Box className="bio data-field">
+            <span className="form-left">Bio</span>
+
+            <TextField size="large" placeholder="Short Bio here..." />
+          </Box>
+
+          <Box className="address data-field">
+            <span className="form-left">Address</span>
+            <Box className="address-fields">
+              <TextField sx={{ mt: 2 }} size="small" placeholder="Address" />
+              <TextField sx={{ mt: 2 }} size="small" placeholder="City" />
+              <TextField sx={{ mt: 2 }} size="small" placeholder="Country" />
+              <TextField sx={{ mt: 2 }} size="small" placeholder="Zip Code" />
+            </Box>
           </Box>
 
           <Box className="contact data-field">
-            <span className="form-left">Contact Number</span>
-            <TextField size="small" type="text" placeholder="Contact Number" />
+            <span className="form-left">Representative Name</span>
+            <TextField
+              size="small"
+              type="text"
+              placeholder="Representative Name"
+            />
+          </Box>
+
+          <Box className="contact data-field">
+            <span className="form-left">Representative Contact No.</span>
+            <TextField
+              size="small"
+              type="text"
+              placeholder="Representative Contact No."
+            />
           </Box>
 
           <Box className="credentials">
@@ -93,4 +112,4 @@ const AddAdmin = () => {
   );
 };
 
-export default AddAdmin;
+export default AddOrganization;

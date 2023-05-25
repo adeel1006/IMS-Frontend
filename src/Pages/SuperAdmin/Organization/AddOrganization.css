@@ -1,21 +1,28 @@
 .container {
-  margin: 1%;
-  padding: 2%;
+  margin: 3%;
+  padding: 3%;
 }
-.new-adm-header {
+.new-org-header {
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 100%;
   justify-content: space-between;
 }
+.Box-heading {
+  font-weight: bold;
+  font-size: larger;
+}
 
-.header-adm-btns {
+.mandatory-asterik {
+  color: red;
+}
+.header-org-btns {
   display: flex;
   align-items: center;
 }
 
-.header-adm-btns > .left-btns {
+.header-org-btns > .left-btns {
   width: 20%;
   justify-content: space-between;
 }
@@ -47,6 +54,7 @@
   color: gray;
   background-color: #eeeff1;
   border: 1px solid gray;
+  margin-right: 8%;
 }
 
 .save-btn {
@@ -82,6 +90,17 @@
   font-size: 1.5em;
   font-weight: 900;
 }
+.address-fields {
+  display: grid;
+}
+
+.form-left {
+  margin-bottom: auto;
+}
+
+span {
+  font-weight: bold;
+}
 
 .upload-img-btn {
   display: flex;
@@ -113,36 +132,35 @@ img {
   width: 40%;
 }
 
-
 /* Media Queries for Responsive Design */
 
 @media (max-width: 768px) {
-    .header-adm-btns > .left-btns {
-      width: 40%;
-    }
-  
-    .right-btns {
-      width: 30%;
-    }
-  
-    .form-left {
-      width: 100%;
-    }
+  .header-org-btns > .left-btns {
+    width: 40%;
   }
-  
-  @media (max-width: 576px) {
-    .new-adm-header {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .header-adm-btns > .left-btns {
-      width: 100%;
-    }
-  
-    .right-btns {
-      width: 100%;
-      justify-content: space-between;
-      margin-top: 1rem;
-    }
+
+  .right-btns {
+    width: 30%;
   }
+
+  .form-left {
+    width: 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .new-org-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-org-btns > .left-btns {
+    width: 100%;
+  }
+
+  .right-btns {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 1rem;
+  }
+}

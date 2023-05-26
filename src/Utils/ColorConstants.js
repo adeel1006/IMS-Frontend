@@ -1,3 +1,3 @@
 //Table HeaderRow theme
-export const dodgerblue = 'dodgerblue';
+export const cornFlowerBlue = '#4583f5';
 export const seaGreenBtn = 'seagreen';

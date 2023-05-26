@@ -10,6 +10,7 @@ import  ResponsiveAppBar  from "./Components/Appbar"
 import ComplaintsDetail from "./Pages/SuperAdmin/Complaints/ComplaintsDetail";
 import AddOrganization from "./Pages/SuperAdmin/Organization/AddOrganization";
 import OrganizationList from "./Pages/SuperAdmin/Organization/OrganizationList";
+import OrganizationDetail from "./Pages/SuperAdmin/Organization/OrganizationDetail";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
 
           <Route path="superAdminOrganization" exact element={<AddOrganization />} />
           <Route path="superAdminOrganizationList" exact element={<OrganizationList />} />
+          <Route path="superAdminOrganizationDetails" exact element={<OrganizationDetail />} />
 
           <Route path="*" element={<NotFoundPage />} />
 

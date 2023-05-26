@@ -1,6 +1,6 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
-import { dodgerblue } from "../Utils/ColorConstants";
+import { cornFlowerBlue } from "../Utils/ColorConstants";
 
 import {
   Box,
@@ -18,7 +18,7 @@ import {
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: dodgerblue,
+    backgroundColor: cornFlowerBlue,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {

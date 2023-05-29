@@ -36,22 +36,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Kitkat", 356, 16.0, 49, 3.9),
-  createData("Oreo", 356, 16.0, 49, 3.9),
-  createData("Mars", 356, 16.0, 49, 3.9),
-  createData("Galaxy", 356, 16.0, 49, 3.9),
-];
-
-export default function DataTable() {
+export default function DataTable({ rows }) {
   return (
     <>
       <TableContainer component={Paper}>
@@ -83,13 +68,17 @@ export default function DataTable() {
             ))}
           </TableBody>
         </Table>
-        <Box>
-          <Stack spacing={2} sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
-            <Box sx={{ marginLeft: "auto" }}>
-              <Pagination count={10} variant="outlined" shape="rounded" />
-            </Box>
-          </Stack>
-        </Box>
+        {rows.length > 8 ? (
+          <Box>
+            <Stack spacing={2} sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+              <Box sx={{ marginLeft: "auto" }}>
+                <Pagination count={10} variant="outlined" shape="rounded" />
+              </Box>
+            </Stack>
+          </Box>
+        ) : (
+          <Box></Box>
+        )}
       </TableContainer>
     </>
   );

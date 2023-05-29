@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import DataTable from "../../../Components/DataTable";
 import "./Complaints.css";
+import { rows } from "../../../Utils/testingData";
 //dummy data for testing purposes
 const options = [
     { value: "Gigalabs", label: "Gigalabs" },
@@ -46,7 +47,7 @@ const Complaints = () => {
           </Box>
         </Box>
         <Box className="complaints-table">
-          <DataTable />
+          <DataTable rows={rows} />
         </Box>
       </Box>
     </>

@@ -5,6 +5,7 @@ import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import DataTable from "../../../Components/DataTable";
+import { rows } from "../../../Utils/testingData";
 import "./OrganizationList.css";
 //dummy data for testing purposes
 const options = [
@@ -36,7 +37,7 @@ const OrganizationList = () => {
           </Box>
         </Box>
         <Box className="org-table">
-          <DataTable />
+          <DataTable rows={rows} />
         </Box>
       </Box>
     </>

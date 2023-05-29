@@ -5,6 +5,7 @@ import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import DataTable from "../../../Components/DataTable";
+import {rows} from "../../../Utils/testingData";
 import "./AdminList.css";
 //dummy data for testing purposes
 const options = [
@@ -32,7 +33,7 @@ const AdminList = () => {
           </Box>
         </Box>
         <Box className="adm-table">
-          <DataTable />
+          <DataTable rows={rows} />
         </Box>
       </Box>
     </>

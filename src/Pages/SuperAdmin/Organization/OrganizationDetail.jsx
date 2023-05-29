@@ -6,6 +6,8 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import logo from "../../../Assets/logoBlack.png";
 import DropDownMenu from "../../../Components/DropDownMenu";
 import { cornFlowerBlue } from "../../../Utils/ColorConstants";
+import { rows } from "../../../Utils/testingData";
+
 const OrganizationDetail = () => {
   const [orgDetail, setOrgDet] = useState(true);
   const [activeBtn, setActiveBtn] = useState(true);
@@ -109,7 +111,7 @@ const OrganizationDetail = () => {
           )}
           {!orgDetail && (
             <Box className="org-det-admins">
-              <DataTable />
+              <DataTable rows={rows} />
             </Box>
           )}
         </Box>

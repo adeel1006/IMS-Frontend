@@ -1,14 +1,19 @@
 import React from "react";
-import { Card, CardContent, Typography, Box, Icon } from "@mui/material";
+import { Card, CardContent, Typography, Box } from "@mui/material";
 
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { seaGreenBtn } from "../Utils/ColorConstants";
 
-const DashboardCard = ({ title, number, icon, tagline }) => {
+const DashboardCard = ({ title, number, icon, tagline, notShowRightBorder }) => {
+  //for card border
+  const cardContentStyles = {
+    borderRight: notShowRightBorder ? "none": "1px solid #ccc",
+  };
+
   return (
-    <Card sx={{ width: "fit-content" }} className="container">
-      <CardContent>
+    <Card sx={{ boxShadow: "none" }}>
+      <CardContent sx={cardContentStyles}>
         <Box sx={{ display: "block" }}>
           <Typography fontWeight="bold">{title}</Typography>
 
@@ -24,7 +29,7 @@ const DashboardCard = ({ title, number, icon, tagline }) => {
               <ArrowDropDownIcon sx={{ color: "red", fontSize: "xxx-large" }} />
             )}
           </Box>
-          <Typography variant="caption" sx={{ ml: 1, color: "gray" }}>
+          <Typography variant="caption" sx={{ color: "gray" }}>
             {tagline}
           </Typography>
         </Box>
@@ -34,3 +39,4 @@ const DashboardCard = ({ title, number, icon, tagline }) => {
 };
 
 export default DashboardCard;
+

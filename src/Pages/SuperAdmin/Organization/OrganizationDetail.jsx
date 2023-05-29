@@ -5,8 +5,9 @@ import DataTable from "../../../Components/DataTable";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import logo from "../../../Assets/logoBlack.png";
 import DropDownMenu from "../../../Components/DropDownMenu";
+import { cornFlowerBlue } from "../../../Utils/ColorConstants";
 const OrganizationDetail = () => {
-  const [orgDet, setOrgDet] = useState(true);
+  const [orgDetail, setOrgDet] = useState(true);
   const [activeBtn, setActiveBtn] = useState(true);
   return (
     <>
@@ -18,6 +19,8 @@ const OrganizationDetail = () => {
           </button>
           <DropDownMenu/>
         </Box>
+
+
         <Box className="org-details">
           <Box className="tabs">
             <button
@@ -28,7 +31,7 @@ const OrganizationDetail = () => {
               className="switch-btn"
               style={{
                 color: !activeBtn ? "black" : "white",
-                backgroundColor: !activeBtn ? "white" : "#4583F5 ",
+                backgroundColor: !activeBtn ? "white" : cornFlowerBlue,
               }}
             >
               General Information
@@ -41,13 +44,14 @@ const OrganizationDetail = () => {
               className="switch-btn"
               style={{
                 color: !activeBtn ? "white" : "black",
-                backgroundColor: !activeBtn ? "#4583F5" : "white",
+                backgroundColor: !activeBtn ? cornFlowerBlue : "white",
               }}
             >
               Admins
             </button>
           </Box>
-          {orgDet && (
+
+          {orgDetail && (
             <Box className="org-det-content">
               <Box className="org-content-head">
                 <Box className="logo">
@@ -103,7 +107,7 @@ const OrganizationDetail = () => {
               </Box>
             </Box>
           )}
-          {!orgDet && (
+          {!orgDetail && (
             <Box className="org-det-admins">
               <DataTable />
             </Box>

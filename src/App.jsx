@@ -11,6 +11,7 @@ import ComplaintsDetail from "./Pages/SuperAdmin/Complaints/ComplaintsDetail";
 import AddOrganization from "./Pages/SuperAdmin/Organization/AddOrganization";
 import OrganizationList from "./Pages/SuperAdmin/Organization/OrganizationList";
 import OrganizationDetail from "./Pages/SuperAdmin/Organization/OrganizationDetail";
+import Dashboard from "./Pages/SuperAdmin/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -19,7 +20,6 @@ function App() {
       <ResponsiveAppBar/>
       <Router>
         <Routes>
-  
           <Route path="/" exact element={<Login />} />
           <Route path="login" exact element={<Login />} />
 
@@ -33,6 +33,8 @@ function App() {
           <Route path="superAdminOrganization" exact element={<AddOrganization />} />
           <Route path="superAdminOrganizationList" exact element={<OrganizationList />} />
           <Route path="superAdminOrganizationDetails" exact element={<OrganizationDetail />} />
+
+          <Route path="superAdminDashboard" exact element={<Dashboard/>}/>
 
           <Route path="*" element={<NotFoundPage />} />
 

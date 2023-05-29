@@ -3,18 +3,11 @@ import { styled, alpha } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import EditIcon from "@mui/icons-material/Edit";
 import Divider from "@mui/material/Divider";
-import ArchiveIcon from "@mui/icons-material/Archive";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import MenuIcon from "@mui/icons-material/Menu";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { cornFlowerBlue } from "../Utils/ColorConstants";
-import { Box } from "@mui/material";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -72,7 +65,7 @@ export default function DropDownMenu() {
   return (
     <div>
       <Button
-        sx = {{backgroundColor:cornFlowerBlue}}
+        sx={{ backgroundColor: cornFlowerBlue }}
         id="demo-customized-button"
         aria-controls={open ? "demo-customized-menu" : undefined}
         aria-haspopup="true"
@@ -93,12 +86,12 @@ export default function DropDownMenu() {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose} disableRipple>
-            <EditOutlinedIcon />
+          <EditOutlinedIcon />
           Edit
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleClose} disableRipple>
-          <DeleteOutlineOutlinedIcon sx={{ color: 'red' }} />
+          <DeleteOutlineOutlinedIcon sx={{ color: "red" }} />
           Delete
         </MenuItem>
       </StyledMenu>

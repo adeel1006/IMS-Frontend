@@ -83,6 +83,10 @@
     margin: 1% 0;
     border-bottom: 1px solid gray;
   }
+
+.input-field {
+    width: 600px;
+}
   
   .form-left {
     width: 40%;

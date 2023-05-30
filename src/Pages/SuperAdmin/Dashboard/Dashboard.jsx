@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const [orgTable, setOrgTable] = useState(true);
+  const [organizationTable, setOrgTable] = useState(true);
   return (
     <>
       <Box className="dashboard-container">
@@ -59,7 +59,7 @@ const Dashboard = () => {
                   className="chart-btn swap-data-btn"
                   onClick={() => setOrgTable(true)}
                   style={
-                    orgTable
+                    organizationTable
                       ? { color: seaGreenBtn, textDecoration: "underline" }
                       : { color: "gray", textDecoration: "none" }
                   }
@@ -70,7 +70,7 @@ const Dashboard = () => {
                   className="chart-btn swap-data-btn"
                   onClick={() => setOrgTable(false)}
                   style={
-                    !orgTable
+                    !organizationTable
                       ? { color: seaGreenBtn, textDecoration: "underline" }
                       : { color: "gray", textDecoration: "none" }
                   }
@@ -80,10 +80,10 @@ const Dashboard = () => {
               </Box>
             </Box>
             <Box className="graph">
-              {orgTable && (
+              {organizationTable && (
                 <DashboardChart superAdminAccess={true} data={data} />
               )}
-              {!orgTable && (
+              {!organizationTable && (
                 <DashboardChart superAdminAccess={true} data={data} />
               )}
             </Box>

@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Admin from "./Pages/SuperAdmin/Admin/AddAdmin";
-import Login from "./Pages/Login/Login";
+import Login from "./Pages/Authentication/Login";
 import AdminList from "./Pages/SuperAdmin/Admin/AdminList";
 import AdminDetails from "./Pages/SuperAdmin/Admin/AdminDetails";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
@@ -12,6 +12,11 @@ import AddOrganization from "./Pages/SuperAdmin/Organization/AddOrganization";
 import OrganizationList from "./Pages/SuperAdmin/Organization/OrganizationList";
 import OrganizationDetail from "./Pages/SuperAdmin/Organization/OrganizationDetail";
 import Dashboard from "./Pages/SuperAdmin/Dashboard/Dashboard";
+import ForgotPassword from "./Pages/Authentication/ForgotPassword";
+import VerificationCode from "./Pages/Authentication/VerificationCode";
+import Complaints from "./Pages/Employee/Complaints";
+import AddComplain from "./Pages/Employee/AddComplain";
+
 
 function App() {
   return (
@@ -19,25 +24,30 @@ function App() {
     
       <ResponsiveAppBar/>
       <Router>
+
         <Routes>
           <Route path="/" exact element={<Login />} />
           <Route path="login" exact element={<Login />} />
+          <Route path="forgotPassword" exact element={<ForgotPassword />} />
+          <Route path="verificationCode" exact element={<VerificationCode />} />
 
+
+          <Route path="superAdminDashboard" exact element={<Dashboard/>}/>
           <Route path="newAdmin" exact element={<Admin />} />
           <Route path="adminsList" exact element={<AdminList />} />
           <Route path="adminsDetails" exact element={<AdminDetails />} />
-
           <Route path ="superAdminComplaints" exact element={<SuperAdminComplaints/>}/>
           <Route path ="superAdminComplaintDetails" exact element={<ComplaintsDetail/>}/>
-
           <Route path="superAdminOrganization" exact element={<AddOrganization />} />
           <Route path="superAdminOrganizationList" exact element={<OrganizationList />} />
           <Route path="superAdminOrganizationDetails" exact element={<OrganizationDetail />} />
 
-          <Route path="superAdminDashboard" exact element={<Dashboard/>}/>
+
+          <Route path="/employeeComplaint" element={<Complaints />} />
+          <Route path="/addComplaint" element={<AddComplain />} />
+
 
           <Route path="*" element={<NotFoundPage />} />
-
         </Routes>
       </Router>
     </>

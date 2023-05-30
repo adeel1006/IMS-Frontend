@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
 import logo from "../../Assets/logo.png";
+import { Link } from "react-router-dom";
 import "./Login.css";
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,14 +61,21 @@ const Login = () => {
               onChange={handlePasswordChange}
               required
             />
-            {passwordError && <p className="password-warning">{passwordError}</p>}
-            <button type="submit" className="signin-btn" onClick={handleSubmit} disabled={passwordError}>
+            {passwordError && (
+              <p className="password-warning">{passwordError}</p>
+            )}
+            <button
+              type="submit"
+              className="signin-btn"
+              onClick={handleSubmit}
+              disabled={passwordError}
+            >
               Sign In
             </button>
           </form>
         </Box>
         <p className="reset-password-link">
-          Forgot your Password? <a href="#">Reset Password</a>
+          Forgot your Password? <Link to="/forgotPassword">Reset Password</Link>
         </p>
       </Box>
     </>

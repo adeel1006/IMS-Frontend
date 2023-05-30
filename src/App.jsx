@@ -14,8 +14,9 @@ import OrganizationDetail from "./Pages/SuperAdmin/Organization/OrganizationDeta
 import Dashboard from "./Pages/SuperAdmin/Dashboard/Dashboard";
 import ForgotPassword from "./Pages/Authentication/ForgotPassword";
 import VerificationCode from "./Pages/Authentication/VerificationCode";
-import Complaints from "./Pages/Employee/Complaints";
-import AddComplain from "./Pages/Employee/AddComplain";
+import Complaints from "./Pages/Employee/Complain/Complaints";
+import AddComplain from "./Pages/Employee/Complain/AddComplain";
+import ViewComplain from "./Pages/Employee/Complain/ViewComplain";
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
 
           <Route path="/employeeComplaint" element={<Complaints />} />
           <Route path="/addComplaint" element={<AddComplain />} />
+          <Route path="/complaintDetail" element={<ViewComplain />} />
 
 
           <Route path="*" element={<NotFoundPage />} />

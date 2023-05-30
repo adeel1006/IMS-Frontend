@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
-import DataTable from "../../Components/DataTable";
+import DataTable from "../../../Components/DataTable";
 import AddIcon from "@mui/icons-material/Add";
-import { seaGreenBtn } from "../../Utils/ColorConstants";
-import { rows } from "../../Utils/testingData";
+import { seaGreenBtn } from "../../../Utils/ColorConstants";
+import { rows } from "../../../Utils/testingData";
 import { Link } from "react-router-dom";
 import "./Complaints.css";
 const Complaints = () => {

@@ -2,7 +2,7 @@
     margin: 3%;
     padding: 3%;
   }
-  .new-adm-header {
+  .new-org-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -18,12 +18,12 @@
     padding: 0% 2%;
 }
   
-  .header-adm-btns {
+  .header-org-btns {
     display: flex;
     align-items: center;
   }
   
-  .header-adm-btns > .left-btns {
+  .header-org-btns > .left-btns {
     width: 20%;
     justify-content: space-between;
   }
@@ -53,25 +53,15 @@
   
   .cancel-btn {
     color: gray;
-    background-color: #eeeff1;
-    border: 1px solid gray;
+    background-color: #dadada;
+    border: 1px solid rgb(170, 170, 170);
     margin-right: 8%;
   }
   
   .save-btn {
     color: white;
-    background-color: seagreen;
+    background-color: rgb(29, 202, 107);
     border: none;
-  }
-  
-  
-  .img-upload > .heading {
-    margin: 0% 2%;
-  }
-  
-  .div-heading {
-    font-size: 1.5em;
-    font-weight: 900;
   }
   
   .data-field {
@@ -95,7 +85,7 @@
   /* Media Queries for Responsive Design */
   
   @media (max-width: 768px) {
-    .header-adm-btns > .left-btns {
+    .header-org-btns > .left-btns {
       width: 40%;
     }
   
@@ -109,12 +99,12 @@
   }
   
   @media (max-width: 576px) {
-    .new-adm-header {
+    .new-org-header {
       flex-direction: column;
       align-items: flex-start;
     }
   
-    .header-adm-btns > .left-btns {
+    .header-org-btns > .left-btns {
       width: 100%;
     }
   

@@ -13,7 +13,7 @@ const ViewComplain = () => {
               <BackArrow />
               Back
             </Button>
-            <h1>Complaint ID : 1234</h1>
+            <h1>Request ID : 7657</h1>
             <Button
               style={{
                 backgroundColor: "rgb(38, 150, 255)",

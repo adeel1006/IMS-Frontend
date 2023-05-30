@@ -1,0 +1,43 @@
+.request-container {
+    width: 85%;
+    background-color: white;
+    margin: 3%;
+    padding: 3%;
+    border-radius: 20px;
+  }
+  
+  .request-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  
+  .request-left-header {
+    display: flex;
+    align-items: center;
+    width: 55%;
+    justify-content: space-between;
+  }
+  
+  /* Media query for responsivenes Md  */
+  @media (max-width: 768px) {
+    .request-container {
+      width: 90%;
+      margin: 3%;
+      padding: 2%;
+    }
+  
+    .request-left-header {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+  }
+
+.link-style{
+    color: white;
+    text-decoration: none;
+    text-transform: none;
+}

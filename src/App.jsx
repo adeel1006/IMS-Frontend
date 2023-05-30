@@ -17,6 +17,8 @@ import VerificationCode from "./Pages/Authentication/VerificationCode";
 import Complaints from "./Pages/Employee/Complain/Complaints";
 import AddComplain from "./Pages/Employee/Complain/AddComplain";
 import ViewComplain from "./Pages/Employee/Complain/ViewComplain";
+import Request from "./Pages/Employee/Request/Request";
+import ViewRequest from "./Pages/Employee/Request/ViewRequest";
 
 
 function App() {
@@ -47,6 +49,9 @@ function App() {
           <Route path="/employeeComplaint" element={<Complaints />} />
           <Route path="/addComplaint" element={<AddComplain />} />
           <Route path="/complaintDetail" element={<ViewComplain />} />
+
+          <Route path="/requests" element={<Request />} />
+          <Route path="/requestDetail" element={<ViewRequest />} />
 
 
           <Route path="*" element={<NotFoundPage />} />

@@ -1,0 +1,59 @@
+.container {
+  margin: 3%;
+  padding: 3%;
+}
+
+.dashboard-bar {
+  padding: 1%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link-style {
+  margin: 0px 5px;
+}
+
+.employee-info-main {
+  padding: 1%;
+  display: flex;
+}
+
+.image-box {
+  width: 10%;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-right: 2%;
+}
+
+.image-box > img {
+  width: 100%;
+}
+
+.employee-info-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+
+.section-a{
+    margin-bottom: 9%;
+}
+
+.dash-table-header {
+    margin: 3% 0%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .table-sub-heading {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .see-btn {
+    color: gray;
+    text-decoration: none;
+  }

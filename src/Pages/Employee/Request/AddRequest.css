@@ -14,7 +14,7 @@
     padding: 2%;
 }
 
-.new-complain-form{
+.new-request-form{
     padding: 0% 2%;
 }
   
@@ -52,9 +52,9 @@
   }
   
   .cancel-btn {
-    color: gray;
+    color: rgb(99, 99, 99);
     background-color: #dadada;
-    border: 1px solid rgb(170, 170, 170);
+    border: 1px solid rgb(221, 221, 221);
     margin-right: 8%;
   }
   
@@ -71,7 +71,7 @@
     justify-content: flex-start;
     padding: 2% 0%;
     margin: 1% 0;
-    border-bottom: 1px solid rgb(218, 218, 218)
+    border-bottom: 1px solid rgb(218, 218, 218);
   }
 
 .input-field {

@@ -72,9 +72,6 @@ const ViewRequest = () => {
             </Typography>
           </Box>
         </Box>
-
-
-
         <Box className="request-info">
           <Box className="description-heading">Sub-Category</Box>
           <Box className="request-content">

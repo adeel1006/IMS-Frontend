@@ -1,3 +1,4 @@
 //Table HeaderRow theme
-export const cornFlowerBlue = '#4583f5';
-export const seaGreenBtn = '#34B36D';
+export const cornFlowerBlue = '#5085EC';
+//Primary Green Button color
+export const seaGreenBtn = '#2AB28F';

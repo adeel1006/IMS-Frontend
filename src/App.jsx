@@ -19,6 +19,7 @@ import AddComplain from "./Pages/Employee/Complain/AddComplain";
 import ViewComplain from "./Pages/Employee/Complain/ViewComplain";
 import Request from "./Pages/Employee/Request/Request";
 import ViewRequest from "./Pages/Employee/Request/ViewRequest";
+import AddRequest from "./Pages/Employee/Request/AddRequest";
 
 
 function App() {
@@ -52,6 +53,7 @@ function App() {
 
           <Route path="/requests" element={<Request />} />
           <Route path="/requestDetail" element={<ViewRequest />} />
+          <Route path="/addRequest" element={<AddRequest/>} />
 
 
           <Route path="*" element={<NotFoundPage />} />

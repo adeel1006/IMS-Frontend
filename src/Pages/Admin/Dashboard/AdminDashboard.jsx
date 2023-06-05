@@ -54,33 +54,6 @@ const AdminDashboard = () => {
             </Box>
             <Box className="chart">
               <TwoBarsChart data={adminChartInventory} />
-              <Typography
-                sx={{
-                  color: "gray",
-                  fontSize: "small",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <Box
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: cornFlowerBlue,
-                    margin: "0% 1%",
-                  }}
-                ></Box>
-                Assigned Items
-                <Box
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: seaGreenBtn,
-                    margin: "0% 1%",
-                  }}
-                ></Box>
-                Remaining Items
-              </Typography>
             </Box>
           </Box>
           <Box className="complaints-chart">
@@ -93,33 +66,6 @@ const AdminDashboard = () => {
             </Box>
             <Box className="chart">
               <TwoBarsChart data={adminChartComplain} />
-              <Typography
-                sx={{
-                  color: "gray",
-                  fontSize: "small",
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <Box
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: cornFlowerBlue,
-                    margin: "0% 1%",
-                  }}
-                ></Box>
-                Assigned Items
-                <Box
-                  style={{
-                    width: "20px",
-                    height: "20px",
-                    backgroundColor: seaGreenBtn,
-                    margin: "0% 1%",
-                  }}
-                ></Box>
-                Remaining Items
-              </Typography>
             </Box>
           </Box>
         </Box>

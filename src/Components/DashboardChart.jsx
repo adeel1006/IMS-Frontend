@@ -13,7 +13,6 @@ const DashboardChart = ({superAdminAccess, data}) => {
           <XAxis dataKey="month" stroke="gray" />
           <YAxis />
           <Tooltip />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
           <Bar dataKey="number" fill={cornFlowerBlue} barSize={50} />
         </BarChart>
       </Box>

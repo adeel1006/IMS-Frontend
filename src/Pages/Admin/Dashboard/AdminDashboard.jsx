@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import DashboardCard from "../../../Components/DashboardCard";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import TwoBarsChart from "../../../Components/TwoBarsChart";
 import DataTable from "../../../Components/DataTable";
 import {
@@ -11,7 +11,6 @@ import {
 } from "../../../Utils/testingData";
 import { Link } from "react-router-dom";
 import "./AdminDashboard.css";
-import { cornFlowerBlue, seaGreenBtn } from "../../../Utils/ColorConstants";
 
 const AdminDashboard = () => {
   return (

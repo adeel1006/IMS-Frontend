@@ -21,6 +21,7 @@ import Request from "./Pages/Employee/Request/Request";
 import ViewRequest from "./Pages/Employee/Request/ViewRequest";
 import AddRequest from "./Pages/Employee/Request/AddRequest";
 import EmployeeDashboard from "./Pages/Employee/Dashboard/EmployeeDashboard";
+import EditProfile from "./Pages/Employee/Dashboard/EditProfile";
 
 
 function App() {
@@ -38,7 +39,7 @@ function App() {
 
 
           <Route path="superAdminDashboard" exact element={<Dashboard/>}/>
-          <Route path="newAdmin" exact element={<Admin />} />
+          <Route path="addAdmin" exact element={<Admin />} />
           <Route path="adminsList" exact element={<AdminList />} />
           <Route path="adminsDetails" exact element={<AdminDetails />} />
           <Route path ="superAdminComplaints" exact element={<SuperAdminComplaints/>}/>
@@ -48,15 +49,17 @@ function App() {
           <Route path="superAdminOrganizationDetails" exact element={<OrganizationDetail />} />
 
 
-          <Route path="/employeeComplaint" element={<Complaints />} />
+          <Route path="/employeeDashboard" element={<EmployeeDashboard/>} />
+          <Route path="/editProfile" element={<EditProfile />} />
           <Route path="/addComplaint" element={<AddComplain />} />
+          <Route path="/employeeComplaint" element={<Complaints />} />       
           <Route path="/complaintDetail" element={<ViewComplain />} />
-
+          <Route path="/addRequest" element={<AddRequest/>} />
           <Route path="/requests" element={<Request />} />
           <Route path="/requestDetail" element={<ViewRequest />} />
-          <Route path="/addRequest" element={<AddRequest/>} />
+          
 
-          <Route path="/employeeDashboard" element={<EmployeeDashboard/>} />
+          
 
 
 

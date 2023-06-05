@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-function SelectBox({ placeHolder, options, minWidth = 200, marginLeft = 1 }) {
+function SelectBox({ placeHolder, options, minWidth = 200, marginLeft = 1, marginRight=1 }) {
   const [selectedValue, setSelectedValue] = useState("");
 
   const handleChange = (event) => {
@@ -9,7 +9,7 @@ function SelectBox({ placeHolder, options, minWidth = 200, marginLeft = 1 }) {
   };
 
   return (
-    <FormControl sx={{ minWidth , marginLeft , marginRight:1}}>
+    <FormControl sx={{ minWidth , marginLeft , marginRight}}>
       <InputLabel id="select-label">{placeHolder}</InputLabel>
       <Select
         labelId="select-label"

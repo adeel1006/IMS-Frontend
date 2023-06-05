@@ -55,3 +55,21 @@ export const data = [
     { value: "Resolved", label: "Resolved" },
     { value: "Pending", label: "Pending" },
   ];
+
+
+  //admin Dashboard Charts Data
+  export const adminChartInventory = [
+    { name: "Electronics", number: 100},
+    { name: "Furniture", number: 400},
+    { name: "Stationary", number: 800},
+  ];
+
+  export const adminChartComplain = [
+    { name: "Jan", number: 100},
+    { name: "Feb", number: 400},
+    { name: "Mar", number: 800},
+    { name: "Apl", number: 1000},
+    { name: "May", number: 400},
+    { name: "June", number: 200},
+  ];
+

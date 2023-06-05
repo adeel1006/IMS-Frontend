@@ -12,7 +12,7 @@ const DashboardCard = ({ title, number, icon, tagline, notShowRightBorder }) => 
   };
 
   return (
-    <Card sx={{ boxShadow: "none" }}>
+    <Card sx={{ boxShadow: "none"}}>
       <CardContent sx={cardContentStyles}>
         <Box sx={{ display: "block" }}>
           <Typography fontWeight="bold">{title}</Typography>

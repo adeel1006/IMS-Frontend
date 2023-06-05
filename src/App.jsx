@@ -22,6 +22,7 @@ import ViewRequest from "./Pages/Employee/Request/ViewRequest";
 import AddRequest from "./Pages/Employee/Request/AddRequest";
 import EmployeeDashboard from "./Pages/Employee/Dashboard/EmployeeDashboard";
 import EditProfile from "./Pages/Employee/Dashboard/EditProfile";
+import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 
 
 function App() {
@@ -57,6 +58,9 @@ function App() {
           <Route path="/addRequest" element={<AddRequest/>} />
           <Route path="/requests" element={<Request />} />
           <Route path="/requestDetail" element={<ViewRequest />} />
+
+
+          <Route path="/adminDashboard" element={<AdminDashboard />} />
           
 
           

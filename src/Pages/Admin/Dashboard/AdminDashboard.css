@@ -1,0 +1,42 @@
+.container {
+    padding: 3%;
+    margin: 3%;
+}
+.main-heading{
+    font-size: 2rem;
+    font-weight: 550;
+}
+
+.card-data {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid lightgray;
+    padding: 1% 0%;
+  }
+
+  .chart-heading {
+    padding-left: 3%;
+  }
+
+  a {
+    text-decoration: none;
+    color : gray
+}
+.charts{
+    padding: 3% 0%;
+    display: flex;
+}
+
+
+.complaints-chart, .inventory-chart{
+    width: 50%;
+}
+
+.admin-comp-header {
+    padding: 2% 0%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

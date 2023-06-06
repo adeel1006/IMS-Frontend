@@ -1,9 +1,17 @@
 import React from "react";
-import "./ViewRequest.css";
+import "./AdminViewRequest.css";
 import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
-import { Box, Typography, Button } from "@mui/material";
-
-const ViewRequest = () => {
+import { Box, Typography, Button, Divider } from "@mui/material";
+import avatar from "../../../Assets/avatar.png";
+import { dangerButton, seaGreenBtn } from "../../../Utils/ColorConstants";
+const reqBtnStyle = {
+  color: "white",
+  borderRadius: "8px",
+  padding: "3%",
+  fontWeight: "bold",
+  margin: "0% 2%",
+};
+const AdminViewRequest = () => {
   return (
     <>
       <Box className="container">
@@ -13,7 +21,7 @@ const ViewRequest = () => {
               <BackArrow />
               Back
             </Button>
-            <h1>Request ID : 4646</h1>
+            <h1>Request ID : 354634</h1>
             <Button
               style={{
                 backgroundColor: "rgb(38, 150, 255)",
@@ -24,8 +32,27 @@ const ViewRequest = () => {
               Pending
             </Button>
             <Typography sx={{ margin: "0% 2%", fontWeight: "bold" }}>
-              Submission Date: 11/11/22
+              Submission Date: 11/03/23
             </Typography>
+          </Box> 
+          <Box className="right-header-req">
+            <Button
+              style={{
+                ...reqBtnStyle,
+                backgroundColor: dangerButton,
+              }}
+            >
+              Reject Request
+            </Button>
+
+            <Button
+              style={{
+                ...reqBtnStyle,
+                backgroundColor: seaGreenBtn,
+              }}
+            >
+              Approve Request
+            </Button>
           </Box>
         </Box>
 
@@ -83,9 +110,21 @@ const ViewRequest = () => {
             </Typography>
           </Box>
         </Box>
+        <Divider />
+
+        <Box className="req-info">
+          <Box className="profile-pic">
+            <img src={avatar} alt="profile pic " />
+          </Box>
+          <Box className="req-details">
+            <span className="pri-heading">John Smith</span>
+            <p className="gray-text">john@gmail.com</p>
+            <p className="gray-text">(555) 555-5555</p>
+          </Box>
+        </Box>
       </Box>
     </>
   );
 };
 
-export default ViewRequest;
+export default AdminViewRequest;

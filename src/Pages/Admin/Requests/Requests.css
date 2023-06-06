@@ -1,0 +1,42 @@
+.req-container {
+    width: 85%;
+    background-color: white;
+    margin: 3%;
+    padding: 3%;
+    border-radius: 20px;
+  }
+  
+  .req-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  
+  .req-left-header {
+    display: flex;
+    align-items: center;
+    width: 55%;
+    justify-content: space-between;
+  }
+  .req-right-header{
+    background-color: gray;
+    border-radius: 10px;
+  }
+  
+  /* Media query for responsivenes Md  */
+  @media (max-width: 768px) {
+    .req-container {
+      width: 90%;
+      margin: 3%;
+      padding: 2%;
+    }
+  
+    .req-left-header {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+  }
+  

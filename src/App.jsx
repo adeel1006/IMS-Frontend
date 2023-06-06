@@ -23,6 +23,8 @@ import AddRequest from "./Pages/Employee/Request/AddRequest";
 import EmployeeDashboard from "./Pages/Employee/Dashboard/EmployeeDashboard";
 import EditProfile from "./Pages/Employee/Dashboard/EditProfile";
 import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
+import Requests from "./Pages/Admin/Requests/Requests";
+import AdminViewRequest from "./Pages/Admin/Requests/AdminViewRequest";
 
 
 function App() {
@@ -61,7 +63,8 @@ function App() {
 
 
           <Route path="/adminDashboard" element={<AdminDashboard />} />
-          
+          <Route path="/adminRequest" element={<Requests />} />
+          <Route path="/adminViewRequest" element={< AdminViewRequest />} />
 
           
 

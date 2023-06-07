@@ -1,0 +1,116 @@
+.container {
+    margin: 3%;
+    padding: 3%;
+  }
+  .new-cate-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+.inner-content{
+    padding: 2%;
+}
+
+.new-request-form{
+    padding: 0% 2%;
+}
+  
+  .header-cate-btns {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header-cate-btns > .left-btns {
+    width: 20%;
+    justify-content: space-between;
+  }
+  
+  .right-btns {
+    justify-content: space-between;
+    width: 10%;
+  }
+  
+  .back-btn {
+    display: flex;
+    align-items: center;
+    border: none;
+    color: gray;
+    background-color: white;
+    cursor: pointer;
+    font-size: large;
+    margin: 1rem;
+  }
+  
+  .btn {
+    padding: 9% 13%;
+    border-radius: 10px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  
+  .cancel-btn {
+    color: rgb(99, 99, 99);
+    background-color: #dadada;
+    border: 1px solid rgb(221, 221, 221);
+    margin-right: 8%;
+  }
+  
+  .save-btn {
+    color: white;
+    background-color: rgb(29, 202, 107);
+    border: none;
+  }
+  
+  .data-field {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 2% 0%;
+    margin: 1% 0;
+    border-bottom: 1px solid rgb(218, 218, 218);
+  }
+
+.input-field {
+    width: 600px;
+}
+  
+  .form-left {
+    width: 40%;
+  }
+  
+  /* Media Queries for Responsive Design */
+  
+  @media (max-width: 768px) {
+    .header-cate-btns > .left-btns {
+      width: 40%;
+    }
+  
+    .right-btns {
+      width: 30%;
+    }
+  
+    .form-left {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .new-cate-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .header-cate-btns > .left-btns {
+      width: 100%;
+    }
+  
+    .right-btns {
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 1rem;
+    }
+  }

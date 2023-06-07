@@ -29,7 +29,7 @@ const Categories = () => {
               }}
             >
               <AddIcon />
-              <Link className="link-style" to="/category">
+              <Link className="link-style" to="/addCategory">
                 Add Category
               </Link>
             </Button>

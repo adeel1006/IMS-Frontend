@@ -34,7 +34,7 @@ const AdminViewRequest = () => {
             <Typography sx={{ margin: "0% 2%", fontWeight: "bold" }}>
               Submission Date: 11/03/23
             </Typography>
-          </Box> 
+          </Box>  
           <Box className="right-header-req">
             <Button
               style={{

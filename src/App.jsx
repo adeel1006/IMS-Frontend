@@ -25,6 +25,9 @@ import EditProfile from "./Pages/Employee/Dashboard/EditProfile";
 import AdminDashboard from "./Pages/Admin/Dashboard/AdminDashboard";
 import Requests from "./Pages/Admin/Requests/Requests";
 import AdminViewRequest from "./Pages/Admin/Requests/AdminViewRequest";
+import Inventory from "./Pages/Admin/Inventory/Inventory";
+import AddItem from "./Pages/Admin/Inventory/AddItem";
+import ViewItem from "./Pages/Admin/Inventory/ViewItem";
 
 
 function App() {
@@ -52,19 +55,22 @@ function App() {
           <Route path="superAdminOrganizationDetails" exact element={<OrganizationDetail />} />
 
 
-          <Route path="/employeeDashboard" element={<EmployeeDashboard/>} />
-          <Route path="/editProfile" element={<EditProfile />} />
-          <Route path="/addComplaint" element={<AddComplain />} />
-          <Route path="/employeeComplaint" element={<Complaints />} />       
-          <Route path="/complaintDetail" element={<ViewComplain />} />
-          <Route path="/addRequest" element={<AddRequest/>} />
-          <Route path="/requests" element={<Request />} />
-          <Route path="/requestDetail" element={<ViewRequest />} />
+          <Route path="/employeeDashboard" exact element={<EmployeeDashboard/>} />
+          <Route path="/editProfile" exact element={<EditProfile />} />
+          <Route path="/addComplaint" exact element={<AddComplain />} />
+          <Route path="/employeeComplaint" exact element={<Complaints />} />       
+          <Route path="/complaintDetail" exact element={<ViewComplain />} />
+          <Route path="/addRequest" exact element={<AddRequest/>} />
+          <Route path="/requests" exact element={<Request />} />
+          <Route path="/requestDetail" exact element={<ViewRequest />} />
 
 
-          <Route path="/adminDashboard" element={<AdminDashboard />} />
-          <Route path="/adminRequest" element={<Requests />} />
-          <Route path="/adminViewRequest" element={< AdminViewRequest />} />
+          <Route path="/adminDashboard" exact element={<AdminDashboard />} />
+          <Route path="/adminRequest" exact element={<Requests />} />
+          <Route path="/adminViewRequest" exact element={< AdminViewRequest />} />
+          <Route path="/adminInventory" exact element={< Inventory />} />
+          <Route path="/addItem" exact element={< AddItem />} />
+          <Route path="/viewItem" exact element={< ViewItem />} />
 
           
 

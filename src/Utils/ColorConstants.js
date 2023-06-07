@@ -4,3 +4,5 @@ export const cornFlowerBlue = '#5085EC';
 export const seaGreenBtn = '#2AB28F';
 //Danger Button color
 export const dangerButton = '#DE0303';
+//Gray Shade
+export const grayBtn = '#ededed';

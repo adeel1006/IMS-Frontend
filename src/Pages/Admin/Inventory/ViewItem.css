@@ -1,0 +1,47 @@
+.component-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.no-border{
+    display: flex;
+    
+}
+.data-field{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 2% 0%;
+    margin: 1% 0;
+    border-bottom: 1px solid gray;
+}
+
+.form-left{
+    margin: 0%;
+}
+
+.box-heading{
+    margin: 2% 0%;
+    font-size: larger;
+}
+
+
+
+.user-card{
+    display: flex;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.user-card > .profile-pic{
+    width: 10%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.user-card > .details{
+    display: flex;
+    flex-direction: column;
+    padding: 0 1%;
+}

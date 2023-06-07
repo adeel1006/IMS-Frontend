@@ -28,6 +28,7 @@ import AdminViewRequest from "./Pages/Admin/Requests/AdminViewRequest";
 import Inventory from "./Pages/Admin/Inventory/Inventory";
 import AddItem from "./Pages/Admin/Inventory/AddItem";
 import ViewItem from "./Pages/Admin/Inventory/ViewItem";
+import Categories from "./Pages/Admin/Categories/Categories";
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Route path="/adminInventory" exact element={< Inventory />} />
           <Route path="/addItem" exact element={< AddItem />} />
           <Route path="/viewItem" exact element={< ViewItem />} />
+          <Route path="/categories" exact element={< Categories />} />
 
           
 

@@ -1,0 +1,53 @@
+.cate-container {
+    width: 85%;
+    background-color: white;
+    margin: 3%;
+    padding: 3%;
+    border-radius: 20px;
+  }
+  
+  .cate-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sort-btns{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .filter-btn{
+    background-color: gray;
+    border-radius: 10px;
+    margin: 1% 0.5%
+  }
+  
+  .cate-left-header {
+    display: flex;
+    align-items: center;
+    width: 55%;
+    justify-content: space-between;
+  }
+  .cate-right-header{
+    background-color: gray;
+    border-radius: 10px;
+  }
+  
+  /* Media query for responsivenes Md  */
+  @media (max-width: 768px) {
+    .cate-container {
+      width: 90%;
+      margin: 3%;
+      padding: 2%;
+    }
+  
+    .cate-left-header {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+  }
+  

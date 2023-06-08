@@ -73,3 +73,8 @@ export const data = [
     { name: "June", number: 200},
   ];
 
+//Return Options
+export const returnOptions = [
+  { value: "Repair", label: "Repair" },
+  { value: "Replace", label: "Replace" },
+];

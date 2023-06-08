@@ -34,6 +34,8 @@ import ViewCategory from "./Pages/Admin/Categories/ViewCategory";
 import Employees from "./Pages/Admin/Employees/Employees";
 import AddEmployee from "./Pages/Admin/Employees/AddEmployee";
 import ViewEmployee from "./Pages/Admin/Employees/ViewEmployee";
+import Returns from "./Pages/Admin/Returns/Returns";
+import ViewReturn from "./Pages/Admin/Returns/ViewReturn";
 
 
 function App() {
@@ -82,7 +84,9 @@ function App() {
           <Route path="/viewCategory" exact element={< ViewCategory />} />
           <Route path="/employees" exact element={< Employees />} />
           <Route path="/addEmployee" exact element={< AddEmployee />} />
-          <Route path="/viewEmployee" exact element={< ViewEmployee />} />
+          <Route path="/returns" exact element={< Returns />} />
+          <Route path="/viewReturn" exact element={< ViewReturn />} />
+
 
           
 

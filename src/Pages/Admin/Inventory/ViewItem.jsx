@@ -79,7 +79,7 @@ const ViewItem = () => {
         <span className="box-heading">Assigned to:</span>
         <Box className="user-card">
           <Box className="profile-pic">
-            <img src={avatar} alt="pfp" />
+            <img src={avatar} alt="profile" />
           </Box>
           <Box className="details">
             <Typography className="Box-heading">Steve Smith</Typography>

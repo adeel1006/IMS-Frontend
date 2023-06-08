@@ -31,6 +31,7 @@ import ViewItem from "./Pages/Admin/Inventory/ViewItem";
 import Categories from "./Pages/Admin/Categories/Categories";
 import AddCategory from "./Pages/Admin/Categories/AddCategory";
 import ViewCategory from "./Pages/Admin/Categories/ViewCategory";
+import Employees from "./Pages/Admin/Employees/Employees";
 
 
 function App() {
@@ -77,6 +78,7 @@ function App() {
           <Route path="/categories" exact element={< Categories />} />
           <Route path="/addCategory" exact element={< AddCategory />} />
           <Route path="/viewCategory" exact element={< ViewCategory />} />
+          <Route path="/employees" exact element={< Employees />} />
 
           
 

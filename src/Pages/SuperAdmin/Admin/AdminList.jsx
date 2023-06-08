@@ -7,12 +7,8 @@ import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import DataTable from "../../../Components/DataTable";
 import {rows} from "../../../Utils/testingData";
 import "./AdminList.css";
-//dummy data for testing purposes
-const options = [
-  { value: "Gigalabs", label: "Gigalabs" },
-  { value: "Nextbridge", label: "Netbridge" },
-  { value: "Systems", label: "Systems" },
-];
+import { options } from "../../../Utils/testingData";
+
 
 const AdminList = () => {
   return (

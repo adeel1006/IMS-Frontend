@@ -1,38 +1,43 @@
 import React from "react";
+import "./AddEmployee.css";
 import { Box, TextField } from "@mui/material";
 import imgPlaceHolder from "../../../Assets/placeholder.jpg";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
-import "./AddAdmin.css";
 import SelectBox from "../../../Components/SelectBox";
 import { options } from "../../../Utils/testingData";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-
-const AddAdmin = () => {
+const fieldWidth = {width:"500px"};
+const AddEmployee = () => {
   return (
     <>
       <Box className="container">
-        <Box className="new-adm-header">
-          <Box className="left-btns header-adm-btns">
+        <Box className="new-emp-header">
+          <Box className="left-btns header-emp-btns">
             <button className="back-btn">
               <KeyboardBackspaceIcon fontSize="small" />
               Back
             </button>
-            <h1>Add New Admin</h1>
+            <h1>Add New Employee</h1>
           </Box>
-          <Box className="right-btns header-adm-btns">
+          <Box className="right-btns header-emp-btns">
             <button className="cancel-btn btn">Cancel</button>
-            <button style={{backgroundColor:seaGreenBtn}} className="save-btn btn">Save</button>
+            <button
+              style={{ backgroundColor: seaGreenBtn }}
+              className="save-btn btn"
+            >
+              Save
+            </button>
           </Box>
         </Box>
 
-        <Box className="new-adm-form">
+        <Box className="new-emp-form">
           <Box className="img-upload">
             <Box className="logo-upload">
               <img src={imgPlaceHolder} alt="image" />
             </Box>
             <Box className="heading">
-              <span className="Box-heading">Admin's Picture</span>
+              <span className="Box-heading">Employee's Picture</span>
               <span className="mandatory-asterik"> *</span>
               <p>Upload a high-res picture with face is clear</p>
             </Box>
@@ -45,31 +50,32 @@ const AddAdmin = () => {
 
           <Box className="name data-field">
             <span className="form-left">Name</span>
-            <TextField size="small" placeholder="Full Name"></TextField>
+            <TextField sx={fieldWidth} size="small" placeholder="Full Name"></TextField>
           </Box>
 
           <Box className="email data-field">
             <span className="form-left">Email Address</span>
 
-            <TextField size="small" placeholder="Email Address" />
+            <TextField sx={fieldWidth} size="small" placeholder="Email Address" />
           </Box>
 
-          <Box className="org-name data-field">
-            <span className="form-left">Organization Name</span>
-
-            <SelectBox
-              className="selectBox"
-              minWidth="238px"
-              marginLeft="0px"
-              marginRight="0px"
-              placeHolder={"Select Organization"}
-              options={options}
-            />
-          </Box>
 
           <Box className="contact data-field">
             <span className="form-left">Contact Number</span>
-            <TextField size="small" type="text" placeholder="Contact Number" />
+            <TextField sx={fieldWidth} size="small" type="text" placeholder="Contact Number" />
+          </Box>
+
+          <Box className="org-name data-field">
+            <span className="form-left">Department</span>
+
+            <SelectBox
+              className="selectBox"
+              minWidth="500px"
+              marginLeft="0px"
+              marginRight="0px"
+              placeHolder={"Select Department"}
+              options={options}
+            />
           </Box>
 
           <Box className="credentials">
@@ -81,13 +87,13 @@ const AddAdmin = () => {
             <Box className="crd-email data-field" style={{ border: "none" }}>
               <span className="form-left">Email Address</span>
 
-              <TextField size="small" type="text" placeholder="Email Address" />
+              <TextField sx={fieldWidth} size="small" type="text" placeholder="Email Address" />
             </Box>
 
             <Box className="crd-password data-field" style={{ border: "none" }}>
               <span className="form-left">Password</span>
 
-              <TextField size="small" type="text" placeholder="Password" />
+              <TextField sx={fieldWidth} size="small" type="text" placeholder="Password" />
             </Box>
           </Box>
         </Box>
@@ -96,4 +102,4 @@ const AddAdmin = () => {
   );
 };
 
-export default AddAdmin;
+export default AddEmployee;

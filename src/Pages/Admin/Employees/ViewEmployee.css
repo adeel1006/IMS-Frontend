@@ -1,0 +1,36 @@
+.container {
+  margin: 3%;
+  padding: 3%;
+}
+.component-headers {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2%;
+}
+.content {
+  margin-top: 3%;
+  display: flex;
+  width: 100%;
+}
+
+.content > .left-content {
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+}
+
+.content > .right-content {
+  width: 65%;
+  margin-left: 2.5%;
+  border-left: 2px solid lightgray;
+  padding-left: 2.5%;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+}
+.img-rad {
+  border-radius: 15px;
+}

@@ -24,7 +24,7 @@ const Requests = () => {
           </Box>
 
           <Box className="req-right-header">
-            <SortIcon defaultDirection="asc" />
+            <SortIcon value="AZ" defaultDirection="asc" />
           </Box>
         </Box>
         <Box className="req-table">

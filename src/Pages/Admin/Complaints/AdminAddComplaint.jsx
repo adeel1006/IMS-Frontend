@@ -1,9 +1,11 @@
 import React from "react";
+import "./AdminAddComplaint.css";
 import { Box, TextField } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import "./AddComplain.css";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-const AddComplain = () => {
+import imgPlaceHolder from "../../../Assets/placeholder.jpg";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+const AdminAddComplaint = () => {
   return (
     <>
       <Box className="container">
@@ -18,20 +20,16 @@ const AddComplain = () => {
             </Box>
             <Box className="right-btns header-org-btns">
               <button className="cancel-btn btn">Cancel</button>
-              <button style={{backgroundColor: seaGreenBtn}} className="save-btn btn">Submit</button>
+              <button
+                style={{ backgroundColor: seaGreenBtn }}
+                className="save-btn btn"
+              >
+                Submit
+              </button>
             </Box>
           </Box>
 
           <Box className="new-complain-form">
-            <Box className="name data-field">
-              <span className="form-left">Title</span>
-              <TextField
-                className="input-field"
-                required
-                placeholder="Enter Title..."
-              ></TextField>
-            </Box>
-
             <Box className="email data-field">
               <span className="form-left">Description</span>
 
@@ -45,15 +43,20 @@ const AddComplain = () => {
             </Box>
 
             <Box className="contact data-field">
-              <span className="form-left">Suggestion</span>
-              <TextField
-                className="input-field"
-                required
-                multiline
-                rows={6}
-                type="text"
-                placeholder="Enter Suggestion..."
-              />
+              <span className="form-left">Image</span>
+              <Box className="logo-uploadd">
+                <img src={imgPlaceHolder} alt="image" />
+              </Box>
+
+              <label
+                style={{ marginLeft: "5%" }}
+                htmlFor="upload-btn"
+                className="upload-img-btn"
+              >
+                <DriveFolderUploadIcon />
+                Upload
+              </label>
+              <input id="upload-btn" type="file" hidden />
             </Box>
           </Box>
         </Box>
@@ -62,4 +65,4 @@ const AddComplain = () => {
   );
 };
 
-export default AddComplain;
+export default AdminAddComplaint;

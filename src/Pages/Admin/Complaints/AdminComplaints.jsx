@@ -47,7 +47,6 @@ const AdminComplaints = () => {
             <Box className="s-icon">
               <SortIcon value="AZ" defaultDirection="asc" />
             </Box>
-
             <Box className="addcomp-btn">
               <Button style={styles.addBtnStyle}>
                 <AddIcon />

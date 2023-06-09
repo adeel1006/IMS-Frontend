@@ -4,28 +4,35 @@ import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
 import logo from "../../../Assets/logoBlack.png";
 import avatar from "../../../Assets/avatar.png";
 import "./ComplaintsDetail.css";
-
+import { cornFlowerBlue, seaGreenBtn } from "../../../Utils/ColorConstants";
+const styles = {
+  pendingBtn: {
+    backgroundColor: cornFlowerBlue,
+    color: "white",
+    borderRadius: "8px",
+  },
+  resolvedBtn: {
+    backgroundColor: seaGreenBtn,
+    color: "white",
+    borderRadius: "5px",
+  },
+};
 const ComplaintsDetail = () => {
   return (
     <>
       <Box className="container">
         <Box className="component-header">
-
           <Box className="left-header-content">
-                <Button style={{ color: "gray" }}>
-                <BackArrow />
-                Back
-                </Button>
-                <h1>Complaint ID : 1234</h1>
-                <Button style={{ backgroundColor: "rgb(38, 150, 255)", color: "white", borderRadius:"8px" }}>
-                Pending
-                </Button>
+            <Button style={{ color: "gray" }}>
+              <BackArrow />
+              Back
+            </Button>
+            <h1>Complaint ID : 1234</h1>
+            <Button style={styles.pendingBtn}>Pending</Button>
           </Box>
 
           <Box className="right-header-content">
-                <Button style={{ backgroundColor: "rgb(21, 184, 108)", color: "white", borderRadius:"5px" }}>
-                Mark as resolved
-                </Button>
+            <Button style={styles.resolvedBtn}>Mark as resolved</Button>
           </Box>
         </Box>
 
@@ -36,14 +43,16 @@ const ComplaintsDetail = () => {
               className="description-content"
               style={{ textAlign: "justify" }}
             >
-              Dear Gigalabs, I am writing to express my disappointment
-              with the recent customer service I received from your company.
-              Despite multiple attempts to resolve my issue, I found the level
-              of support provided to be inadequate and unhelpful. I kindly
-              request a prompt resolution to this matter to restore my faith in
-              your organization.
+              Dear Gigalabs, I am writing to express my disappointment with the
+              recent customer service I received from your company. Despite
+              multiple attempts to resolve my issue, I found the level of
+              support provided to be inadequate and unhelpful. I kindly request
+              a prompt resolution to this matter to restore my faith in your
+              organization.
             </Typography>
-            <Typography sx={{mt:2}} fontWeight="bold">Attachments</Typography>
+            <Typography sx={{ mt: 2 }} fontWeight="bold">
+              Attachments
+            </Typography>
             <Box className="attachment-images">
               <img src={logo} alt="logo" />
             </Box>
@@ -67,7 +76,9 @@ const ComplaintsDetail = () => {
           </Box>
         </Box>
         <Box className="complain-by-org">
-          <Typography fontWeight="bold" variant="h5" className="cmp-heading">Organization</Typography>
+          <Typography fontWeight="bold" variant="h5" className="cmp-heading">
+            Organization
+          </Typography>
           <Box className="admin-info">
             <Box className="profile-pic">
               <img className="imagesLogos" src={logo} alt="Logo" />

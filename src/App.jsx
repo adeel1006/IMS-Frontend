@@ -39,6 +39,9 @@ import ViewReturn from "./Pages/Admin/Returns/ViewReturn";
 import AdminComplaints from "./Pages/Admin/Complaints/AdminComplaints";
 import ViewAdminComplaint from "./Pages/Admin/Complaints/ViewAdminComplaint";
 import AdminAddComplaint from "./Pages/Admin/Complaints/AdminAddComplaint";
+import Vendors from "./Pages/Admin/Vendors/Vendors";
+import AddVendors from "./Pages/Admin/Vendors/AddVendors";
+import ViewVendor from "./Pages/Admin/Vendors/ViewVendor";
 
 
 function App() {
@@ -93,6 +96,9 @@ function App() {
           <Route path="/adminComplaints" exact element={< AdminComplaints />} />
           <Route path="/adminAddComplaints" exact element={< AdminAddComplaint />} />
           <Route path="/adminViewComplaints" exact element={< ViewAdminComplaint />} />
+          <Route path="/vendors" exact element={< Vendors />} />
+          <Route path="/AddVendor" exact element={< AddVendors />} />
+          <Route path="/viewVendors" exact element={< ViewVendor />} />
 
 
           

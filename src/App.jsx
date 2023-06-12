@@ -46,11 +46,10 @@ import ViewVendor from "./Pages/Admin/Vendors/ViewVendor";
 
 
 function App() {
-  const userRole = "ADMIN";
+  const userRole = "EMPLOYEE";
   return (
     <>
         <AppBar userRole={userRole}/>
-      <Router>
 
         <Routes>
           <Route path="/" exact element={<Login />} />
@@ -104,7 +103,7 @@ function App() {
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </Router>
+
     </>
   );
 }

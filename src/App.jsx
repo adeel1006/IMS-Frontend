@@ -97,8 +97,8 @@ function App() {
           <Route path="/adminAddComplaints" exact element={< AdminAddComplaint />} />
           <Route path="/adminViewComplaints" exact element={< ViewAdminComplaint />} />
           <Route path="/vendors" exact element={< Vendors />} />
-          <Route path="/AddVendor" exact element={< AddVendors />} />
-          <Route path="/viewVendors" exact element={< ViewVendor />} />
+          <Route path="/addVendor" exact element={< AddVendors />} />
+          <Route path="/viewVendor" exact element={< ViewVendor />} />
 
 
           

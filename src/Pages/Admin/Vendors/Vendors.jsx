@@ -3,7 +3,6 @@ import "./Vendors.css";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
-import SortIcon from "../../../Components/SortIcon";
 import { options, rows } from '../../../Utils/testingData';
 import { seaGreenBtn } from '../../../Utils/ColorConstants';
 import SelectBox from '../../../Components/SelectBox';

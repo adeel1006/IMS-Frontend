@@ -41,7 +41,7 @@ const ForgotPassword = () => {
           </form>
         </Box>
         <p className="reset-password-link">
-          Enterted wrong credentials? Go back to <Link to="login">Login</Link>
+          Enterted wrong credentials? Go back to <Link to="/login">Login</Link>
         </p>
       </Box>
     </>

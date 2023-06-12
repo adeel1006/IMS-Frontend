@@ -101,10 +101,6 @@ function App() {
           <Route path="/viewVendor" exact element={< ViewVendor />} />
 
 
-          
-
-
-
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>

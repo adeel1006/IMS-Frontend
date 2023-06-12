@@ -1,12 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import AppBar from "./Components/AppBar";
 import Admin from "./Pages/SuperAdmin/Admin/AddAdmin";
 import Login from "./Pages/Authentication/Login";
 import AdminList from "./Pages/SuperAdmin/Admin/AdminList";
 import AdminDetails from "./Pages/SuperAdmin/Admin/AdminDetails";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import SuperAdminComplaints from "./Pages/SuperAdmin/Complaints/Complaints";
-import  ResponsiveAppBar  from "./Components/Appbar"
 import ComplaintsDetail from "./Pages/SuperAdmin/Complaints/ComplaintsDetail";
 import AddOrganization from "./Pages/SuperAdmin/Organization/AddOrganization";
 import OrganizationList from "./Pages/SuperAdmin/Organization/OrganizationList";
@@ -44,11 +44,12 @@ import AddVendors from "./Pages/Admin/Vendors/AddVendors";
 import ViewVendor from "./Pages/Admin/Vendors/ViewVendor";
 
 
+
 function App() {
+  const userRole = "ADMIN";
   return (
     <>
-    
-      <ResponsiveAppBar/>
+        <AppBar userRole={userRole}/>
       <Router>
 
         <Routes>

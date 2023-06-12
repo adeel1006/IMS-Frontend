@@ -13,17 +13,30 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../Assets/logo.png";
 import avatar from "../Assets/avatar.png";
+import { seaGreenBtn } from "../Utils/ColorConstants";
 
-const pages = ["Admin", "Complaints", "Organizations"];
+const superAdminContent = ["Dashboard", "Organization", "Admin", "Complaints"];
+const adminContent = [
+  "Dashboard",
+  "Inventory",
+  "Category",
+  "Employees",
+  "Request",
+  "Returns",
+  "Complaints",
+  "Vendor",
+];
+const employeeContent = ["Dashboard", "Requests", "Complaints"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function ResponsiveAppBar() {
+function AppBarz({ userRole }) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -36,8 +49,21 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  let content = [];
+
+  let showLoginButton = false;
+  if (userRole === "SUPER_ADMIN") {
+    content = superAdminContent;
+  } else if (userRole === "ADMIN") {
+    content = adminContent;
+  } else if (userRole === "EMPLOYEE") {
+    content = employeeContent;
+  } else {
+    showLoginButton = true;
+  }
+
   return (
-    <AppBar style={{backgroundColor:"white"}} position="static">
+    <AppBar style={{ backgroundColor: "white" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -56,7 +82,7 @@ function ResponsiveAppBar() {
             }}
           >
             <img
-              style={{width:"70px", height:"70px"}}
+              style={{ width: "70px", height: "70px" }}
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
               src={Logo}
               alt="Gigalabs"
@@ -92,7 +118,7 @@ function ResponsiveAppBar() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {content.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
@@ -121,12 +147,12 @@ function ResponsiveAppBar() {
               alt="Gigalabs"
             />
           </Typography>
-          <Box  sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+            {content.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                style={{color:"gray"}}
+                style={{ color: "gray" }}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
                 {page}
@@ -135,37 +161,50 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src={avatar} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            {showLoginButton ? (
+              <Button
+                variant="contained"
+                href="/login"
+                sx={{ m: 1, backgroundColor: seaGreenBtn }}
+              >
+                Login
+              </Button>
+            ) : (
+              <>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Remy Sharp" src={avatar} />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+
+export default AppBarz;

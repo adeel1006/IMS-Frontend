@@ -46,7 +46,7 @@ import ViewVendor from "./Pages/Admin/Vendors/ViewVendor";
 
 
 function App() {
-  const userRole = "EMPLOYEE";
+  const userRole = "ADMIN";
   return (
     <>
         <AppBar userRole={userRole}/>

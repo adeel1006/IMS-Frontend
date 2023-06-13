@@ -7,6 +7,7 @@ import DropDownMenu from "../../../Components/DropDownMenu";
 import avatar from "../../../Assets/avatar.png";
 import { rows } from "../../../Utils/testingData";
 import { cornFlowerBlue } from "../../../Utils/ColorConstants";
+
 const activeBtn = {
   color: "white",
   backgroundColor: cornFlowerBlue,

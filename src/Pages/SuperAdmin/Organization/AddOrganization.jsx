@@ -4,22 +4,29 @@ import imgPlaceHolder from "../../../Assets/placeholder.jpg";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import "./AddOrganization.css";
+import { useNavigate } from 'react-router-dom';
+import { seaGreenBtn } from "../../../Utils/ColorConstants";
 
 const AddOrganization = () => {
+  const navigateTo = useNavigate();
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
+
   return (
     <>
       <Box className="container">
         <Box className="new-org-header">
           <Box className="left-btns header-org-btns">
-            <button className="back-btn">
+            <button onClick={handleGoBack} className="back-btn">
               <KeyboardBackspaceIcon fontSize="small" />
               Back
             </button>
             <h1>Add New Organization</h1>
           </Box>
           <Box className="right-btns header-org-btns">
-            <button className="cancel-btn btn">Cancel</button>
-            <button className="save-btn btn">Save</button>
+            <button onClick={handleGoBack} className="cancel-btn btn">Cancel</button>
+            <button style={{backgroundColor: seaGreenBtn}} className="save-btn btn">Save</button>
           </Box>
         </Box>
 

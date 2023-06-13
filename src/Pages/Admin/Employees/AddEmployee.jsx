@@ -7,21 +7,27 @@ import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import SelectBox from "../../../Components/SelectBox";
 import { options } from "../../../Utils/testingData";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
+import { useNavigate } from 'react-router-dom';
 const fieldWidth = {width:"500px"};
+
 const AddEmployee = () => {
+  const navigateTo = useNavigate();
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
   return (
     <>
       <Box className="container">
         <Box className="new-emp-header">
           <Box className="left-btns header-emp-btns">
-            <button className="back-btn">
+            <button onClick={handleGoBack} className="back-btn">
               <KeyboardBackspaceIcon fontSize="small" />
               Back
             </button>
             <h1>Add New Employee</h1>
           </Box>
           <Box className="right-btns header-emp-btns">
-            <button className="cancel-btn btn">Cancel</button>
+            <button onClick={handleGoBack} className="cancel-btn btn">Cancel</button>
             <button
               style={{ backgroundColor: seaGreenBtn }}
               className="save-btn btn"

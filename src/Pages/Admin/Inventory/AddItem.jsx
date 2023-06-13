@@ -5,21 +5,26 @@ import { options } from "../../../Utils/testingData";
 import { grayBtn, seaGreenBtn } from "../../../Utils/ColorConstants";
 import SelectBox from "../../../Components/SelectBox";
 import "./AddItem.css";
+import { useNavigate } from 'react-router-dom';
 const AddItem = () => {
+  const navigateTo = useNavigate();
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
   return (
     <>
       <Box className="container">
         <Box className="header-mainItem">
 
           <Box className="left-header">
-            <Button style={{color:"gray"}}>
+            <Button onClick={handleGoBack} style={{color:"gray"}}>
               <KeyboardBackspaceIcon />
               Back
             </Button>
           </Box>
 
           <Box className="right-header">
-            <Button style={{ color: "gray", backgroundColor: grayBtn , borderRadius:"10px", marginRight:"8%", padding:"5%"}}>
+            <Button onClick={handleGoBack} style={{ color: "gray", backgroundColor: grayBtn , borderRadius:"10px", marginRight:"8%", padding:"5%"}}>
               Cancel
             </Button>
             <Button style={{ color: "white", backgroundColor: seaGreenBtn, borderRadius:"10px" }}>

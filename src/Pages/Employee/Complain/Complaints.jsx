@@ -18,7 +18,7 @@ const Complaints = () => {
           <Box className="complaints-right-header">
             <Button style={{ color: "white", backgroundColor: seaGreenBtn, borderRadius:"10px" }}>
               <AddIcon />
-              <Link className="link-style" to="#">
+              <Link className="link-style" to="/addComplaint">
                 Create Complain
               </Link>
             </Button>

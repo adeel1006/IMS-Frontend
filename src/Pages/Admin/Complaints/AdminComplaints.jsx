@@ -50,7 +50,7 @@ const AdminComplaints = () => {
             <Box className="addcomp-btn">
               <Button style={styles.addBtnStyle}>
                 <AddIcon />
-                <Link className="link-style" to="/addComplaint">
+                <Link className="link-style" to="/adminAddComplaints">
                   Add Complain
                 </Link>
               </Button>

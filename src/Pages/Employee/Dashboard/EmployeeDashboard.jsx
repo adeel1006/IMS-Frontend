@@ -29,7 +29,7 @@ const EmployeeDashboard = () => {
               }}
             >
               <EditOutlinedIcon />
-              <Link className="link-style" to="#">
+              <Link className="link-style" to="/editProfile">
                 Edit Profile
               </Link>
             </Button>
@@ -98,7 +98,7 @@ const EmployeeDashboard = () => {
         <Box className="req-table">
           <Box className="dash-table-header">
             <span className="table-sub-heading">Recent Requests</span>
-            <Link to="/superAdminComplaints" className="see-btn">
+            <Link to="/requests" className="see-btn">
               See all
             </Link>
           </Box>
@@ -110,7 +110,7 @@ const EmployeeDashboard = () => {
         <Box className="complain-table">
           <Box className="dash-table-header">
             <span className="table-sub-heading">Recent Complaints</span>
-            <Link to="/superAdminComplaints" className="see-btn">
+            <Link to="/employeeComplaint" className="see-btn">
               See all
             </Link>
           </Box>

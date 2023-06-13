@@ -25,7 +25,7 @@ const Request = () => {
               }}
             >
               <AddIcon />
-              <Link className="link-style" to="#">
+              <Link className="link-style" to="/addRequest">
                 Create Request
               </Link>
             </Button>

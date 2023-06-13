@@ -8,6 +8,7 @@ import DataTable from "../../../Components/DataTable";
 import {rows} from "../../../Utils/testingData";
 import "./AdminList.css";
 import { options } from "../../../Utils/testingData";
+import { Link } from "react-router-dom";
 
 
 const AdminList = () => {
@@ -22,9 +23,12 @@ const AdminList = () => {
           </Box>
 
           <Box className="adm-right-header">
-            <Button style={{ color: "white", backgroundColor: seaGreenBtn }}>
+            <Button style={{ color: "white", backgroundColor: seaGreenBtn, borderRadius:"10px" }}>
               <AddIcon />
+              <Link className="link-style" to="/addAdmin">
               Add
+              </Link>
+              
             </Button>
           </Box>
         </Box>

@@ -8,6 +8,7 @@ import { options, rows } from "../../../Utils/testingData";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import SortIcon from "../../../Components/SortIcon";
+import { Link } from "react-router-dom";
 const addBtnStyle = {
   color: "white",
   backgroundColor: seaGreenBtn,
@@ -31,7 +32,9 @@ const Employees = () => {
           <Box className="emp-right-header">
             <Button style={addBtnStyle}>
               <AddIcon />
+              <Link className="link-style" to="/addEmployee">
               Add Employee
+              </Link>
             </Button>
           </Box>
         </Box>

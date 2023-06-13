@@ -47,7 +47,7 @@ const Vendors = () => {
         </Box>
       </Box>
 
-      <Box className="sort-btns">
+      <Box className="price-fields">
         <Box className="filter-btns">
           <TextField sx={fieldWidth} size="small" placeholder="Min Price" />
         </Box>

@@ -6,23 +6,29 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import SelectBox from "../../../Components/SelectBox";
 import { options } from "../../../Utils/testingData";
-
+import { seaGreenBtn } from "../../../Utils/ColorConstants";
+import { useNavigate } from 'react-router-dom';
 //fields width
 let inputWidth = {width:"600px"}
+
 const EditProfile = () => {
+  const navigateTo = useNavigate();
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
   return (
     <>
       <Box className="container">
         <Box className="new-profile-header">
           <Box className="left-btns header-profile-btns">
-            <button className="back-btn">
+            <button onClick={handleGoBack} className="back-btn">
               <KeyboardBackspaceIcon fontSize="small" />
               Back
             </button>
             <h1>Edit Profile</h1>
           </Box>
           <Box className="right-btns header-profile-btns">
-            <button className="save-btn btn">Save</button>
+            <button style={{backgroundColor: seaGreenBtn}} className="save-btn btn">Save</button>
           </Box>
         </Box>
 

@@ -5,14 +5,10 @@ import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import DataTable from "../../../Components/DataTable";
-import { rows } from "../../../Utils/testingData";
+import { options, rows } from "../../../Utils/testingData";
 import "./OrganizationList.css";
-//dummy data for testing purposes
-const options = [
-  { value: "Gigalabs", label: "Gigalabs" },
-  { value: "Nextbridge", label: "Netbridge" },
-  { value: "Systems", label: "Systems" },
-];
+import { Link } from "react-router-dom";
+
 
 const OrganizationList = () => {
   return (
@@ -30,9 +26,11 @@ const OrganizationList = () => {
           </Box>
 
           <Box className="org-right-header">
-            <Button style={{ color: "white", backgroundColor: seaGreenBtn }}>
+            <Button style={{ color: "white", backgroundColor: seaGreenBtn, borderRadius: "10px" }}>
               <AddIcon />
+              <Link className="link-style" to="/superAdminOrganization">
               Add
+              </Link>
             </Button>
           </Box>
         </Box>

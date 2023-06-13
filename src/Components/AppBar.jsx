@@ -169,7 +169,8 @@ function AppBarz({ userRole }) {
                 to={page.path}
                 onClick={handleCloseNavMenu}
                 sx={{
-                  my: 2,
+                  mt: 2,
+                  pb: 2.5,
                   color: location.pathname === page.path ? "black" : "gray",
                   borderBottom:
                     location.pathname === page.path

@@ -18,7 +18,7 @@ import { seaGreenBtn } from "../Utils/ColorConstants";
 
 const superAdminContent = [
   { label: "Dashboard", path: "/superAdminDashboard" },
-  { label: "Organization", path: "/superAdminOrganization" },
+  { label: "Organization", path: "/superAdminOrganizationList" },
   { label: "Admin", path: "/adminsList" },
   { label: "Complaints", path: "/superAdminComplaints" },
 ];

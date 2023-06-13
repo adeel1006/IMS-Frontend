@@ -17,10 +17,10 @@ import avatar from "../Assets/avatar.png";
 import { seaGreenBtn } from "../Utils/ColorConstants";
 
 const superAdminContent = [
-  { label: "Dashboard", path: "superAdminDashboard" },
-  { label: "Organization", path: "superAdminOrganization" },
-  { label: "Admin", path: "adminsList" },
-  { label: "Complaints", path: "superAdminComplaints" },
+  { label: "Dashboard", path: "/superAdminDashboard" },
+  { label: "Organization", path: "/superAdminOrganization" },
+  { label: "Admin", path: "/adminsList" },
+  { label: "Complaints", path: "/superAdminComplaints" },
 ];
 
 const adminContent = [

@@ -42,6 +42,12 @@ h4{
     width: 95%;
 }
 
+.error-message{
+  text-align: center;
+    color: red;
+    font-weight: bold;
+}
+
 .login-form label{
     color: gray;
     margin-top: 1%;

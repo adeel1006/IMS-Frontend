@@ -1,40 +1,90 @@
 import React, { useState } from "react";
 import { Box } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/logo.png";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "react-query";
+import axios from "axios";
+import {
+  setAccessToken,
+  setError,
+} from "../../Redux/Reducers/authSlice";
 import "./Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  // Handle submit form
+  const navigateTo = useNavigate();
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+
+  const loginMutation = useMutation(
+    async (formData) => {
+      const response = await axios.post(
+        "http://localhost:3000/auth/login",
+        formData
+      );
+      return response.data?.access_token;
+    },
+    {
+      onError: (error) => {
+        dispatch(setError(error.message));
+      },
+      onSuccess: (data) => {
+        dispatch(setAccessToken(data));
+        handleRedirect(data);
+      },
+    }
+  );
+
+  const handleRedirect = (accessToken) => {
+    const decodedToken = JSON.parse(atob(accessToken.split(".")[1]));
+    const userRole = decodedToken.role;
+
+    switch (userRole) {
+      case "SUPER_ADMIN":
+        navigateTo("/superAdminDashboard");
+        break;
+      case "ADMIN":
+        navigateTo("/adminDashboard");
+        break;
+      case "EMPLOYEE":
+        navigateTo("/employeeDashboard");
+        break;
+      default:
+        navigateTo("/");
+        break;
+    }
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Email: ${email}`);
-    console.log(`Password: ${password}`);
-  };
-
-  //handle email and password functions
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-  const handlePasswordChange = (event) => {
-    // setPassword(event.target.value);
-    const passwordRegex =
+      const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
-    const isValidPassword = passwordRegex.test(event.target.value);
+    const isValidPassword = passwordRegex.test(password);
 
     if (isValidPassword) {
-      setPassword(event.target.value);
+      loginMutation.mutate({ email, password });
+      setEmail("");
+      setPassword("");
       setPasswordError("");
     } else {
-      setPassword("");
       setPasswordError(
         "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number, 1 special character, and be at least 8 characters long."
       );
     }
   };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+    setPasswordError("");
+  };
+
   return (
     <>
       <Box className="login-container">
@@ -44,20 +94,25 @@ const Login = () => {
         <Box className="container-login">
           <h4>Welcome Back!</h4>
           <p>Enter your credentials to access your account</p>
-          <form className="login-form">
+          <form className="login-form" onSubmit={handleSubmit}>
+            {loginMutation.isError && (
+            <p className="error-message">Invalid email or password. Please try again.</p>
+          )}
             <label>Email</label>
             <input
               type="email"
               placeholder="Enter Email Address"
               required
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
               title="Please enter a valid email address"
               onChange={handleEmailChange}
+              value={email}
             />
+
             <label>Password</label>
             <input
-              type="text"
+              type="password"
               placeholder="Enter Password"
+              value={password}
               onChange={handlePasswordChange}
               required
             />
@@ -67,16 +122,16 @@ const Login = () => {
             <button
               type="submit"
               className="signin-btn"
-              onClick={handleSubmit}
-              disabled={passwordError}
+              disabled={passwordError || loginMutation.isLoading}
             >
-              Sign In
+              {loginMutation.isLoading ? "Signing In..." : "Sign In"}
             </button>
           </form>
+          <p className="reset-password-link">
+            Forgot your Password?{" "}
+            <Link to="/forgotPassword">Reset Password</Link>
+          </p>
         </Box>
-        <p className="reset-password-link">
-          Forgot your Password? <Link to="/forgotPassword">Reset Password</Link>
-        </p>
       </Box>
     </>
   );

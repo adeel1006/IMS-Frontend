@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AppBar from "./Components/AppBar";
 import Admin from "./Pages/SuperAdmin/Admin/AddAdmin";
 import Login from "./Pages/Authentication/Login";
@@ -42,11 +42,12 @@ import AdminAddComplaint from "./Pages/Admin/Complaints/AdminAddComplaint";
 import Vendors from "./Pages/Admin/Vendors/Vendors";
 import AddVendors from "./Pages/Admin/Vendors/AddVendors";
 import ViewVendor from "./Pages/Admin/Vendors/ViewVendor";
-
+// import ProtectedRoute from "./Routes/ProtectedRoute";
+import { useState } from "react";
 
 
 function App() {
-  const userRole = "ADMIN";
+  const userRole = "SUPER_ADMIN";
   return (
     <>
         <AppBar userRole={userRole}/>
@@ -101,6 +102,7 @@ function App() {
           <Route path="/viewVendor" exact element={< ViewVendor />} />
 
 
+          <Route path="/unauthorized" element={<NotFoundPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
 
@@ -109,3 +111,6 @@ function App() {
 }
 
 export default App;
+
+
+

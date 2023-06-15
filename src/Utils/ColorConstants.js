@@ -6,3 +6,5 @@ export const seaGreenBtn = '#2AB28F';
 export const dangerButton = '#DE0303';
 //Gray Shade
 export const grayBtn = '#ededed';
+//red Button
+export const redBtn = 'red';

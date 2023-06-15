@@ -10,6 +10,7 @@ import {
   setError,
 } from "../../Redux/Reducers/authSlice";
 import "./Login.css";
+import { httpRequest, loginUrl } from "../../Utils/httpRequestsStrings";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Login = () => {
   const loginMutation = useMutation(
     async (formData) => {
       const response = await axios.post(
-        "http://localhost:3000/auth/login",
+        `${httpRequest+loginUrl}`,
         formData
       );
       return response.data?.access_token;

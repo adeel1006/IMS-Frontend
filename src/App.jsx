@@ -42,8 +42,8 @@ import AdminAddComplaint from "./Pages/Admin/Complaints/AdminAddComplaint";
 import Vendors from "./Pages/Admin/Vendors/Vendors";
 import AddVendors from "./Pages/Admin/Vendors/AddVendors";
 import ViewVendor from "./Pages/Admin/Vendors/ViewVendor";
-// import ProtectedRoute from "./Routes/ProtectedRoute";
-import { useState } from "react";
+import ProtectedRoute from "./Routes/ProtectedRoute"; 
+import Unauthorized from "./Pages/UnauthorizedPage/Unauthorized";
 
 
 function App() {
@@ -54,20 +54,20 @@ function App() {
 
         <Routes>
           <Route path="/" exact element={<Login />} />
-          <Route path="login" exact element={<Login />} />
-          <Route path="forgotPassword" exact element={<ForgotPassword />} />
-          <Route path="verificationCode" exact element={<VerificationCode />} />
+          <Route path="/login" exact element={<Login />} />
+          <Route path="/forgotPassword" exact element={<ForgotPassword />} />
+          <Route path="/verificationCode" exact element={<VerificationCode />} />
 
 
-          <Route path="superAdminDashboard" exact element={<Dashboard/>}/>
-          <Route path="addAdmin" exact element={<Admin />} />
-          <Route path="adminsList" exact element={<AdminList />} />
-          <Route path="adminsDetails" exact element={<AdminDetails />} />
-          <Route path ="superAdminComplaints" exact element={<SuperAdminComplaints/>}/>
-          <Route path ="superAdminComplaintDetails" exact element={<ComplaintsDetail/>}/>
-          <Route path="superAdminOrganization" exact element={<AddOrganization />} />
-          <Route path="superAdminOrganizationList" exact element={<OrganizationList />} />
-          <Route path="superAdminOrganizationDetails" exact element={<OrganizationDetail />} />
+          <Route path="/superAdminDashboard" exact element={<Dashboard/>}/>
+          <Route path="/addAdmin" exact element={<Admin />} />
+          <Route path="/adminsList" exact element={<AdminList />} />
+          <Route path="/adminsDetails" exact element={<AdminDetails />} />
+          <Route path ="/superAdminComplaints" exact element={<SuperAdminComplaints/>}/>
+          <Route path ="/superAdminComplaintDetails" exact element={<ComplaintsDetail/>}/>
+          <Route path="/superAdminOrganization" exact element={<AddOrganization />} />
+          <Route path="/superAdminOrganizationList" exact element={<OrganizationList />} />
+          <Route path="/superAdminOrganizationDetails" exact element={<OrganizationDetail />} />
 
 
           <Route path="/employeeDashboard" exact element={<EmployeeDashboard/>} />
@@ -102,7 +102,7 @@ function App() {
           <Route path="/viewVendor" exact element={< ViewVendor />} />
 
 
-          <Route path="/unauthorized" element={<NotFoundPage />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
 

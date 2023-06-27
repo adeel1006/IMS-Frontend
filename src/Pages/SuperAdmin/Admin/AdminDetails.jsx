@@ -1,17 +1,54 @@
-import React from "react";
-import "./AdminDetails.css";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import { Box, Button, Typography, Divider } from "@mui/material";
 import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
 import avatar from "../../../Assets/avatar.png";
-import logo from "../../../Assets/logoBlack.png";
-import { Box, Button, Typography, Divider } from "@mui/material";
+import { httpRequest , adminByID} from "../../../Utils/httpRequestsStrings";
+import "./AdminDetails.css";
 
 const AdminDetails = () => {
+  const [adminData, setAdminData] = useState(null);
+
+  const { id } = useParams();
+  const navigateTo = useNavigate();
+
+
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
+
+  useEffect(() => {
+    const fetchAdminDetail = async () => {
+      try {
+        let accessToken = localStorage.getItem("accessToken");
+        const response = await axios.get(`${httpRequest}${adminByID}${id}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        console.log(response.data);
+        setAdminData(response.data);
+
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchAdminDetail();
+  }, [id]);
+
+  if (!adminData) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(adminData[0].organization)
+
   return (
-    <>
       <Box className="container">
         <Box className="details-header component-header">
           <Box className="left-header-content">
-            <Button style={{ color: "gray" }}>
+            <Button style={{ color: "gray" }} onClick={handleGoBack}>
               <BackArrow />
               Back
             </Button>
@@ -20,16 +57,15 @@ const AdminDetails = () => {
             </Typography>
           </Box>
           <Divider />
-          {/* <Box className="right-header-content"><BasicMenu /></Box> */}
         </Box>
         <Box className="admin-info">
           <Box className="profile-pic">
             <img src={avatar} alt="profile pic " />
           </Box>
           <Box className="admin-details">
-            <span className="pri-heading">John Smith</span>
-            <p className="gray-text">john@gmail.com</p>
-            <p className="gray-text">(555) 555-5555</p>
+            <span className="pri-heading">{adminData[0]?.username}</span>
+            <p className="gray-text">{adminData[0]?.email}</p>
+            <p className="gray-text">{adminData[0]?.contact}</p>
           </Box>
         </Box>
         <Divider />
@@ -40,39 +76,37 @@ const AdminDetails = () => {
           <Box className="admin-organization">
             <Box className="org-info-main">
               <Box className="profile-pic">
-                <img src={logo} alt="logo" />
+                <img src={adminData[0].organization?.logo} alt="logo" />
               </Box>
               <Box className="rep-data">
                 <Typography fontWeight="bold" variant="h5">
-                  Gigalabs Pvt. Ltd.
+                  {adminData[0].organization?.name}
                 </Typography>
-                <p>contact@gigalabs.co</p>
+                <p> {adminData[0].organization?.email}</p>
               </Box>
             </Box>
 
             <Box className="org-det-field">
               <Typography fontWeight="bold">Representative Name</Typography>
-              <Typography>John Doe:</Typography>
+              <Typography> {adminData[0].organization?.representativeName}</Typography>
             </Box>
             <Box className="rep-contact org-det-field ">
               <Typography fontWeight="bold">Representative Contact:</Typography>
-              <Typography>(555) 555-5555</Typography>
+              <Typography> {adminData[0].organization?.representativeContact }</Typography>
             </Box>
             <Box className="no-border org-det-field">
               <Typography fontWeight="bold">Bio:</Typography>
               <Typography>
-                Gigalabs is a web and mobile development firm that has expertise
-                in over 12 technology stacks including various frameworks.
+              {adminData[0].organization?.bio}
               </Typography>
             </Box>
             <Box className="no-border org-det-field">
               <Typography fontWeight="bold">Address</Typography>
-              <Typography>123 Main Street, Anytown, CA 91234</Typography>
+              <Typography> {adminData[0].organization?.address}</Typography>
             </Box>
           </Box>
         </Box>
       </Box>
-    </>
   );
 };
 

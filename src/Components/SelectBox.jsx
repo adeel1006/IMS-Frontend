@@ -1,12 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
-function SelectBox({ placeHolder, options, minWidth = 200, marginLeft = 1, marginRight=1 }) {
-  const [selectedValue, setSelectedValue] = useState("");
-
-  const handleChange = (event) => {
-    setSelectedValue(event.target.value);
-  };
+function SelectBox({ placeHolder, options, minWidth = 200, marginLeft = 1, marginRight=1  , ...props}) {
 
   return (
     <FormControl sx={{ minWidth , marginLeft , marginRight}}>
@@ -14,9 +9,9 @@ function SelectBox({ placeHolder, options, minWidth = 200, marginLeft = 1, margi
       <Select
         labelId="select-label"
         id="select"
-        value={selectedValue}
-        onChange={handleChange}
         label={placeHolder}
+        defaultValue = "" 
+        {...props}
       >
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>

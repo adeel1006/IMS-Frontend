@@ -1,7 +1,6 @@
 import * as React from "react";
+import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { cornFlowerBlue } from "../Utils/ColorConstants";
-
 import {
   Box,
   Stack,
@@ -14,9 +13,9 @@ import {
   TableBody,
   Table,
   Paper,
-  Button,
+  Avatar,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { cornFlowerBlue } from "../../../Utils/ColorConstants";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,8 +37,27 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function DataTable({ rows }) {
-  const headerKeys = Object.keys(rows[0] || {});
+const AdminDataTable = ({ rows }) => {
+  const headerKeys = [
+    "Id",
+    "Image",
+    "Name",
+    "Organization",
+    "Email",
+    "Contact",
+    "Action",
+    ...Object.keys(rows[0] || {}).filter(
+      (key) =>
+        key !== "Id" &&
+        key !== "Image" &&
+        key !== "Name" &&
+        key !== "Organization" &&
+        key !== "Email" &&
+        key !== "Contact" &&
+        key !== "Action"
+    ),
+  ];
+
   const [currentPage, setCurrentPage] = React.useState(1);
   const rowsPerPage = 10;
   const startIndex = (currentPage - 1) * rowsPerPage;
@@ -60,26 +78,42 @@ export default function DataTable({ rows }) {
           </TableHead>
           <TableBody>
             {rows.slice(startIndex, endIndex).map((row, rowIndex) => {
-              const { Id } = row;
-              const cells = headerKeys.map((key, columnIndex) => (
-                <StyledTableCell
-                  align="left"
-                  key={`${key}-${rowIndex}-${columnIndex}`}
-                >
-                  {row[key]}
-                </StyledTableCell>
-              ));
-
-              const lastColumnValue = row[headerKeys[headerKeys.length - 1]];
+              const { Id  } = row;
+              const cells = headerKeys.map((key, columnIndex) => {
+                if (key === "Image") {
+                  return (
+                    <StyledTableCell
+                      align="left"
+                      key={`${key}-${rowIndex}-${columnIndex}`}
+                    >
+                      <Avatar
+                        src={row[key]}
+                        alt={row["Name"]}
+                        sx={{ width: 40, height: 40 }}
+                        variant="square"
+                      />
+                    </StyledTableCell>
+                  );
+                }
+                return (
+                  <StyledTableCell
+                    align="left"
+                    key={`${key}-${rowIndex}-${columnIndex}`}
+                  >
+                    {row[key]}
+                  </StyledTableCell>
+                );
+              });
 
               return (
                 <StyledTableRow key={rowIndex}>
                   {cells.slice(0, -1)}
                   <StyledTableCell align="left">
-                    <Link to={`/superAdminComplaintDetails/${Id}`}>
-                      <Button sx={{ fontSize: "x-small", marginLeft: "-12px" }}>
-                        {lastColumnValue}
-                      </Button>
+                    <Link
+                      to={`/adminsDetails/${Id}`}
+                      style={{ color: cornFlowerBlue }}
+                    >
+                      View
                     </Link>
                   </StyledTableCell>
                 </StyledTableRow>
@@ -105,4 +139,6 @@ export default function DataTable({ rows }) {
       </TableContainer>
     </>
   );
-}
+};
+
+export default AdminDataTable;

@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useMutation } from "react-query";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
 import logo from "../../../Assets/logoBlack.png";
 import avatar from "../../../Assets/avatar.png";
-import "./ComplaintsDetail.css";
 import { cornFlowerBlue, seaGreenBtn } from "../../../Utils/ColorConstants";
+import { complaintByID, httpRequest } from "../../../Utils/httpRequestsStrings";
+import "./ComplaintsDetail.css";
+
 const styles = {
   pendingBtn: {
     backgroundColor: cornFlowerBlue,
@@ -17,22 +22,86 @@ const styles = {
     borderRadius: "5px",
   },
 };
+
 const ComplaintsDetail = () => {
+  const [complaintData, setComplaintData] = useState(null);
+  const { id } = useParams();
+  const navigateTo = useNavigate();
+
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
+
+  useEffect(() => {
+    const fetchComplaintDetail = async () => {
+      try {
+        let accessToken = localStorage.getItem("accessToken");
+        const response = await axios.get(
+          `${httpRequest}${complaintByID}${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setComplaintData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchComplaintDetail();
+  }, [id]);
+
+  const handleMarkResolved = async () => {
+    try {
+      let accessToken = localStorage.getItem("accessToken");
+      await axios.patch(
+        `${httpRequest}${complaintByID}${id}`,
+        { status: "resolved" },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      navigateTo(-1);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const mutation = useMutation(handleMarkResolved);
+
+  if (!complaintData) {
+    return <div>Loading...</div>;
+  }
+
+  // console.log(complaintData);
   return (
     <>
       <Box className="container">
         <Box className="component-header">
           <Box className="left-header-content">
-            <Button style={{ color: "gray" }}>
+            <Button style={{ color: "gray" }} onClick={handleGoBack}>
               <BackArrow />
               Back
             </Button>
-            <h1>Complaint ID : 1234</h1>
-            <Button style={styles.pendingBtn}>Pending</Button>
+            <h1>Complaint ID : {complaintData?.complaint?.id}</h1>
+            <Button style={styles.pendingBtn}>
+              {complaintData?.complaint?.status || "Pending"}
+            </Button>
           </Box>
 
           <Box className="right-header-content">
-            <Button style={styles.resolvedBtn}>Mark as resolved</Button>
+            <Button
+              style={styles.resolvedBtn}
+              onClick={mutation.mutate}
+              disabled={mutation.isLoading}
+            >
+              {mutation.isLoading ? "Loading..." : "Mark as resolved"}
+            </Button>
           </Box>
         </Box>
 
@@ -43,19 +112,14 @@ const ComplaintsDetail = () => {
               className="description-content"
               style={{ textAlign: "justify" }}
             >
-              Dear Gigalabs, I am writing to express my disappointment with the
-              recent customer service I received from your company. Despite
-              multiple attempts to resolve my issue, I found the level of
-              support provided to be inadequate and unhelpful. I kindly request
-              a prompt resolution to this matter to restore my faith in your
-              organization.
+              {complaintData?.complaint?.description}
             </Typography>
-            <Typography sx={{ mt: 2 }} fontWeight="bold">
+            {/* <Typography sx={{ mt: 2 }} fontWeight="bold">
               Attachments
             </Typography>
             <Box className="attachment-images">
               <img src={logo} alt="logo" />
-            </Box>
+            </Box> */}
           </Box>
         </Box>
         <Box className="complain-by">
@@ -64,14 +128,21 @@ const ComplaintsDetail = () => {
           </Typography>
           <Box className="admin-info">
             <Box className="profile-pic">
-              <img src={avatar} alt="profile picture" />
+              <img
+                src={complaintData?.complaint?.user?.image || avatar}
+                alt="profile picture"
+              />
             </Box>
             <Box className="admin-details">
               <Typography className="pri-heading" style={{ fontSize: "1.7em" }}>
-                John Smith
+                {complaintData?.complaint?.user?.username || "Username"}
               </Typography>
-              <Typography className="gray-text">admin@gigalabs.co</Typography>
-              <Typography className="gray-text">(555) 555 555</Typography>
+              <Typography className="gray-text">
+                {complaintData?.complaint?.user?.email}
+              </Typography>
+              <Typography className="gray-text">
+                {complaintData?.complaint?.user?.contact || "contact"}
+              </Typography>
             </Box>
           </Box>
         </Box>
@@ -81,13 +152,21 @@ const ComplaintsDetail = () => {
           </Typography>
           <Box className="admin-info">
             <Box className="profile-pic">
-              <img className="imagesLogos" src={logo} alt="Logo" />
+              <img
+                className="imagesLogos"
+                src={complaintData?.complaint?.user?.organization?.logo || logo}
+                alt="Logo"
+              />
             </Box>
             <Box className="admin-details">
               <Typography className="pri-heading" style={{ fontSize: "1.7em" }}>
-                Gigalabs (pvt) Ltd.
+                {complaintData?.complaint?.user?.organization ||
+                  "Gigalabs (pvt) Ltd."}
               </Typography>
-              <Typography className="gray-text">contact@gigalabs.co</Typography>
+              <Typography className="gray-text">
+                {complaintData?.complaint?.user?.organization ||
+                  "contact@org.co"}
+              </Typography>
             </Box>
           </Box>
         </Box>

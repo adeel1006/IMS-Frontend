@@ -40,7 +40,7 @@ const employeeContent = [
   { label: "Complaints", path: "/employeeComplaint" },
 ];
 
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Logout"];
 
 function AppBarz({ userRole }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -60,6 +60,11 @@ function AppBarz({ userRole }) {
   };
 
   const handleCloseUserMenu = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("userRole");
+    localStorage.removeItem("userId");
+    //redirects to the login page when the user logout
+    window.location.href = "/login";
     setAnchorElUser(null);
   };
 

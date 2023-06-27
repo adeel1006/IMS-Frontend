@@ -1,13 +1,15 @@
-import { Route, Navigate } from "react-router-dom";
+import React from "react";
+import { Route, Navigate, Outlet } from "react-router-dom";
 
-function ProtectedRoute({ element: Component, allowedRoles }) {
-  const userRole = getUserRole(); // Function to get the user role
+const ProtectedRoute = ({ element: Element, ...rest }) => {
+  const accessToken = localStorage.getItem('accessToken');
+  const isAuthenticated = !!accessToken; 
 
-  if (allowedRoles.includes(userRole)) {
-    return <Route element={<Component />} />;
-  } else {
-    return <Navigate to="/unauthorized" />;
-  }
-}
+  return isAuthenticated ? (
+    <Route {...rest} element={<Outlet />} />
+  ) : (
+    <Navigate to="/unauthorized" replace={true} />
+  );
+};
 
 export default ProtectedRoute;

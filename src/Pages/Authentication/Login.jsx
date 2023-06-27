@@ -1,16 +1,19 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../Assets/logo.png";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import axios from "axios";
+import { Box } from "@mui/material";
 import {
+  setUserRole,
+  setUserId,
   setAccessToken,
   setError,
 } from "../../Redux/Reducers/authSlice";
-import "./Login.css";
 import { httpRequest, loginUrl } from "../../Utils/httpRequestsStrings";
+import "./Login.css";
+import logo from "../../Assets/logo.png";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -22,10 +25,7 @@ const Login = () => {
 
   const loginMutation = useMutation(
     async (formData) => {
-      const response = await axios.post(
-        `${httpRequest+loginUrl}`,
-        formData
-      );
+      const response = await axios.post(`${httpRequest + loginUrl}`, formData);
       return response.data?.access_token;
     },
     {
@@ -42,6 +42,10 @@ const Login = () => {
   const handleRedirect = (accessToken) => {
     const decodedToken = JSON.parse(atob(accessToken.split(".")[1]));
     const userRole = decodedToken.role;
+    const userId = decodedToken.userId;
+    // localStorage.setItem("accessToken", accessToken);
+    dispatch(setUserRole(userRole));
+    dispatch(setUserId(userId));
 
     switch (userRole) {
       case "SUPER_ADMIN":
@@ -61,7 +65,7 @@ const Login = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-      const passwordRegex =
+    const passwordRegex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/;
     const isValidPassword = passwordRegex.test(password);
 
@@ -97,8 +101,10 @@ const Login = () => {
           <p>Enter your credentials to access your account</p>
           <form className="login-form" onSubmit={handleSubmit}>
             {loginMutation.isError && (
-            <p className="error-message">Invalid email or password. Please try again.</p>
-          )}
+              <p className="error-message">
+                Invalid email or password. Please try again.
+              </p>
+            )}
             <label>Email</label>
             <input
               type="email"

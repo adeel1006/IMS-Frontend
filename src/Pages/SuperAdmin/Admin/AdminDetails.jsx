@@ -86,21 +86,21 @@ const AdminDetails = () => {
               </Box>
             </Box>
 
-            <Box className="org-det-field">
+            <Box className="field-adm-data">
               <Typography fontWeight="bold">Representative Name</Typography>
               <Typography> {adminData[0].organization?.representativeName}</Typography>
             </Box>
-            <Box className="rep-contact org-det-field ">
+            <Box className="rep-contact field-adm-data2 ">
               <Typography fontWeight="bold">Representative Contact:</Typography>
               <Typography> {adminData[0].organization?.representativeContact }</Typography>
             </Box>
-            <Box className="no-border org-det-field">
+            <Box className="no-border field-adm-data3">
               <Typography fontWeight="bold">Bio:</Typography>
               <Typography>
               {adminData[0].organization?.bio}
               </Typography>
             </Box>
-            <Box className="no-border org-det-field">
+            <Box className="no-border field-adm-data4">
               <Typography fontWeight="bold">Address</Typography>
               <Typography> {adminData[0].organization?.address}</Typography>
             </Box>

@@ -34,6 +34,39 @@
     margin: 0 1%;
 }
 
+.field-adm-data{
+    padding: 2% 0;
+    border-bottom: 2px solid lightgray;
+    display: flex;
+    align-items: first baseline;
+    gap: 20%;
+}
+
+.field-adm-data2{
+    padding: 2% 0;
+    border-bottom: 2px solid lightgray;
+    display: flex;
+    align-items: first baseline;
+    gap: 18.5%;
+}
+
+
+.field-adm-data3{
+    padding: 2% 0;
+    border-bottom: 2px solid lightgray;
+    display: flex;
+    align-items: first baseline;
+    gap: 28.5%;
+}
+
+.field-adm-data4{
+    padding: 2% 0;
+    border-bottom: 2px solid lightgray;
+    display: flex;
+    align-items: first baseline;
+    gap: 26.5%;
+}
+
 .admin-organization{
     border: none;
     padding: 2% 0;

@@ -1,79 +1,76 @@
-.container{
-    margin:0% 5%;
-    padding: 3%;
+.container {
+  margin: 0 5%;
+  padding: 3%;
 }
-.admin-info{
-    display: flex;
-    align-items: center;
-    margin: 2% 0;
-    padding-bottom: 2%;
+
+.admin-info {
+  display: flex;
+  align-items: center;
+  margin: 2% 0;
+  padding-bottom: 2%;
 }
-.org-info-main{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+
+.adm-info-main {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
-.rep-data{
-    margin-left: 2%;
+
+.rep-data {
+  margin-left: 2%;
 }
+
 .left-header-content {
-    display: flex;
-    justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
 }
 
-.profile-pic{
-    width: 10%;
-    border-radius: 20px;
-    overflow: hidden;
+.profile-pic {
+  width: 10%;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
-.profile-pic > img{
-    width: 100%;
-}
-.admin-details{
-    margin: 0 1%;
+.profile-pic > img {
+  width: 100%;
 }
 
-.field-adm-data{
-    padding: 2% 0;
-    border-bottom: 2px solid lightgray;
-    display: flex;
-    align-items: first baseline;
-    gap: 20%;
+.admin-details {
+  margin: 0 1%;
 }
 
-.field-adm-data2{
-    padding: 2% 0;
-    border-bottom: 2px solid lightgray;
-    display: flex;
-    align-items: first baseline;
-    gap: 18.5%;
+.field-adm-data,
+.field-adm-data2,
+.field-adm-data3,
+.field-adm-data4 {
+  padding: 2% 0;
+  border-bottom: 2px solid lightgray;
+  display: flex;
+  align-items: baseline;
 }
 
-
-.field-adm-data3{
-    padding: 2% 0;
-    border-bottom: 2px solid lightgray;
-    display: flex;
-    align-items: first baseline;
-    gap: 28.5%;
+.field-adm-data {
+  gap: 20%;
 }
 
-.field-adm-data4{
-    padding: 2% 0;
-    border-bottom: 2px solid lightgray;
-    display: flex;
-    align-items: first baseline;
-    gap: 26.5%;
+.field-adm-data2 {
+  gap: 18.5%;
 }
 
-.admin-organization{
-    border: none;
-    padding: 2% 0;
-    width: 100%;
+.field-adm-data3 {
+  gap: 28.5%;
 }
 
+.field-adm-data4 {
+  gap: 26.5%;
+}
 
-.no-border{
-    border: none;
+.admin-organization {
+  border: none;
+  padding: 2% 0;
+  width: 100%;
+}
+
+.no-border {
+  border: none;
 }

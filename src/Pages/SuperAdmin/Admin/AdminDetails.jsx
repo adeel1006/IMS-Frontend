@@ -74,7 +74,7 @@ const AdminDetails = () => {
             Organization
           </Typography>
           <Box className="admin-organization">
-            <Box className="org-info-main">
+            <Box className="adm-info-main">
               <Box className="profile-pic">
                 <img src={adminData[0].organization?.logo} alt="logo" />
               </Box>

@@ -1,48 +1,44 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { fetchAdmins, fetchOrganizations } from "./AdminApi";
 import { Box, Typography, Button } from "@mui/material";
 import SearchBar from "../../../Components/SearchBar";
 import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import {
-  httpRequest,
-  fetchAdminsData,
-} from "../../../Utils/httpRequestsStrings";
 import AdminDataTable from "./AdminDataTable";
-import { options } from "../../../Utils/testingData";
 import placeHolderImg from "../../../Assets/placeholder.jpg";
 import "./AdminList.css";
 
+const btnStyle = {
+  color: "white",
+  backgroundColor: seaGreenBtn,
+  borderRadius: "10px",
+};
+
 const AdminList = () => {
   const [searchQuery, setSearchQuery] = useState("");
-
-  const fetchAdmins = async () => {
-    let accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get(`${httpRequest + fetchAdminsData}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  };
+  const [selectedOrganization, setSelectedOrganization] = useState("");
 
   const {
     data: adminsList,
-    isLoading,
-    isError,
+    isLoading: adminsLoading,
+    isError: adminsError,
   } = useQuery("adminsList", fetchAdmins);
 
-  if (isLoading) {
+  const {
+    data: organizations,
+    isLoading: orgLoading,
+    isError: orgError,
+  } = useQuery("organizations", fetchOrganizations);
+
+  if (adminsLoading || orgLoading) {
     return <div className="container">Loading...</div>;
   }
 
-  if (isError) {
-    return (
-      <div className="container">Error occurred while fetching Admins.</div>
-    );
+  if (adminsError || orgError) {
+    return <div className="container">Error occurred while fetching data.</div>;
   }
 
   const specificAdminsList = adminsList.map((item) => {
@@ -61,11 +57,20 @@ const AdminList = () => {
     };
   });
 
+  const organizationOptions = organizations.map((org) => ({
+    id: org.id,
+    value: org.name,
+    label: org.name,
+  }));
+
   const filteredAdminTableData = specificAdminsList.filter((item) => {
     const values = Object.values(item).map((value) =>
       String(value).toLowerCase()
     );
-    return values.some((value) => value.includes(searchQuery.toLowerCase()));
+    return (
+      values.some((value) => value.includes(searchQuery.toLowerCase())) &&
+      (!selectedOrganization || item.Organization === selectedOrganization)
+    );
   });
 
   return (
@@ -78,18 +83,14 @@ const AdminList = () => {
             <SelectBox
               className="selectBox"
               placeHolder={"Select Organization"}
-              options={options}
+              options={organizationOptions}
+              value={selectedOrganization}
+              onChange={(event) => setSelectedOrganization(event.target.value)}
             />
           </Box>
 
           <Box className="adm-right-header">
-            <Button
-              style={{
-                color: "white",
-                backgroundColor: seaGreenBtn,
-                borderRadius: "10px",
-              }}
-            >
+            <Button style={btnStyle}>
               <AddIcon />
               <Link className="link-style" to="/addAdmin">
                 Add

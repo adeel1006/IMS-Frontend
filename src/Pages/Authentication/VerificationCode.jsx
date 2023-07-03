@@ -7,7 +7,6 @@ const VerificationCode = () => {
     // Handle submit form
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(`Email: ${vCode}`);
     };
     const handleVerificationCode = (event) => {
       setVcode(event.target.value);

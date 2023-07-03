@@ -52,7 +52,6 @@ const AddOrganization = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     submitFormMutation.mutate(formValues);
-    // console.log("FORM:" + JSON.stringify(formValues));
     navigateTo(-1);
   };
 

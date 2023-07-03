@@ -20,7 +20,6 @@ const AddCategory = () => {
     };
 
     setSubCategories([...subCategories, newSubCategory]);
-    console.log("MY Added Sub-Categories: " + JSON.stringify(subCategories));
   };
 
   return (

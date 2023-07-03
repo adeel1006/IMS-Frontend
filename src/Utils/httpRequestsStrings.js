@@ -7,26 +7,26 @@ export const loginUrl = "/auth/login";
 export const forgotPasswordUrl = "/auth/forgotPassword";
 
 //Adding Admin user
-export const  addAdminUser = "/users/createUser";
+export const addAdminUser = "/users/createUser";
 
-//Fetching Super Admin complaints 
+//Fetching Super Admin complaints
 export const fetchSuperAdminComplaints = "/complaints";
 
 //Fetching SuperAdmin Organnizations list
-export  const fetchOrganizationsList = "/organization"
+export const fetchOrganizationsList = "/organization";
 
-//Fetching SuperAdmin Admins list 
+//Fetching SuperAdmin Admins list
 export const fetchAdminsData = "/users/allAdmins";
 
 // Adding Organization
-export const addOrganization =  "/organization";
+export const addOrganization = "/organization";
 
 //fetch org by ID
-export const orgByID =  "/organization/";
+export const orgByID = "/organization/";
 
 //fetch admin by ID
 
 export const adminByID = "/users/";
 
 //fetch complaint by ID
-export const complaintByID = "/complaints/"
+export const complaintByID = "/complaints/";

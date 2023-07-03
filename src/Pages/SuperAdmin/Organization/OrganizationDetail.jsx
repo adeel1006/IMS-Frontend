@@ -52,7 +52,7 @@ const OrganizationDetail = () => {
             <KeyboardBackspaceIcon fontSize="small" />
             Back
           </button>
-          <DropDownMenu />
+          {/* <DropDownMenu /> */}
         </Box>
 
         <Box className="org-details">

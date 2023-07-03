@@ -8,7 +8,6 @@ import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import OrgDataTable from "./OrgDataTable";
-import { options, rows } from "../../../Utils/testingData";
 import {
   httpRequest,
   fetchOrganizationsList,
@@ -24,6 +23,7 @@ const btnStyle = {
 
 const OrganizationList = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState("");
 
   const fetchOrg = async () => {
     let accessToken = localStorage.getItem("accessToken");
@@ -65,16 +65,37 @@ const OrganizationList = () => {
     };
   });
 
+  const organizationsLocations = org.map((item) => {
+    const { id, city } = item;
+    return {
+      id: id,
+      value: city,
+      label: city,
+    };
+  });
+
+  const removeDuplicateLocations = organizationsLocations.reduce(
+    (unique, location) => {
+      const existsLocation = unique.find(
+        (item) => item.label === location.label
+      );
+      if (!existsLocation) {
+        unique.push(location);
+      }
+      return unique;
+    },
+    []
+  );
+
   const filteredOrgTableData = specificOrgList.filter((item) => {
     const values = Object.values(item).map((value) =>
       String(value).toLowerCase()
     );
-    return values.some((value) => value.includes(searchQuery.toLowerCase()));
+    return (
+      values.some((value) => value.includes(searchQuery.toLowerCase())) &&
+      (!selectedLocation || item.Location === selectedLocation)
+    );
   });
-
-  // console.log(
-  //   "Organizations::" + JSON.stringify(filteredOrgTableData, null, 2)
-  // );
 
   return (
     <>
@@ -86,7 +107,9 @@ const OrganizationList = () => {
             <SelectBox
               className="selectBox"
               placeHolder={"Select Locations"}
-              options={options}
+              value={selectedLocation}
+              options={removeDuplicateLocations}
+              onChange={(e) => setSelectedLocation(e.target.value)}
             />
           </Box>
 

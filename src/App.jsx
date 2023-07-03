@@ -103,9 +103,6 @@ function App() {
           element={<OrganizationDetail />}
         />
 
-
-
-
         <Route
           path="/employeeDashboard"
           exact

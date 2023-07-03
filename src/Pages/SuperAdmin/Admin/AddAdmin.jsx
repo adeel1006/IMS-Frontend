@@ -50,7 +50,6 @@ const AddAdmin = () => {
     isError,
   } = useQuery("organization", fetchOrganizations);
 
-  // console.log("Organizationn"+JSON.stringify(organizationList, null, 2));
 
   const submitFormMutation = useMutation(async (formData) => {
     const response = await axios.post(
@@ -74,7 +73,6 @@ const AddAdmin = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     submitFormMutation.mutate(formValues);
-    console.log("FORM:" + JSON.stringify(formValues));
     navigateTo(-1);
   };
 

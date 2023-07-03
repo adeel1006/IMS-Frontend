@@ -77,8 +77,7 @@ const ComplaintsDetail = () => {
   if (!complaintData) {
     return <div>Loading...</div>;
   }
-
-  // console.log(complaintData);
+  
   return (
     <>
       <Box className="container">

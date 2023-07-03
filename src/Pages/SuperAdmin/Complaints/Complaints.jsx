@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -11,12 +11,17 @@ import {
   httpRequest,
   fetchSuperAdminComplaints,
 } from "../../../Utils/httpRequestsStrings";
-import { options, status } from "../../../Utils/testingData";
 import "./Complaints.css";
+
+const status = [
+  { value: "resolved", label: "resolved" },
+  { value: "pending", label: "pending" },
+];
 
 const Complaints = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
 
   const fetchComplaints = async () => {
     let accessToken = localStorage.getItem("accessToken");
@@ -51,7 +56,7 @@ const Complaints = () => {
     const { id, title, description, user, submissionDate, status, action } =
       item;
     const email = user?.email || "";
-    const handleNullStatus = status !== null ? status : "No";
+    const handleNullStatus = status !== null ? status : "pending";
     const handleNullAction = action !== null ? action : "View";
     const formattedDate = new Date(submissionDate).toISOString().slice(0, 10);
     return {
@@ -64,12 +69,17 @@ const Complaints = () => {
       Action: handleNullAction,
     };
   });
-
   const filteredTableData = specificTableData.filter((item) => {
     const values = Object.values(item).map((value) =>
       String(value).toLowerCase()
     );
-    return values.some((value) => value.includes(searchQuery.toLowerCase()));
+    if (!selectedStatus) {
+      return true;
+    }
+    return (
+      values.some((value) => value.includes(searchQuery.toLowerCase())) &&
+      item.Status === selectedStatus
+    );
   });
 
   dispatch(updateFilteredData(filteredTableData));
@@ -83,13 +93,9 @@ const Complaints = () => {
             <SearchBar setSearchQuery={setSearchQuery} minWidth={350} />
             <SelectBox
               className="selectBox"
-              placeHolder={"Select Organization"}
-              options={options}
-            />
-            <SelectBox
-              className="selectBox"
               placeHolder={"Select Status"}
               options={status}
+              onChange={(event) => setSelectedStatus(event.target.value)}
             />
           </Box>
         </Box>

@@ -16,7 +16,6 @@ import DashboardCard from "../../../Components/DashboardCard";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import DashboardChart from "../../../Components/DashboardChart";
-import { tableDataDashboard } from "../../../Utils/testingData";
 import DataTable from "../../../Components/DataTable";
 import "./Dashboard.css";
 const queryKeys = {
@@ -70,7 +69,6 @@ const Dashboard = () => {
     isError: isOrgMonthError,
   } = useQuery(queryKeys.orgByMonth, fetchOrgByMonth);
 
-  // console.log("Org BY MONTH"+ JSON.stringify(orgByMonth));
 
   if (
     isOrgLoading ||

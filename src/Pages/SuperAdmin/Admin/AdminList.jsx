@@ -28,10 +28,10 @@ const AdminList = () => {
   } = useQuery("adminsList", fetchAdmins);
 
   const {
-    data: organizations,
+    data: orgs,
     isLoading: orgLoading,
     isError: orgError,
-  } = useQuery("organizations", fetchOrganizations);
+  } = useQuery("orgs", fetchOrganizations);
 
   if (adminsLoading || orgLoading) {
     return <div className="container">Loading...</div>;
@@ -57,7 +57,7 @@ const AdminList = () => {
     };
   });
 
-  const organizationOptions = organizations.map((org) => ({
+  const organizationOptions = orgs.map((org) => ({
     id: org.id,
     value: org.name,
     label: org.name,

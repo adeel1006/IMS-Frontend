@@ -52,7 +52,7 @@ const Complaints = () => {
     );
   }
 
-  const specificTableData = complaints.map((item) => {
+  const specificTableData = complaints?.map((item) => {
     const { id, title, description, user, submissionDate, status, action } =
       item;
     const email = user?.email || "";
@@ -69,7 +69,7 @@ const Complaints = () => {
       Action: handleNullAction,
     };
   });
-  const filteredTableData = specificTableData.filter((item) => {
+  const filteredTableData = specificTableData?.filter((item) => {
     const values = Object.values(item).map((value) =>
       String(value).toLowerCase()
     );

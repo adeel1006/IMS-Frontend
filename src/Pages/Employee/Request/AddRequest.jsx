@@ -1,41 +1,123 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
+import { submitRequest, fetchCategories } from "./RequestApi";
 import { Box, TextField } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./AddRequest.css";
 import { options } from "../../../Utils/testingData";
 import SelectBox from "../../../Components/SelectBox";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import { useNavigate } from 'react-router-dom';
+
+const requestTypes = [
+  { value: "New Request", label: "New Request" },
+  { value: "Replace Request", label: "Replace Request" },
+];
+
 const AddRequest = () => {
+  const [formValues, setFormValues] = useState({
+    itemName: "",
+    requestType: "",
+    category: "",
+    subCategory: "",
+    description: "",
+  });
   const navigateTo = useNavigate();
   const handleGoBack = () => {
     navigateTo(-1);
   };
-  return (
-    <>
-      <Box className="container">
-        <Box className="inner-content">
-          <Box className="new-org-header">
-            <Box className="left-btns header-org-btns">
-              <button onClick={handleGoBack} className="back-btn">
-                <KeyboardBackspaceIcon fontSize="small" />
-                Back
-              </button>
-              <h1>Add New Request</h1>
-            </Box>
-            <Box className="right-btns header-org-btns">
-              <button onClick={handleGoBack} className="cancel-btn btn">Cancel</button>
-              <button style={{backgroundColor:seaGreenBtn}} className="save-btn btn">Submit</button>
-            </Box>
-          </Box>
+  const submitFormMutation = useMutation(submitRequest);
 
-          <Box className="new-request-form">
+  const {
+    data: categories,
+    isLoading,
+    isError,
+  } = useQuery("categories", fetchCategories);
+
+  const categoriesList = categories?.map((item) => {
+    const { id, categoryName } = item;
+    return {
+      id: id,
+      value: id,
+      label: categoryName,
+    };
+  });
+
+  //Extracting the subcategory array to make specific props array
+  const subCategoryData = [];
+  categories?.forEach((item) => {
+    const { subcategories } = item;
+
+    subcategories?.forEach((data) => {
+      const { id, name } = data;
+      subCategoryData.push({
+        value: id,
+        label: name,
+      });
+    });
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formValues);
+    // submitFormMutation.mutate(formValues);
+    // navigateTo(-1);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="container">Error occurred while fetching complaints.</div>
+    );
+  }
+
+  return (
+    <Box className="container">
+      <Box className="inner-content">
+        <Box className="new-org-header">
+          <Box className="left-btns header-org-btns">
+            <button onClick={handleGoBack} className="back-btn">
+              <KeyboardBackspaceIcon fontSize="small" />
+              Back
+            </button>
+            <h1>Add New Request</h1>
+          </Box>
+          <Box className="right-btns header-org-btns">
+            <button onClick={handleGoBack} className="cancel-btn btn">
+              Cancel
+            </button>
+            <button
+              style={{ backgroundColor: seaGreenBtn }}
+              className="save-btn btn"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </Box>
+        </Box>
+
+        <Box className="new-request-form">
+          <form onSubmit={handleSubmit}>
             <Box className="name data-field">
               <span className="form-left">Item Name</span>
               <TextField
                 className="input-field"
                 required
                 placeholder="Enter Item Name..."
+                name="itemName"
+                value={formValues.itemName}
+                onChange={handleChange}
               ></TextField>
             </Box>
 
@@ -46,7 +128,10 @@ const AddRequest = () => {
                 placeHolder="Select Category"
                 minWidth="600px"
                 marginLeft="0"
-                options={options}
+                options={categoriesList}
+                name="category"
+                value={formValues.category}
+                onChange={handleChange}
               />
             </Box>
 
@@ -57,7 +142,10 @@ const AddRequest = () => {
                 placeHolder="Select Sub-Category"
                 minWidth="600px"
                 marginLeft="0"
-                options={options}
+                options={subCategoryData}
+                name="subCategory"
+                value={formValues.subCategory}
+                onChange={handleChange}
               />
             </Box>
 
@@ -68,7 +156,10 @@ const AddRequest = () => {
                 placeHolder="Select Request Type"
                 minWidth="600px"
                 marginLeft="0"
-                options={options}
+                options={requestTypes}
+                name="requestType"
+                value={formValues.requestType}
+                onChange={handleChange}
               />
             </Box>
 
@@ -81,12 +172,15 @@ const AddRequest = () => {
                 rows={6}
                 type="text"
                 placeholder="Enter Description..."
+                name="description"
+                value={formValues.description}
+                onChange={handleChange}
               />
             </Box>
-          </Box>
+          </form>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

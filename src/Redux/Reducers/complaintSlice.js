@@ -1,7 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  //for superAdmin module complaints
   filteredData: [],
+  //for employee complaints
+  userComplaints: [],
 };
 
 const complaintsSlice = createSlice({
@@ -11,8 +14,12 @@ const complaintsSlice = createSlice({
     updateFilteredData: (state, action) => {
       state.filteredData = action.payload;
     },
+    updateUserComplaints: (state, action)=>{
+      state.userComplaints = action.payload;
+    }
+
   },
 });
 
-export const { updateFilteredData } = complaintsSlice.actions;
+export const { updateFilteredData, updateUserComplaints } = complaintsSlice.actions;
 export default complaintsSlice.reducer;

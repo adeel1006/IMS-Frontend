@@ -100,7 +100,7 @@ const Complaints = () => {
           </Box>
         </Box>
         <Box className="complaints-table">
-          <DataTable rows={filteredTableData} />
+          <DataTable rows={filteredTableData} linkString={`/superAdminComplaintDetails/`} />
         </Box>
       </Box>
     </>

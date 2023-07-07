@@ -21,7 +21,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  // const accessToken = useSelector((state) => state.auth.accessToken);
 
   const loginMutation = useMutation(
     async (formData) => {

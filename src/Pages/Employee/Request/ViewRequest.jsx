@@ -1,90 +1,122 @@
 import React from "react";
-import "./ViewRequest.css";
-import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
+import { useQuery } from "react-query";
+import { useParams, useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
+import { fetchUserRequestDetail } from "./RequestApi";
+import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
+import { cornFlowerBlue } from "../../../Utils/ColorConstants";
+import "./ViewRequest.css";
+
+const styles = {
+  backBtn: { color: "gray" },
+  pendingBtn: {
+    backgroundColor: cornFlowerBlue,
+    color: "white",
+    borderRadius: "8px",
+  },
+  subDate: { margin: "0% 2%", fontWeight: "bold" },
+  contentStyle: { textAlign: "justify" },
+};
 
 const ViewRequest = () => {
+  const { id } = useParams();
+  const navigateTo = useNavigate();
+
+  const {
+    data: requestDetail,
+    isLoading,
+    isError,
+  } = useQuery(["requestDetail", id], () => fetchUserRequestDetail(id));
+
+  const formattedDate = requestDetail?.request?.createdAt
+    ? new Date(requestDetail?.request?.createdAt).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+    : null;
+
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
+
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="container">
+        Error occurred while fetching user request.
+      </div>
+    );
+  }
+
   return (
-    <>
-      <Box className="container">
-        <Box className="component-header">
-          <Box className="left-header-content">
-            <Button style={{ color: "gray" }}>
-              <BackArrow />
-              Back
-            </Button>
-            <h1>Request ID : 4646</h1>
-            <Button
-              style={{
-                backgroundColor: "rgb(38, 150, 255)",
-                color: "white",
-                borderRadius: "8px",
-              }}
-            >
-              Pending
-            </Button>
-            <Typography sx={{ margin: "0% 2%", fontWeight: "bold" }}>
-              Submission Date: 11/11/22
-            </Typography>
-          </Box>
-        </Box>
-
-        <Box className="request-info">
-          <Box className="description-heading">Description</Box>
-          <Box className="request-content">
-            <Typography
-              className="description-content"
-              style={{ textAlign: "justify" }}
-            >
-              I'm writing to request a new gadget for my office. I'm currently
-              using a very old and outdated computer, and it's starting to show
-              its age. I'm having trouble running the latest software, and the
-              hardware is starting to fail. I'm requesting a new laptop that
-              would be able to handle the demands of my work. I would also like
-              a new printer, as the current one is constantly jamming. I'm
-              confident that these new gadgets would help me to be more
-              productive in my work, and I would be grateful for your
-              consideration
-            </Typography>
-          </Box>
-        </Box>
-
-        <Box className="request-info">
-          <Box className="description-heading">Item Name</Box>
-          <Box className="request-content">
-            <Typography
-              className="description-content"
-              style={{ textAlign: "justify" }}
-            >
-              Macbook Pro
-            </Typography>
-          </Box>
-        </Box>
-
-        <Box className="request-info">
-          <Box className="description-heading">Category</Box>
-          <Box className="request-content">
-            <Typography
-              className="description-content"
-              style={{ textAlign: "justify" }}
-            >
-              Electronics
-            </Typography>
-          </Box>
-        </Box>
-        <Box className="request-info">
-          <Box className="description-heading">Sub-Category</Box>
-          <Box className="request-content">
-            <Typography
-              className="description-content"
-              style={{ textAlign: "justify" }}
-            >
-              Notebooks & Laptops
-            </Typography>
-          </Box>
+    <Box className="container">
+      <Box className="component-header">
+        <Box className="left-header-content">
+          <Button style={styles.backBtn} onClick={handleGoBack}>
+            <BackArrow />
+            Back
+          </Button>
+          <h1>Request ID : {requestDetail?.request?.id}</h1>
+          <Button style={styles.pendingBtn}>
+            {requestDetail?.request?.status || "Pending"}
+          </Button>
+          <Typography sx={styles.subDate}>
+            Submission Date: {formattedDate || "N/A"}
+          </Typography>
         </Box>
       </Box>
-    </>
+
+      <Box className="request-info">
+        <Box className="description-heading">Description</Box>
+        <Box className="request-content">
+          <Typography
+            className="description-content"
+            style={styles.contentStyle}
+          >
+            {requestDetail?.request?.description || "Not Available"}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Box className="request-info">
+        <Box className="description-heading">Item Name</Box>
+        <Box className="request-content">
+          <Typography
+            className="description-content"
+            style={styles.contentStyle}
+          >
+            {requestDetail?.request?.itemName || "Not Available"}
+          </Typography>
+        </Box>
+      </Box>
+
+      <Box className="request-info">
+        <Box className="description-heading">Category</Box>
+        <Box className="request-content">
+          <Typography
+            className="description-content"
+            style={styles.contentStyle}
+          >
+            {requestDetail?.request?.category || "Not Available"}
+          </Typography>
+        </Box>
+      </Box>
+      <Box className="request-info">
+        <Box className="description-heading">Sub-Category</Box>
+        <Box className="request-content">
+          <Typography
+            className="description-content"
+            style={styles.contentStyle}
+          >
+            {requestDetail?.request?.subcategory?.name || "Not Available"}
+          </Typography>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

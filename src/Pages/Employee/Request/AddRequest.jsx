@@ -5,13 +5,12 @@ import { submitRequest, fetchCategories } from "./RequestApi";
 import { Box, TextField } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./AddRequest.css";
-import { options } from "../../../Utils/testingData";
 import SelectBox from "../../../Components/SelectBox";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 
 const requestTypes = [
-  { value: "New Request", label: "New Request" },
-  { value: "Replace Request", label: "Replace Request" },
+  { value: "Inventory Acquisition", label: "Inventory Acquisition" },
+  { value: "Faulty", label: "Faulty" },
 ];
 
 const AddRequest = () => {
@@ -59,9 +58,8 @@ const AddRequest = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formValues);
-    // submitFormMutation.mutate(formValues);
-    // navigateTo(-1);
+    submitFormMutation.mutate(formValues);
+    navigateTo(-1);
   };
 
   const handleChange = (event) => {

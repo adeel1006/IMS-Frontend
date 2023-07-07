@@ -15,7 +15,6 @@ export const submitRequest = async (formData) => {
     );
 
     if (response.status === 200 || response.status === 201) {
-      console.log("Success");
       return response.data;
     } else {
       throw new Error("Failed to submit request");
@@ -35,5 +34,31 @@ export const fetchCategories = async () => {
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch Categories." + error.message);
+  }
+};
+
+export const fetchUserRequests = async () => {
+  try {
+    const response = await axios.get(`${httpRequest}/requests/userRequests`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch Requests of a User." + error.message);
+  }
+};
+
+export const fetchUserRequestDetail = async (id) => {
+  try {
+    const response = await axios.get(`${httpRequest}/requests/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch Request of a User." + error.message);
   }
 };

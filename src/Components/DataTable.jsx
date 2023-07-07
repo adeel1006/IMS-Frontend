@@ -38,7 +38,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function DataTable({ rows }) {
+export default function DataTable({ rows, linkString }) {
   const headerKeys = Object.keys(rows[0] || {});
   const [currentPage, setCurrentPage] = React.useState(1);
   const rowsPerPage = 10;
@@ -76,7 +76,7 @@ export default function DataTable({ rows }) {
                 <StyledTableRow key={rowIndex}>
                   {cells.slice(0, -1)}
                   <StyledTableCell align="left">
-                    <Link to={`/superAdminComplaintDetails/${Id}`}>
+                    <Link to={linkString + `${Id}`}>
                       <Button sx={{ fontSize: "x-small", marginLeft: "-12px" }}>
                         {lastColumnValue}
                       </Button>

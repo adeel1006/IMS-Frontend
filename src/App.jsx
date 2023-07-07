@@ -111,10 +111,10 @@ function App() {
         <Route path="/editProfile" exact element={<EditProfile />} />
         <Route path="/addComplaint" exact element={<AddComplain />} />
         <Route path="/employeeComplaint" exact element={<Complaints />} />
-        <Route path="/complaintDetail" exact element={<ViewComplain />} />
+        <Route path="/complaintDetail/:id" exact element={<ViewComplain />} />
         <Route path="/addRequest" exact element={<AddRequest />} />
         <Route path="/requests" exact element={<Request />} />
-        <Route path="/requestDetail" exact element={<ViewRequest />} />
+        <Route path="/requestDetail/:id" exact element={<ViewRequest />} />
 
         <Route path="/adminDashboard" exact element={<AdminDashboard />} />
         <Route path="/adminRequest" exact element={<Requests />} />

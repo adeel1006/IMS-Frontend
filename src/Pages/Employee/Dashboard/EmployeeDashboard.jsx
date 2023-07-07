@@ -19,6 +19,7 @@ const EmployeeDashboard = () => {
 
   const reqTableData = userReqData.slice(-4);
   const complaintsTableData = userComplaintsData.slice(-4);
+  
   return (
     <Box className="container">
       <Box className="dashboard-bar">

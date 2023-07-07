@@ -37,9 +37,15 @@ const EditProfile = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formValues);
     const id = localStorage.getItem("userId");
-    submitFormMutation.mutate({ id: id, formData: formValues });
+    const updatedFields = {};
+    for (const key in formValues) {
+      if (formValues.hasOwnProperty(key) && formValues[key] !== "") {
+        updatedFields[key] = formValues[key];
+      }
+    }
+    submitFormMutation.mutate({ id: id, formData: updatedFields });
+    console.log(updatedFields);
     navigateTo(-1);
   };
 

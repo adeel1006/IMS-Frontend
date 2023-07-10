@@ -28,6 +28,7 @@ const queryKeys = {
 };
 
 const Dashboard = () => {
+  let notAvailable = "N/A";
   const filteredTableData = useSelector(
     (state) => state.complaints.filteredData
   );
@@ -92,7 +93,7 @@ const Dashboard = () => {
   ) {
     return (
       <p className="dashboard-container">
-        Error loading organizations. Please try again later.
+        Error while loading... Please try again later.
       </p>
     );
   }
@@ -114,28 +115,28 @@ const Dashboard = () => {
           </Box>
           <Box className="card-data">
             <DashboardCard
-              title={organizations?.title}
-              number={organizations?.number}
-              icon={organizations?.icon}
-              tagline={organizations?.tagline}
+              title={organizations?.title || notAvailable}
+              number={organizations?.number || notAvailable}
+              icon={organizations?.icon} 
+              tagline={organizations?.tagline || notAvailable}
             />
             <DashboardCard
-              title={admins?.title}
-              number={admins?.number}
+              title={admins?.title || notAvailable}
+              number={admins?.number || notAvailable}
               icon={admins?.icon}
-              tagline={admins?.tagline}
+              tagline={admins?.tagline || notAvailable}
             />
             <DashboardCard
-              title={pendingComplaints?.title}
-              number={pendingComplaints?.number}
+              title={pendingComplaints?.title || notAvailable}
+              number={pendingComplaints?.number || notAvailable}
               icon={pendingComplaints?.icon}
-              tagline={pendingComplaints?.tagline}
+              tagline={pendingComplaints?.tagline || notAvailable}
             />
             <DashboardCard
-              title={resolvedComplaints?.title}
-              number={resolvedComplaints?.number}
+              title={resolvedComplaints?.title || notAvailable}
+              number={resolvedComplaints?.number || notAvailable}
               icon={resolvedComplaints?.icon}
-              tagline={resolvedComplaints?.tagline}
+              tagline={resolvedComplaints?.tagline || notAvailable}
               notShowRightBorder={true}
             />
           </Box>

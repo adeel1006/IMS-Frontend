@@ -1,14 +1,13 @@
 import React from "react";
+import { Box, Typography } from "@mui/material";
 import { options, rows } from "../../../Utils/testingData";
 import SelectBox from "../../../Components/SelectBox";
-import { Box, Typography } from "@mui/material";
 import "./Requests.css";
 import DataTable from "../../../Components/DataTable";
 import SearchBar from "../../../Components/SearchBar";
 import SortIcon from "../../../Components/SortIcon";
 
 const Requests = () => {
-    
   return (
     <>
       <Box className="req-container">

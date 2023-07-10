@@ -45,7 +45,6 @@ const EditProfile = () => {
       }
     }
     submitFormMutation.mutate({ id: id, formData: updatedFields });
-    console.log(updatedFields);
     navigateTo(-1);
   };
 

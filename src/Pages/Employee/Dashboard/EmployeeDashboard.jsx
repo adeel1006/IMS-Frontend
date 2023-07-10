@@ -1,10 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { Box, Button, Divider, Typography } from "@mui/material";
+import { fetchUserData } from "./ComplainDashboardApi";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import avatar from "../../../Assets/avatar.png";
+import placeholder from "../../../Assets/placeholder.jpg";
 import DataTable from "../../../Components/DataTable";
 import "./EmployeeDashboard.css";
 
@@ -17,9 +19,25 @@ const EmployeeDashboard = () => {
     (state) => state.complaints.userComplaints
   );
 
+  const {
+    data: userData,
+    isLoading,
+    isError,
+  } = useQuery("userData", fetchUserData);
+
   const reqTableData = userReqData.slice(-4);
   const complaintsTableData = userComplaintsData.slice(-4);
-  
+
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="container">Error occurred while fetching requests.</div>
+    );
+  }
+
   return (
     <Box className="container">
       <Box className="dashboard-bar">
@@ -48,44 +66,54 @@ const EmployeeDashboard = () => {
 
       <Box className="employee-info-main">
         <Box className="image-box">
-          <img src={avatar} alt="profile pic " />
+          <img src={userData[0]?.image || placeholder} alt="profile pic " />
         </Box>
 
         <Box className="employee-info-inner">
           <Box className="emp-block">
             <Box className="section-a">
               <Typography color="gray">Full Name</Typography>
-              <Typography fontWeight="bold">Lydia Press</Typography>
+              <Typography fontWeight="bold">
+                {userData[0]?.username || "N/A"}
+              </Typography>
             </Box>
 
             <Box className="section-b">
               <Typography color="gray">Email Address</Typography>
-              <Typography fontWeight="bold">kmitchell@icloud.com</Typography>
+              <Typography fontWeight="bold">
+                {userData[0]?.email || "N/A"}
+              </Typography>
             </Box>
           </Box>
 
           <Box className="emp-block">
             <Box className="section-a">
               <Typography color="gray">Designation</Typography>
-              <Typography fontWeight="bold">Software Engineer</Typography>
+              <Typography fontWeight="bold">
+                {userData[0]?.designation || "N/A"}
+              </Typography>
             </Box>
 
             <Box className="section-b">
               <Typography color="gray">Department</Typography>
-              <Typography fontWeight="bold">Development</Typography>
+              <Typography fontWeight="bold">
+                {userData[0]?.department || "N/A"}
+              </Typography>
             </Box>
           </Box>
 
           <Box className="emp-block">
             <Box className="section-a">
               <Typography color="gray">Contact Number</Typography>
-              <Typography fontWeight="bold">(555) 555 555</Typography>
+              <Typography fontWeight="bold">
+                {userData[0]?.contact || "N/A"}
+              </Typography>
             </Box>
 
             <Box className="section-b">
               <Typography color="gray">Education</Typography>
               <Typography fontWeight="bold">
-                Bachelors in Computer Science
+                {userData[0]?.education || "N/A"}
               </Typography>
             </Box>
           </Box>
@@ -93,12 +121,16 @@ const EmployeeDashboard = () => {
           <Box className="emp-block">
             <Box className="section-a">
               <Typography color="gray">Company Experience</Typography>
-              <Typography fontWeight="bold">2 years</Typography>
+              <Typography fontWeight="bold">
+                {userData[0]?.companyExperience + " years" || "N/A"}
+              </Typography>
             </Box>
 
             <Box className="section-b">
               <Typography color="gray">Total Experience</Typography>
-              <Typography fontWeight="bold">6 years</Typography>
+              <Typography fontWeight="bold">
+                {userData[0]?.totalExperience + " years" || "N/A"}
+              </Typography>
             </Box>
           </Box>
         </Box>

@@ -3,12 +3,11 @@ import { httpRequest } from "../../../Utils/httpRequestsStrings";
 
 export const fetchOrganizations = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(
       `${httpRequest}/organization/currentMonthOrg`,
       {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       }
     );
@@ -20,10 +19,9 @@ export const fetchOrganizations = async () => {
 
 export const fetchAdmins = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(`${httpRequest}/users/adminsCount`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     return response.data;
@@ -34,10 +32,9 @@ export const fetchAdmins = async () => {
 
 export const fetchPendingComplaints = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(`${httpRequest}/complaints/pending`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     return response.data;
@@ -48,10 +45,9 @@ export const fetchPendingComplaints = async () => {
 
 export const fetchResolvedComplaints = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(`${httpRequest}/complaints/resolved`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     return response.data;
@@ -62,10 +58,9 @@ export const fetchResolvedComplaints = async () => {
 
 export const fetchAdminsByMonth = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(`${httpRequest}/users/adminsByMonth`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     return response.data;
@@ -76,10 +71,9 @@ export const fetchAdminsByMonth = async () => {
 
 export const fetchOrgByMonth = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(`${httpRequest}/organization/orgByMonth`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     return response.data;

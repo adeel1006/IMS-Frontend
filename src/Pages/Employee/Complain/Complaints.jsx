@@ -61,7 +61,7 @@ const Complaints = () => {
 
   if (isError) {
     return (
-      <div className="container">Error occurred while fetching requests.</div>
+      <div className="container">Error occurred while fetching complaints.</div>
     );
   }
 

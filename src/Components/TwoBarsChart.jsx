@@ -1,8 +1,27 @@
 import React from "react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { cornFlowerBlue, seaGreenBtn } from "../Utils/ColorConstants";
 import { Box, Typography } from "@mui/material";
-
+const styles = {
+  style1: {
+    color: "gray",
+    fontSize: "small",
+    display: "flex",
+    justifyContent: "flex-end",
+  },
+  style2: {
+    width: "20px",
+    height: "20px",
+    backgroundColor: cornFlowerBlue,
+    margin: "0% 1%",
+  },
+  style3: {
+    width: "20px",
+    height: "20px",
+    backgroundColor: seaGreenBtn,
+    margin: "0% 1%",
+  },
+};
 
 const TwoBarsChart = ({ data }) => {
   return (
@@ -19,33 +38,12 @@ const TwoBarsChart = ({ data }) => {
         <Bar fill={cornFlowerBlue} dataKey="number" barSize={25} />
         <Bar fill={seaGreenBtn} dataKey="number" barSize={25} />
       </BarChart>
-      <Typography
-        sx={{
-          color: "gray",
-          fontSize: "small",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Box
-          style={{
-            width: "20px",
-            height: "20px",
-            backgroundColor: cornFlowerBlue,
-            margin: "0% 1%",
-          }}
-        ></Box>
+      <Box sx={styles.style1}>
+        <Box style={styles.style2}></Box>
         Assigned Items
-        <Box
-          style={{
-            width: "20px",
-            height: "20px",
-            backgroundColor: seaGreenBtn,
-            margin: "0% 1%",
-          }}
-        ></Box>
+        <Box style={styles.style3}></Box>
         Remaining Items
-      </Typography>
+      </Box>
     </>
   );
 };

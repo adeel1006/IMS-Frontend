@@ -1,12 +1,15 @@
 import axios from "axios";
-import { httpRequest, fetchOrganizationsList, fetchAdminsData } from "../../../Utils/httpRequestsStrings";
+import {
+  httpRequest,
+  fetchOrganizationsList,
+  fetchAdminsData,
+} from "../../../Utils/httpRequestsStrings";
 
 export const fetchAdmins = async () => {
   try {
-    let accessToken = localStorage.getItem("accessToken");
     const response = await axios.get(`${httpRequest + fetchAdminsData}`, {
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     return response.data;
@@ -18,11 +21,14 @@ export const fetchAdmins = async () => {
 export const fetchOrganizations = async () => {
   try {
     let accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get(`${httpRequest + fetchOrganizationsList}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+    const response = await axios.get(
+      `${httpRequest + fetchOrganizationsList}`,
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     throw new Error("Failed to fetch organizations list.");

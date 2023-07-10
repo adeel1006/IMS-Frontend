@@ -59,8 +59,6 @@ const AdminDashboard = () => {
     isError: isCategoryError,
   } = useQuery("categoryCount", fetchCategoryCount);
 
-  // console.log(JSON.stringify(categoryCount));
-
   if (isAdmLoading || isInvLoading || isVendorLoading || isCategoryLoading) {
     return (
       <p className="dashboard-container">Loading Please Wait for a while...</p>
@@ -75,7 +73,6 @@ const AdminDashboard = () => {
   }
 
   return (
-    <>
       <Box className="container">
         <span className="main-heading">Dashboard</span>
         <Box className="card-data">
@@ -144,7 +141,6 @@ const AdminDashboard = () => {
           </Box>
         </Box>
       </Box>
-    </>
   );
 };
 

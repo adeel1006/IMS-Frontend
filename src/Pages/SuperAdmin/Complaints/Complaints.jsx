@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -11,12 +11,8 @@ import {
   httpRequest,
   fetchSuperAdminComplaints,
 } from "../../../Utils/httpRequestsStrings";
+import { complaintStatus } from "../../../Utils/constants";
 import "./Complaints.css";
-
-const status = [
-  { value: "resolved", label: "resolved" },
-  { value: "pending", label: "pending" },
-];
 
 const Complaints = () => {
   const dispatch = useDispatch();
@@ -41,16 +37,6 @@ const Complaints = () => {
     isLoading,
     isError,
   } = useQuery("complaints", fetchComplaints);
-
-  if (isLoading) {
-    return <div className="container">Loading...</div>;
-  }
-
-  if (isError) {
-    return (
-      <div className="container">Error occurred while fetching complaints.</div>
-    );
-  }
 
   const specificTableData = complaints?.map((item) => {
     const { id, title, description, user, submissionDate, status, action } =
@@ -82,7 +68,19 @@ const Complaints = () => {
     );
   });
 
-  dispatch(updateFilteredData(filteredTableData));
+  useEffect(() => {
+    dispatch(updateFilteredData(filteredTableData));
+  }, [complaints]);
+
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="container">Error occurred while fetching complaints.</div>
+    );
+  }
 
   return (
     <>
@@ -94,13 +92,16 @@ const Complaints = () => {
             <SelectBox
               className="selectBox"
               placeHolder={"Select Status"}
-              options={status}
+              options={complaintStatus}
               onChange={(event) => setSelectedStatus(event.target.value)}
             />
           </Box>
         </Box>
         <Box className="complaints-table">
-          <DataTable rows={filteredTableData} linkString={`/superAdminComplaintDetails/`} />
+          <DataTable
+            rows={filteredTableData}
+            linkString={`/superAdminComplaintDetails/`}
+          />
         </Box>
       </Box>
     </>

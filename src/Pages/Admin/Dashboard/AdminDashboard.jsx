@@ -73,74 +73,74 @@ const AdminDashboard = () => {
   }
 
   return (
-      <Box className="container">
-        <span className="main-heading">Dashboard</span>
-        <Box className="card-data">
-          <DashboardCard
-            title={employeesCount?.title || notAvailable}
-            icon={employeesCount?.icon}
-            number={employeesCount?.number || notAvailable}
-            tagline={employeesCount?.tagline || notAvailable}
-          />
-          <DashboardCard
-            title={inventoryCount?.title || notAvailable}
-            icon={inventoryCount?.icon}
-            number={inventoryCount?.number || notAvailable}
-            tagline={inventoryCount?.tagline || notAvailable}
-          />
-          <DashboardCard
-            title={vendorCount?.title || notAvailable}
-            icon={vendorCount?.icon}
-            number={vendorCount?.number || notAvailable}
-            tagline={vendorCount?.tagline || notAvailable}
-          />
-          <DashboardCard
-            title={categoryCount?.title || notAvailable}
-            icon={categoryCount?.icon}
-            number={categoryCount?.number || notAvailable}
-            tagline={categoryCount?.tagline || notAvailable}
-            notShowRightBorder={true}
-          />
-        </Box>
-        <Box className="charts">
-          <Box className="inventory-chart">
-            <Box className="chart-header">
-              <span className="chart-heading">Inventory Items</span>
-              <Button style={styles.fileDownBtn}>
-                <FileDownloadOutlinedIcon />
-                Download report
-              </Button>
-            </Box>
-            <Box className="chart">
-              <TwoBarsChart data={adminChartInventory} />
-            </Box>
-          </Box>
-          <Box className="complaints-chart">
-            <Box className="chart-header">
-              <span className="chart-heading">Complaints</span>
-              <Button style={styles.fileDownBtn}>
-                <FileDownloadOutlinedIcon />
-                Download report
-              </Button>
-            </Box>
-            <Box className="chart">
-              <TwoBarsChart data={adminChartComplain} />
-            </Box>
-          </Box>
-        </Box>
-
-        <Box className="admin-complaints">
-          <Box style={styles.cmpHeader}>
-            <span className="cmp-heading">Recent Complaints</span>
-            <Button style={styles.seeBtn}>
-              <Link to="/adminComplaints">See all</Link>
+    <Box className="container">
+      <span className="main-heading">Dashboard</span>
+      <Box className="card-data">
+        <DashboardCard
+          title={employeesCount?.title || notAvailable}
+          icon={employeesCount?.icon}
+          number={employeesCount?.number || notAvailable}
+          tagline={employeesCount?.tagline || notAvailable}
+        />
+        <DashboardCard
+          title={inventoryCount?.title || notAvailable}
+          icon={inventoryCount?.icon}
+          number={inventoryCount?.number || notAvailable}
+          tagline={inventoryCount?.tagline || notAvailable}
+        />
+        <DashboardCard
+          title={vendorCount?.title || notAvailable}
+          icon={vendorCount?.icon}
+          number={vendorCount?.number || notAvailable}
+          tagline={vendorCount?.tagline || notAvailable}
+        />
+        <DashboardCard
+          title={categoryCount?.title || notAvailable}
+          icon={categoryCount?.icon}
+          number={categoryCount?.number || notAvailable}
+          tagline={categoryCount?.tagline || notAvailable}
+          notShowRightBorder={true}
+        />
+      </Box>
+      <Box className="charts">
+        <Box className="inventory-chart">
+          <Box className="chart-header">
+            <span className="chart-heading">Inventory Items</span>
+            <Button style={styles.fileDownBtn}>
+              <FileDownloadOutlinedIcon />
+              Download report
             </Button>
           </Box>
-          <Box className="admin-cpm-table">
-            <DataTable rows={tableDataDashboard} />
+          <Box className="chart">
+            <TwoBarsChart data={adminChartInventory} />
+          </Box>
+        </Box>
+        <Box className="complaints-chart">
+          <Box className="chart-header">
+            <span className="chart-heading">Complaints</span>
+            <Button style={styles.fileDownBtn}>
+              <FileDownloadOutlinedIcon />
+              Download report
+            </Button>
+          </Box>
+          <Box className="chart">
+            <TwoBarsChart data={adminChartComplain} />
           </Box>
         </Box>
       </Box>
+
+      <Box className="admin-complaints">
+        <Box style={styles.cmpHeader}>
+          <span className="cmp-heading">Recent Complaints</span>
+          <Button style={styles.seeBtn}>
+            <Link to="/adminComplaints">See all</Link>
+          </Button>
+        </Box>
+        <Box className="admin-cpm-table">
+          <DataTable rows={tableDataDashboard} />
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

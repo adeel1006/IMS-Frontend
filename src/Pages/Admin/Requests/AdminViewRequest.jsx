@@ -1,55 +1,114 @@
 import React from "react";
-import "./AdminViewRequest.css";
-import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
+import { useQuery, useMutation } from "react-query";
+import { useParams, useNavigate } from "react-router-dom";
 import { Box, Typography, Button, Divider } from "@mui/material";
-import avatar from "../../../Assets/avatar.png";
-import { dangerButton, seaGreenBtn } from "../../../Utils/ColorConstants";
-const reqBtnStyle = {
-  color: "white",
-  borderRadius: "8px",
-  padding: "3%",
-  fontWeight: "bold",
-  margin: "0% 2%",
+import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
+import placeholder from "../../../Assets/placeholder.jpg";
+import {
+  cornFlowerBlue,
+  dangerButton,
+  seaGreenBtn,
+} from "../../../Utils/ColorConstants";
+import "./AdminViewRequest.css";
+import { fetchRequest, updateRequestStatus } from "./AdminRequestApi";
+
+const styles = {
+  backBtn: { color: "gray" },
+  pendingBtn: {
+    backgroundColor: cornFlowerBlue,
+    color: "white",
+    borderRadius: "8px",
+  },
+  subDate: { margin: "0% 2%", fontWeight: "bold" },
+  reqBtnStyle: {
+    color: "white",
+    borderRadius: "8px",
+    padding: "3%",
+    fontWeight: "bold",
+    margin: "0% 2%",
+  },
+  descField: { textAlign: "justify" },
 };
+
 const AdminViewRequest = () => {
+  let notAvailable = "N/A";
+  const { id } = useParams();
+  const navigateTo = useNavigate();
+
+  const {
+    data: userRequest,
+    isLoading,
+    isError,
+  } = useQuery(["userRequest", id], () => fetchRequest(id));
+
+  const mutation = useMutation(updateRequestStatus, {
+    onSuccess: () => {
+      navigateTo(-1);
+    },
+  });
+
+  const formattedDate = userRequest?.request?.createdAt
+    ? new Date(userRequest?.request?.createdAt).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      })
+    : null;
+
+  const handleGoBack = () => {
+    navigateTo(-1);
+  };
+
+  const handleRejectRequest = (requestId) => {
+    mutation.mutate({ id: requestId, status: "rejected" });
+  };
+
+  const handleAcceptRequest = (requestId) => {
+    mutation.mutate({ id: requestId, status: "approved" });
+  };
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="container">
+        Error occurred while fetching user request.
+      </div>
+    );
+  }
   return (
     <>
       <Box className="container">
         <Box className="component-header">
           <Box className="left-header-content">
-            <Button style={{ color: "gray" }}>
+            <Button style={styles.backBtn} onClick={handleGoBack}>
               <BackArrow />
               Back
             </Button>
-            <h1>Request ID : 354634</h1>
-            <Button
-              style={{
-                backgroundColor: "rgb(38, 150, 255)",
-                color: "white",
-                borderRadius: "8px",
-              }}
-            >
-              Pending
-            </Button>
-            <Typography sx={{ margin: "0% 2%", fontWeight: "bold" }}>
-              Submission Date: 11/03/23
+            <h1>Request ID : {userRequest?.request?.id || notAvailable}</h1>
+            <Button style={styles.pendingBtn}>Pending</Button>
+            <Typography sx={styles.subDate}>
+              Submission Date: {formattedDate || notAvailable}
             </Typography>
-          </Box>  
+          </Box>
           <Box className="right-header-req">
             <Button
               style={{
-                ...reqBtnStyle,
+                ...styles.reqBtnStyle,
                 backgroundColor: dangerButton,
               }}
+              onClick={() => handleRejectRequest(id)}
             >
               Reject Request
             </Button>
 
             <Button
               style={{
-                ...reqBtnStyle,
+                ...styles.reqBtnStyle,
                 backgroundColor: seaGreenBtn,
               }}
+              onClick={() => handleAcceptRequest(id)}
             >
               Approve Request
             </Button>
@@ -61,17 +120,9 @@ const AdminViewRequest = () => {
           <Box className="request-content">
             <Typography
               className="description-content"
-              style={{ textAlign: "justify" }}
+              style={styles.descField}
             >
-              I'm writing to request a new gadget for my office. I'm currently
-              using a very old and outdated computer, and it's starting to show
-              its age. I'm having trouble running the latest software, and the
-              hardware is starting to fail. I'm requesting a new laptop that
-              would be able to handle the demands of my work. I would also like
-              a new printer, as the current one is constantly jamming. I'm
-              confident that these new gadgets would help me to be more
-              productive in my work, and I would be grateful for your
-              consideration
+              {userRequest?.request?.description || notAvailable}
             </Typography>
           </Box>
         </Box>
@@ -81,9 +132,9 @@ const AdminViewRequest = () => {
           <Box className="request-content">
             <Typography
               className="description-content"
-              style={{ textAlign: "justify" }}
+              style={styles.descField}
             >
-              Macbook Pro
+              {userRequest?.request?.itemName || notAvailable}
             </Typography>
           </Box>
         </Box>
@@ -93,9 +144,9 @@ const AdminViewRequest = () => {
           <Box className="request-content">
             <Typography
               className="description-content"
-              style={{ textAlign: "justify" }}
+              style={styles.descField}
             >
-              Electronics
+              {userRequest?.request?.category || notAvailable}
             </Typography>
           </Box>
         </Box>
@@ -104,9 +155,9 @@ const AdminViewRequest = () => {
           <Box className="request-content">
             <Typography
               className="description-content"
-              style={{ textAlign: "justify" }}
+              style={styles.descField}
             >
-              Notebooks & Laptops
+              {userRequest?.request?.subcategory?.name || notAvailable}
             </Typography>
           </Box>
         </Box>
@@ -114,12 +165,21 @@ const AdminViewRequest = () => {
 
         <Box className="req-info">
           <Box className="profile-pic">
-            <img src={avatar} alt="profile pic " />
+            <img
+              src={userRequest?.request?.user?.image || placeholder}
+              alt="profile pic "
+            />
           </Box>
           <Box className="req-details">
-            <span className="pri-heading">John Smith</span>
-            <p className="gray-text">john@gmail.com</p>
-            <p className="gray-text">(555) 555-5555</p>
+            <span className="pri-heading">
+              {userRequest?.request?.user?.username || notAvailable}
+            </span>
+            <p className="gray-text">
+              {userRequest?.request?.user?.email || notAvailable}
+            </p>
+            <p className="gray-text">
+              {userRequest?.request?.user?.contact || notAvailable}
+            </p>
           </Box>
         </Box>
       </Box>

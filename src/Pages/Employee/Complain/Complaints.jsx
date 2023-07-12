@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,9 +6,9 @@ import { Box, Typography, Button } from "@mui/material";
 import DataTable from "../../../Components/DataTable";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import "./Complaints.css";
 import { fetchUserComplaints } from "./ComplainApi";
 import { updateUserComplaints } from "../../../Redux/Reducers/complaintSlice";
+import "./Complaints.css";
 
 const btnStyle = {
   color: "white",
@@ -45,9 +45,9 @@ const Complaints = () => {
     }
   );
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(updateUserComplaints(specificUserComplaintTableData));
-  },[userComplaints])
+  }, [userComplaints]);
 
   // console.log(JSON.stringify(specificUserComplaintTableData, null, 2));
 
@@ -64,7 +64,6 @@ const Complaints = () => {
       <div className="container">Error occurred while fetching complaints.</div>
     );
   }
-
 
   return (
     <>

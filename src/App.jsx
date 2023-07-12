@@ -118,7 +118,11 @@ function App() {
 
         <Route path="/adminDashboard" exact element={<AdminDashboard />} />
         <Route path="/adminRequest" exact element={<Requests />} />
-        <Route path="/adminViewRequest" exact element={<AdminViewRequest />} />
+        <Route
+          path="/adminViewRequest/:id"
+          exact
+          element={<AdminViewRequest />}
+        />
         <Route path="/adminInventory" exact element={<Inventory />} />
         <Route path="/addItem" exact element={<AddItem />} />
         <Route path="/viewItem" exact element={<ViewItem />} />
@@ -137,7 +141,7 @@ function App() {
           element={<AdminAddComplaint />}
         />
         <Route
-          path="/adminViewComplaints"
+          path="/adminViewComplaints/:id"
           exact
           element={<ViewAdminComplaint />}
         />
@@ -153,85 +157,3 @@ function App() {
 }
 
 export default App;
-
-// function App() {
-//   const accessToken = localStorage.getItem('accessToken');
-//   const decodedToken = JSON.parse(atob(accessToken.split(".")[1]));
-//   const userRole = decodedToken.role;
-
-//   return (
-//     <>
-//       <AppBar userRole={userRole} />
-
-//       <Routes>
-//         <Route element={<PublicRoute />}>
-//           <Route path="/" element={<Login />} />
-//           <Route path="/login" element={<Login />} />
-//           <Route path="/forgotPassword" element={<ForgotPassword />} />
-//           <Route path="/verificationCode" element={<VerificationCode />} />
-//           <Route path="/unauthorized" element={<Unauthorized />} />
-//           <Route path="*" element={<NotFoundPage />} />
-//         </Route>
-
-//         <Route element={<ProtectedRoute />}>
-//           {/* Super Admin Routes */}
-//           {userRole === "SUPER_ADMIN" && (
-//             <>
-//               <Route path="/superAdminDashboard" element={<SuperAdminDashboard />} />
-//               <Route path="/addAdmin" element={<Admin />} />
-//               <Route path="/adminsList" element={<AdminList />} />
-//               <Route path="/adminsDetails" element={<AdminDetails />} />
-//               <Route path="/superAdminComplaints" element={<SuperAdminComplaints />} />
-//               <Route path="/superAdminComplaintDetails" element={<ComplaintsDetail />} />
-//               <Route path="/superAdminOrganization" element={<AddOrganization />} />
-//               <Route path="/superAdminOrganizationList" element={<OrganizationList />} />
-//               <Route path="/superAdminOrganizationDetails" element={<OrganizationDetail />} />
-//             </>
-//           )}
-
-//           {/* Admin Routes */}
-//           {userRole === "ADMIN" && (
-//             <>
-//               <Route path="/adminDashboard" element={<AdminDashboard />} />
-//               <Route path="/adminRequest" element={<Requests />} />
-//               <Route path="/adminViewRequest" element={<AdminViewRequest />} />
-//               <Route path="/adminInventory" element={<Inventory />} />
-//               <Route path="/addItem" element={<AddItem />} />
-//               <Route path="/viewItem" element={<ViewItem />} />
-//               <Route path="/categories" element={<Categories />} />
-//               <Route path="/addCategory" element={<AddCategory />} />
-//               <Route path="/viewCategory" element={<ViewCategory />} />
-//               <Route path="/employees" element={<Employees />} />
-//               <Route path="/addEmployee" element={<AddEmployee />} />
-//               <Route path="/viewEmployee" element={<ViewEmployee />} />
-//               <Route path="/returns" element={<Returns />} />
-//               <Route path="/viewReturn" element={<ViewReturn />} />
-//               <Route path="/adminComplaints" element={<AdminComplaints />} />
-//               <Route path="/adminAddComplaints" element={<AdminAddComplaint />} />
-//               <Route path="/adminViewComplaints" element={<ViewAdminComplaint />} />
-//               <Route path="/vendors" element={<Vendors />} />
-//               <Route path="/addVendor" element={<AddVendors />} />
-//               <Route path="/viewVendor" element={<ViewVendor />} />
-//             </>
-//           )}
-
-//           {/* Employee Routes */}
-//           {userRole === "EMPLOYEE" && (
-//             <>
-//               <Route path="/employeeDashboard" element={<EmployeeDashboard />} />
-//               <Route path="/editProfile" element={<EditProfile />} />
-//               <Route path="/addComplaint" element={<AddComplain />} />
-//               <Route path="/employeeComplaint" element={<Complaints />} />
-//               <Route path="/complaintDetail" element={<ViewComplain />} />
-//               <Route path="/addRequest" element={<AddRequest />} />
-//               <Route path="/requests" element={<Request />} />
-//               <Route path="/requestDetail" element={<ViewRequest />} />
-//             </>
-//           )}
-//         </Route>
-//       </Routes>
-//     </>
-//   );
-// }
-
-// export default App;

@@ -5,3 +5,13 @@ export const departments = [
     { value: "Sales", label: "Sales" },
   ];
   
+  export const complaintStatus = [
+    { value: "resolved", label: "resolved" },
+    { value: "pending", label: "pending" },
+  ];
+
+  export const requestStatus = [
+    { value: "approved", label: "approved" },
+    { value: "rejected", label: "rejected" },
+    { value: "pending", label: "pending" },
+  ];

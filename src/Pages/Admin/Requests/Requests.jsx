@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Box, Typography } from "@mui/material";
 import { fetchRequestData } from "./AdminRequestApi";
-import { options, rows } from "../../../Utils/testingData";
+import { requestStatus } from "../../../Utils/constants";
 import SelectBox from "../../../Components/SelectBox";
 import DataTable from "../../../Components/DataTable";
 import SearchBar from "../../../Components/SearchBar";
@@ -10,16 +10,26 @@ import SortIcon from "../../../Components/SortIcon";
 import "./Requests.css";
 
 const Requests = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
+
   const {
     data: requestsData,
     isLoading,
     isError,
   } = useQuery("requestsData", fetchRequestData);
-  // console.log(JSON.stringify(requestsData, null, 2));
 
   const specificRequestsTableData = requestsData?.map((item) => {
-    const { id, itemName, category, createdAt, status, user, subcategory, action } =
-      item;
+    const {
+      id,
+      itemName,
+      category,
+      createdAt,
+      status,
+      user,
+      subcategory,
+      action,
+    } = item;
     const User = user?.username || "Not Available";
     const Category = category !== null ? category : "Not available";
     const subCategory = subcategory?.name || "Not available";
@@ -38,7 +48,20 @@ const Requests = () => {
     };
   });
 
-  console.log(JSON.stringify(specificRequestsTableData, null, 2));
+  const tableData = specificRequestsTableData?.filter((item) => {
+    const values = Object.values(item).map((value) =>
+      String(value).toLowerCase()
+    );
+    if (!selectedStatus) {
+      return true;
+    }
+    return (
+      values.some((value) => value.includes(searchQuery.toLowerCase())) &&
+      item.Status === selectedStatus
+    );
+  });
+
+  // console.log(JSON.stringify(specificRequestsTableData, null, 2));
 
   if (isLoading) {
     return <div className="container">Loading...</div>;
@@ -54,20 +77,21 @@ const Requests = () => {
       <Box className="req-header">
         <Box className="req-left-header">
           <Typography variant="h3">Requests</Typography>
-          <SearchBar className="searchBar" />
+          <SearchBar className="searchBar" setSearchQuery={setSearchQuery} />
           <SelectBox
             className="selectBox"
             placeHolder={"Select Status"}
-            options={options}
+            options={requestStatus}
+            onChange={(event) => setSelectedStatus(event.target.value)}
           />
         </Box>
 
         <Box className="req-right-header">
-          <SortIcon value="AZ" defaultDirection="asc" />
+          {/* <SortIcon value="AZ" defaultDirection="asc" /> */}
         </Box>
       </Box>
       <Box className="req-table">
-        <DataTable rows={specificRequestsTableData} linkString={`/adminViewRequest/`} />
+        <DataTable rows={tableData} linkString={`/adminViewRequest/`} />
       </Box>
     </Box>
   );

@@ -49,8 +49,6 @@ const Complaints = () => {
     dispatch(updateUserComplaints(specificUserComplaintTableData));
   }, [userComplaints]);
 
-  // console.log(JSON.stringify(specificUserComplaintTableData, null, 2));
-
   const handleAddRequest = () => {
     navigate(`/addComplaint`);
   };

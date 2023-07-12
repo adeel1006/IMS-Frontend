@@ -26,7 +26,6 @@ const Request = () => {
     isLoading,
     isError,
   } = useQuery("userRequests", fetchUserRequests);
-  // console.log(JSON.stringify(userRequests, null, 2));
 
   const specificUserReqTableData = userRequests?.requests?.map((item) => {
     const {

@@ -22,7 +22,6 @@ const AddAdmin = () => {
     role: "ADMIN",
     organization: "",
     contact: "",
-    credentialEmail: "",
     password: "",
   });
 
@@ -49,7 +48,6 @@ const AddAdmin = () => {
     isLoading,
     isError,
   } = useQuery("organization", fetchOrganizations);
-
 
   const submitFormMutation = useMutation(async (formData) => {
     const response = await axios.post(

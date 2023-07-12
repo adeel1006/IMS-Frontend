@@ -63,12 +63,12 @@ export const adminChartInventory = [
 ];
 
 export const adminChartComplain = [
-  { name: "Jan", number: 100 },
-  { name: "Feb", number: 400 },
-  { name: "Mar", number: 800 },
-  { name: "Apl", number: 1000 },
-  { name: "May", number: 400 },
-  { name: "June", number: 200 },
+  { name: "Jan", number: 1 },
+  { name: "Feb", number: 2 },
+  { name: "Mar", number: 3 },
+  { name: "Apl", number: 4 },
+  { name: "May", number: 4 },
+  { name: "June", number: 6 },
 ];
 
 //Return Options

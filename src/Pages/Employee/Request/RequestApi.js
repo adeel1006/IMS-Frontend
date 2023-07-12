@@ -20,7 +20,7 @@ export const submitRequest = async (formData) => {
       throw new Error("Failed to submit request");
     }
   } catch (error) {
-    console.log(error);
+    throw new Error("Failed to submit request" + error.message);
   }
 };
 

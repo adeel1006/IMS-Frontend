@@ -33,7 +33,6 @@ export const fetchRequest = async (id) => {
 export const updateRequestStatus = async (requestData) => {
   try {
     const status = await requestData.status;
-    console.log(status);
     const response = await axios.patch(
       `${httpRequest}/requests/${requestData.id}`,
       {

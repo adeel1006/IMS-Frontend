@@ -20,6 +20,8 @@ const styles = {
     color: "white",
     borderRadius: "5px",
   },
+  name: { fontSize: "1.7em" },
+  contentField: { textAlign: "justify" },
 };
 
 const ViewAdminComplaint = () => {
@@ -50,74 +52,71 @@ const ViewAdminComplaint = () => {
   }
 
   return (
-    <>
-      <Box className="container">
-        <Box className="component-header">
-          <Box className="left-header-content">
-            <Button style={styles.backBtn} onClick={handleGoBack}>
-              <BackArrow />
-              Back
-            </Button>
-            <h1>
-              Complaint ID :{" "}
-              {viewComplaintDetail?.complaint?.id || notAvailable}
-            </h1>
-            <Button style={styles.pendingBtn}>
-              {viewComplaintDetail?.complaint?.status || notAvailable}
-            </Button>
-          </Box>
-
-          {viewComplaintDetail?.complaint?.user?.role == handleResolveBtn && (
-            <Box className="right-header-content">
-              <Button style={styles.resolvedBtn}>Mark as resolved</Button>
-            </Box>
-          )}
+    <Box className="container">
+      <Box className="component-header">
+        <Box className="left-header-content">
+          <Button style={styles.backBtn} onClick={handleGoBack}>
+            <BackArrow />
+            Back
+          </Button>
+          <h1>
+            Complaint ID : {viewComplaintDetail?.complaint?.id || notAvailable}
+          </h1>
+          <Button style={styles.pendingBtn}>
+            {viewComplaintDetail?.complaint?.status || notAvailable}
+          </Button>
         </Box>
 
-        <Box className="complaint-info">
-          <Box className="description-heading">Description</Box>
-          <Box className="complaint-content">
-            <Typography
-              className="description-content"
-              style={{ textAlign: "justify" }}
-            >
-              {viewComplaintDetail?.complaint?.description || notAvailable}
-            </Typography>
+        {viewComplaintDetail?.complaint?.user?.role == handleResolveBtn && (
+          <Box className="right-header-content">
+            <Button style={styles.resolvedBtn}>Mark as resolved</Button>
+          </Box>
+        )}
+      </Box>
 
-            {/* <Typography sx={{ mt: 2 }} fontWeight="bold">
+      <Box className="complaint-info">
+        <Box className="description-heading">Description</Box>
+        <Box className="complaint-content">
+          <Typography
+            className="description-content"
+            style={styles.contentField}
+          >
+            {viewComplaintDetail?.complaint?.description || notAvailable}
+          </Typography>
+
+          {/* <Typography sx={{ mt: 2 }} fontWeight="bold">
               Attachments
             </Typography>
             <Box className="attachment-images">
               <img src={logo} alt="logo" />
             </Box> */}
-          </Box>
         </Box>
-        <Box className="complain-by">
-          <Typography fontWeight="bold" variant="h5" className="cmp-heading">
-            Complaint Submitted By
-          </Typography>
-          <Box className="admin-info">
-            <Box className="profile-pic">
-              <img
-                src={viewComplaintDetail?.complaint?.user?.image || placeholder}
-                alt="profile picture"
-              />
-            </Box>
-            <Box className="admin-details">
-              <Typography className="pri-heading" style={{ fontSize: "1.7em" }}>
-                {viewComplaintDetail?.complaint?.user?.username || notAvailable}
-              </Typography>
-              <Typography className="gray-text">
-                {viewComplaintDetail?.complaint?.user?.email || notAvailable}
-              </Typography>
-              <Typography className="gray-text">
-                {viewComplaintDetail?.complaint?.user?.contact || notAvailable}
-              </Typography>
-            </Box>
+      </Box>
+      <Box className="complain-by">
+        <Typography fontWeight="bold" variant="h5" className="cmp-heading">
+          Complaint Submitted By
+        </Typography>
+        <Box className="admin-info">
+          <Box className="profile-pic">
+            <img
+              src={viewComplaintDetail?.complaint?.user?.image || placeholder}
+              alt="profile picture"
+            />
+          </Box>
+          <Box className="admin-details">
+            <Typography className="pri-heading" style={styles.name}>
+              {viewComplaintDetail?.complaint?.user?.username || notAvailable}
+            </Typography>
+            <Typography className="gray-text">
+              {viewComplaintDetail?.complaint?.user?.email || notAvailable}
+            </Typography>
+            <Typography className="gray-text">
+              {viewComplaintDetail?.complaint?.user?.contact || notAvailable}
+            </Typography>
           </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

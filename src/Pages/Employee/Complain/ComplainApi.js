@@ -20,33 +20,35 @@ export const submitComplaint = async (formData) => {
       throw new Error("Failed to submit complaint");
     }
   } catch (error) {
-    console.log(error);
+    throw new Error("Failed to submit complaint" + error.message);
   }
 };
 
 export const fetchUserComplaints = async () => {
-    try {
-      const response = await axios.get(`${httpRequest}/complaints/userComplaints`, {
+  try {
+    const response = await axios.get(
+      `${httpRequest}/complaints/userComplaints`,
+      {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error("Failed to fetch Requests of a User." + error.message);
-    }
-  };
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch Requests of a User." + error.message);
+  }
+};
 
-  export const fetchUserComplaintDetail = async (id) => {
-    try {
-      const response = await axios.get(`${httpRequest}/complaints/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      throw new Error("Failed to fetch complaint of a User." + error.message);
-    }
-  };
-  
+export const fetchUserComplaintDetail = async (id) => {
+  try {
+    const response = await axios.get(`${httpRequest}/complaints/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch complaint of a User." + error.message);
+  }
+};

@@ -29,7 +29,6 @@ const ViewComplain = () => {
     isError,
   } = useQuery(["complaintDetail", id], () => fetchUserComplaintDetail(id));
 
-  // console.log(JSON.stringify(complaintDetail, null, 2));
   const formattedDate = complaintDetail?.complaint?.submissionDate
     ? new Date(complaintDetail?.complaint?.submissionDate).toLocaleDateString(
         "en-GB",
@@ -65,7 +64,9 @@ const ViewComplain = () => {
             <BackArrow />
             Back
           </Button>
-          <h1>Complain ID : {complaintDetail?.complaint?.id || notAvailable}</h1>
+          <h1>
+            Complain ID : {complaintDetail?.complaint?.id || notAvailable}
+          </h1>
           <Button style={styles.pendingBtn}>
             {complaintDetail?.complaint?.status || notAvailable}
           </Button>

@@ -61,8 +61,6 @@ const Requests = () => {
     );
   });
 
-  // console.log(JSON.stringify(specificRequestsTableData, null, 2));
-
   if (isLoading) {
     return <div className="container">Loading...</div>;
   }

@@ -4,14 +4,10 @@ import { useMutation, useQuery } from "react-query";
 import { submitRequest, fetchCategories } from "./RequestApi";
 import { Box, TextField } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import "./AddRequest.css";
 import SelectBox from "../../../Components/SelectBox";
+import { requestTypes } from "../../../Utils/constants";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-
-const requestTypes = [
-  { value: "Inventory Acquisition", label: "Inventory Acquisition" },
-  { value: "Faulty", label: "Faulty" },
-];
+import "./AddRequest.css";
 
 const AddRequest = () => {
   const [formValues, setFormValues] = useState({

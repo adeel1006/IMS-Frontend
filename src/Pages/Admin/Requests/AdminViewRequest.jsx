@@ -9,8 +9,8 @@ import {
   dangerButton,
   seaGreenBtn,
 } from "../../../Utils/ColorConstants";
-import "./AdminViewRequest.css";
 import { fetchRequest, updateRequestStatus } from "./AdminRequestApi";
+import "./AdminViewRequest.css";
 
 const styles = {
   backBtn: { color: "gray" },

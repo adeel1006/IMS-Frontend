@@ -8,6 +8,7 @@ import SelectBox from "../../../Components/SelectBox";
 import { requestTypes } from "../../../Utils/constants";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import "./AddRequest.css";
+const submitBtn = { backgroundColor: seaGreenBtn };
 
 const AddRequest = () => {
   const [formValues, setFormValues] = useState({
@@ -92,7 +93,7 @@ const AddRequest = () => {
               Cancel
             </button>
             <button
-              style={{ backgroundColor: seaGreenBtn }}
+              style={submitBtn}
               className="save-btn btn"
               onClick={handleSubmit}
             >

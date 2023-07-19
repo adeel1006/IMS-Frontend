@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -40,32 +40,41 @@ const employeeContent = [
   { label: "Complaints", path: "/employeeComplaint" },
 ];
 
-const settings = ["Logout"];
-
 function AppBarz({ userRole }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = (path) => {
+    setAnchorElNav(null);
+    if (path) {
+      navigate(path);
+    }
+  };
+
+  const logout = () => {
+    ["accessToken", "userRole", "userId"].forEach((item) => {
+      localStorage.removeItem(item);
+    });
+    navigate("/login");
   };
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
 
-  const handleCloseUserMenu = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("userRole");
-    localStorage.removeItem("userId");
-    //redirects to the login page when the user logout
-    window.location.href = "/login";
-    setAnchorElUser(null);
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    logout();
   };
 
   let content = [];
@@ -82,17 +91,17 @@ function AppBarz({ userRole }) {
   }
 
   return (
-    <AppBar style={{ backgroundColor: "white" }} position="static">
+    <AppBar sx={{ backgroundColor: "white" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component={Link}
-            to="/"
+            to="#"
             sx={{
               mr: 2,
-              display: { xs: "none", md: "flex" },
+              display: { md: "flex", xs: "none" },
               fontFamily: "monospace",
               fontWeight: 700,
               letterSpacing: ".3rem",
@@ -100,15 +109,23 @@ function AppBarz({ userRole }) {
               textDecoration: "none",
             }}
           >
-            <img
-              style={{ width: "70px", height: "70px" }}
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-              src={Logo}
-              alt="Gigalabs"
-            />
+            <Box
+              sx={{
+                width: 70,
+                height: 70,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <img
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+                src={Logo}
+                alt="Gigalabs"
+              />
+            </Box>
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ flexGrow: 1, display: { md: "none", xs: "flex" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -116,6 +133,7 @@ function AppBarz({ userRole }) {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              sx={{ color: "black" }}
             >
               <MenuIcon />
             </IconButton>
@@ -133,12 +151,12 @@ function AppBarz({ userRole }) {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
             >
               {content.map((page) => (
-                <MenuItem key={page.label} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page.label}
+                  onClick={() => handleCloseNavMenu(page.path)}
+                >
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
@@ -148,10 +166,10 @@ function AppBarz({ userRole }) {
             variant="h5"
             noWrap
             component={Link}
-            to="/"
+            to="#"
             sx={{
               mr: 2,
-              display: { xs: "flex", md: "none" },
+              display: { md: "none", xs: "flex" },
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,
@@ -160,19 +178,27 @@ function AppBarz({ userRole }) {
               textDecoration: "none",
             }}
           >
-            <img
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-              src={Logo}
-              alt="Gigalabs"
-            />
+            <Box
+              sx={{
+                width: 70,
+                height: 70,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              <img
+                style={{ maxWidth: "100%", maxHeight: "100%" }}
+                src={Logo}
+                alt="Gigalabs"
+              />
+            </Box>
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ flexGrow: 1, display: { md: "flex", xs: "none" } }}>
             {content.map((page) => (
               <Button
                 key={page.label}
                 component={Link}
                 to={page.path}
-                onClick={handleCloseNavMenu}
                 sx={{
                   mt: 2,
                   pb: 2.5,
@@ -202,35 +228,32 @@ function AppBarz({ userRole }) {
             ) : (
               <>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <IconButton
+                    onClick={handleOpenUserMenu}
+                    sx={{ p: 0, color: "inherit" }}
+                  >
                     <Avatar alt="Remy Sharp" src={avatar} />
                   </IconButton>
                 </Tooltip>
                 <Menu
                   sx={{ mt: "45px" }}
                   id="menu-appbar"
-                  anchorEl={anchorElUser}
                   anchorOrigin={{
                     vertical: "top",
                     horizontal: "right",
                   }}
-                  keepMounted
                   transformOrigin={{
                     vertical: "top",
                     horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
+                  anchorReference="anchorEl"
+                  anchorEl={anchorElUser}
                 >
-                  {settings.map((setting) => (
-                    <MenuItem
-                      key={setting}
-                      onClick={handleCloseUserMenu}
-                      sx={{ color: "black" }}
-                    >
-                      <Typography textAlign="center">{setting}</Typography>
-                    </MenuItem>
-                  ))}
+                  <MenuItem onClick={handleLogout} sx={{ color: "black" }}>
+                    <Typography textAlign="center">Logout</Typography>
+                  </MenuItem>
                 </Menu>
               </>
             )}

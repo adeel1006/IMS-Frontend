@@ -15,10 +15,17 @@ import {
 import placeHolderImg from "../../../Assets/placeholder.jpg";
 import "./OrganizationList.css";
 
-const btnStyle = {
-  color: "white",
-  backgroundColor: seaGreenBtn,
-  borderRadius: "10px",
+const styles = {
+  btnStyle: {
+    color: "white",
+    backgroundColor: seaGreenBtn,
+    borderRadius: "10px",
+  },
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 const OrganizationList = () => {
@@ -114,7 +121,7 @@ const OrganizationList = () => {
           </Box>
 
           <Box className="org-right-header">
-            <Button style={btnStyle}>
+            <Button style={styles.btnStyle}>
               <AddIcon />
               <Link className="link-style" to="/superAdminOrganization">
                 Add
@@ -123,7 +130,13 @@ const OrganizationList = () => {
           </Box>
         </Box>
         <Box className="org-table">
-          <OrgDataTable rows={filteredOrgTableData} />
+          {!filteredOrgTableData.length ? (
+            <div className="container" style={styles.noData}>
+              No data available
+            </div>
+          ) : (
+            <OrgDataTable rows={filteredOrgTableData} />
+          )}
         </Box>
       </Box>
     </>

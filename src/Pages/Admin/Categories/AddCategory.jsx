@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useNavigate } from "react-router-dom";
 import "./AddCategory.css";
-import { useNavigate } from 'react-router-dom';
 
 const AddCategory = () => {
   const navigateTo = useNavigate();
@@ -35,7 +35,9 @@ const AddCategory = () => {
               <h1>Add New Request</h1>
             </Box>
             <Box className="right-btns header-cate-btns">
-              <button onClick={handleGoBack} className="cancel-btn btn">Cancel</button>
+              <button onClick={handleGoBack} className="cancel-btn btn">
+                Cancel
+              </button>
               <button
                 style={{ backgroundColor: seaGreenBtn }}
                 className="save-btn btn"

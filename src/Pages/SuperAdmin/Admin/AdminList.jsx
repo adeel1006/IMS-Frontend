@@ -10,11 +10,17 @@ import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import AdminDataTable from "./AdminDataTable";
 import placeHolderImg from "../../../Assets/placeholder.jpg";
 import "./AdminList.css";
-
-const btnStyle = {
-  color: "white",
-  backgroundColor: seaGreenBtn,
-  borderRadius: "10px",
+const styles = {
+  btnStyle: {
+    color: "white",
+    backgroundColor: seaGreenBtn,
+    borderRadius: "10px",
+  },
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 const AdminList = () => {
@@ -90,7 +96,7 @@ const AdminList = () => {
           </Box>
 
           <Box className="adm-right-header">
-            <Button style={btnStyle}>
+            <Button style={styles.btnStyle}>
               <AddIcon />
               <Link className="link-style" to="/addAdmin">
                 Add
@@ -99,7 +105,13 @@ const AdminList = () => {
           </Box>
         </Box>
         <Box className="adm-table">
-          <AdminDataTable rows={filteredAdminTableData} />
+          {!filteredAdminTableData.length ? (
+            <div className="container" style={styles.noData}>
+              No data available
+            </div>
+          ) : (
+            <AdminDataTable rows={filteredAdminTableData} />
+          )}
         </Box>
       </Box>
     </>

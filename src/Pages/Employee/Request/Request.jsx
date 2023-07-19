@@ -10,11 +10,18 @@ import DataTable from "../../../Components/DataTable";
 import { updateUserReqData } from "../../../Redux/Reducers/requestSlice";
 import "./Request.css";
 
-const BtnStyle = {
-  fontSize: "smaller",
-  color: "white",
-  backgroundColor: seaGreenBtn,
-  borderRadius: "10px",
+const styles = {
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  BtnStyle: {
+    fontSize: "smaller",
+    color: "white",
+    backgroundColor: seaGreenBtn,
+    borderRadius: "10px",
+  },
 };
 
 const Request = () => {
@@ -80,13 +87,18 @@ const Request = () => {
         </Box>
 
         <Box className="request-right-header">
-          <Button style={BtnStyle} onClick={handleAddRequest}>
+          <Button style={styles.BtnStyle} onClick={handleAddRequest}>
             <AddIcon />
             Create Request
           </Button>
         </Box>
       </Box>
       <Box className="request-table">
+        {!specificUserReqTableData.length && (
+          <div className="container" style={styles.noData}>
+            No data available
+          </div>
+        )}
         <DataTable
           rows={specificUserReqTableData}
           linkString={`/requestDetail/`}

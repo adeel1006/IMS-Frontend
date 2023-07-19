@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { Box, Button } from "@mui/material";
@@ -31,6 +32,9 @@ const styles = {
 };
 
 const AdminDashboard = () => {
+  const complaintData = useSelector(
+    (state) => state.complaints.admUserComplaints
+  );
   let notAvailable = "N/A";
 
   //Employees Count
@@ -58,6 +62,8 @@ const AdminDashboard = () => {
     isLoading: isCategoryLoading,
     isError: isCategoryError,
   } = useQuery("categoryCount", fetchCategoryCount);
+
+  const complaintsTableData = complaintData.slice(-4)
 
   if (isAdmLoading || isInvLoading || isVendorLoading || isCategoryLoading) {
     return (
@@ -137,7 +143,7 @@ const AdminDashboard = () => {
           </Button>
         </Box>
         <Box className="admin-cpm-table">
-          <DataTable rows={tableDataDashboard} />
+          <DataTable rows={complaintsTableData} />
         </Box>
       </Box>
     </Box>

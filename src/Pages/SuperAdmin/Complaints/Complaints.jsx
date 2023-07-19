@@ -14,6 +14,12 @@ import {
 import { complaintStatus } from "../../../Utils/constants";
 import "./Complaints.css";
 
+const noDataStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
 const Complaints = () => {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState("");
@@ -98,6 +104,11 @@ const Complaints = () => {
           </Box>
         </Box>
         <Box className="complaints-table">
+          {!filteredTableData.length && (
+            <div className="container" style={noDataStyle}>
+              No data available
+            </div>
+          )}
           <DataTable
             rows={filteredTableData}
             linkString={`/superAdminComplaintDetails/`}

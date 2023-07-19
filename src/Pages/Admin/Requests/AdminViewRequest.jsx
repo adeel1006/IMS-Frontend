@@ -87,31 +87,37 @@ const AdminViewRequest = () => {
               Back
             </Button>
             <h1>Request ID : {userRequest?.request?.id || notAvailable}</h1>
-            <Button style={styles.pendingBtn}>Pending</Button>
+            <Button style={styles.pendingBtn}>
+              {userRequest?.request?.status}{" "}
+            </Button>
             <Typography sx={styles.subDate}>
               Submission Date: {formattedDate || notAvailable}
             </Typography>
           </Box>
           <Box className="right-header-req">
-            <Button
-              style={{
-                ...styles.reqBtnStyle,
-                backgroundColor: dangerButton,
-              }}
-              onClick={() => handleRejectRequest(id)}
-            >
-              Reject Request
-            </Button>
+            {userRequest?.request?.status == "pending" && (
+              <>
+                <Button
+                  style={{
+                    ...styles.reqBtnStyle,
+                    backgroundColor: dangerButton,
+                  }}
+                  onClick={() => handleRejectRequest(id)}
+                >
+                  Reject Request
+                </Button>
 
-            <Button
-              style={{
-                ...styles.reqBtnStyle,
-                backgroundColor: seaGreenBtn,
-              }}
-              onClick={() => handleAcceptRequest(id)}
-            >
-              Approve Request
-            </Button>
+                <Button
+                  style={{
+                    ...styles.reqBtnStyle,
+                    backgroundColor: seaGreenBtn,
+                  }}
+                  onClick={() => handleAcceptRequest(id)}
+                >
+                  Approve Request
+                </Button>
+              </>
+            )}
           </Box>
         </Box>
 

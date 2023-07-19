@@ -1,44 +1,169 @@
-import React from 'react'
-import "./Vendors.css";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { Link } from "react-router-dom";
-import { options, rows } from '../../../Utils/testingData';
-import { seaGreenBtn } from '../../../Utils/ColorConstants';
-import SelectBox from '../../../Components/SelectBox';
-import SearchBar from '../../../Components/SearchBar';
-import DataTable from '../../../Components/DataTable';
-const fieldWidth = {width:"250px"};
+import { options, rows } from "../../../Utils/testingData";
+import { seaGreenBtn } from "../../../Utils/ColorConstants";
+import SelectBox from "../../../Components/SelectBox";
+import SearchBar from "../../../Components/SearchBar";
+import DataTable from "../../../Components/DataTable";
+import { fetchCategoriesList, fetchVendorsList } from "./vendorApi";
+import "./Vendors.css";
+
+const styles = {
+  heading: { mr: "10px" },
+  fieldWidth: { width: "250px" },
+  addBtn: {
+    color: "white",
+    backgroundColor: seaGreenBtn,
+    borderRadius: "10px",
+  },
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+};
 const Vendors = () => {
+  let notAvailable = "N/A";
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
+  // const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
+  const {
+    data: vendorsList,
+    isLoading,
+    isError,
+  } = useQuery("vendorsList", fetchVendorsList);
+
+  const {
+    data: categoriesList,
+    isLoading: isCateLoading,
+    isError: isCateError,
+  } = useQuery("categoriesList", fetchCategoriesList);
+
+  const categoryList = categoriesList?.map((item) => {
+    const { id, categoryName } = item;
+    return {
+      id: id,
+      value: id,
+      label: categoryName,
+    };
+  });
+  //extracting sub-categories from category data
+  const subCategoryData = [];
+  categoriesList?.forEach((item) => {
+    const { subcategories } = item;
+    subcategories?.forEach((data) => {
+      const { id, name } = data;
+      subCategoryData.push({
+        id: id,
+        value: id,
+        label: name,
+      });
+    });
+  });
+
+  // console.log(JSON.stringify(categoriesList, null, 2));
+
+  const specificVendorTableData = vendorsList?.map((item) => {
+    const {
+      id,
+      vendorName,
+      contactNumber,
+      category,
+      subcategories,
+      totalSpendings,
+      action,
+    } = item;
+    const VendorName = vendorName || notAvailable;
+    const Contact = contactNumber || notAvailable;
+    const Category = category?.categoryName || notAvailable;
+    const Subcategories =
+      subcategories.map((subcategory) => subcategory.name).join(", ") ||
+      notAvailable;
+    const TotalSpendings = totalSpendings || notAvailable;
+    const Action = action || "View";
+
+    return {
+      Id: id,
+      Vendor: VendorName,
+      Contact: Contact,
+      Category: Category,
+      Subcategory: Subcategories,
+      TotalSpendings: TotalSpendings,
+      Action: Action,
+    };
+  });
+
+  const tableData = specificVendorTableData?.filter((item) => {
+    const { Vendor, Category, TotalSpendings } = item;
+
+    if (
+      searchQuery &&
+      !Vendor.toLowerCase().includes(searchQuery.toLowerCase())
+    ) {
+      return false;
+    }
+
+    if (selectedCategory && selectedCategory.value !== Category) {
+      return false;
+    }
+
+    if (
+      minPrice &&
+      (TotalSpendings === notAvailable || TotalSpendings < minPrice)
+    ) {
+      return false;
+    }
+
+    if (
+      maxPrice &&
+      (TotalSpendings === notAvailable || TotalSpendings > maxPrice)
+    ) {
+      return false;
+    }
+
+    return true;
+  });
+
+  if (isLoading || isCateLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError || isCateError) {
+    return (
+      <div className="container">
+        Error occurred while fetching Employees Data.
+      </div>
+    );
+  }
   return (
-    <>
     <Box className="ven-container">
       <Box className="ven-header">
         <Box className="ven-left-header">
-          <Typography sx={{ mr: "10px" }} variant="h3">
+          <Typography sx={styles.heading} variant="h3">
             Vendors
           </Typography>
-          <SearchBar className="searchBar" />
+          <SearchBar className="searchBar" setSearchQuery={setSearchQuery} />
           <SelectBox
             className="selectBox"
             placeHolder={"Select Category"}
-            options={options}
+            options={categoryList}
+            onChange={(selectedValue) => setSelectedCategory(selectedValue)}
           />
-          <SelectBox
+          {/* <SelectBox
             className="selectBox"
             placeHolder={"Select Sub-Category"}
-            options={options}
-          />
+            options={subCategoryData}
+          /> */}
         </Box>
 
         <Box className="ven-right-header">
-          <Button
-            style={{
-              color: "white",
-              backgroundColor: seaGreenBtn,
-              borderRadius: "10px",
-            }}
-          >
+          <Button style={styles.addBtn}>
             <AddIcon />
             <Link className="link-style" to="/addVendor">
               Add Vendor
@@ -49,20 +174,34 @@ const Vendors = () => {
 
       <Box className="price-fields">
         <Box className="filter-btns">
-          <TextField sx={fieldWidth} size="small" placeholder="Min Price" />
+          <TextField
+            sx={styles.fieldWidth}
+            size="small"
+            placeholder="Min Price"
+            onChange={(event) => setMinPrice(event.target.value)}
+          />
         </Box>
 
         <Box className="filter-btns">
-        <TextField sx={fieldWidth} size="small" placeholder="Max Price" />
+          <TextField
+            sx={styles.fieldWidth}
+            size="small"
+            placeholder="Max Price"
+            onChange={(event) => setMaxPrice(event.target.value)}
+          />
         </Box>
       </Box>
 
       <Box className="ven-table">
-        <DataTable rows={rows} />
+        {!tableData.length && (
+          <div className="container" style={styles.noData}>
+            No data available
+          </div>
+        )}
+        <DataTable rows={tableData} linkString={`/viewVendor/`} />
       </Box>
     </Box>
-  </>
-  )
-}
+  );
+};
 
-export default Vendors
+export default Vendors;

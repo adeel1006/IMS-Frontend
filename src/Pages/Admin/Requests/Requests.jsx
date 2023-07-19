@@ -9,6 +9,12 @@ import SearchBar from "../../../Components/SearchBar";
 import SortIcon from "../../../Components/SortIcon";
 import "./Requests.css";
 
+const noDataStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
 const Requests = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -89,6 +95,11 @@ const Requests = () => {
         </Box>
       </Box>
       <Box className="req-table">
+        {!tableData.length && (
+          <div className="container" style={noDataStyle}>
+            No data available
+          </div>
+        )}
         <DataTable rows={tableData} linkString={`/adminViewRequest/`} />
       </Box>
     </Box>

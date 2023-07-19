@@ -3,11 +3,16 @@ import { useQuery } from "react-query";
 import { Box, Typography } from "@mui/material";
 import SearchBar from "../../../Components/SearchBar";
 import SelectBox from "../../../Components/SelectBox";
-import { options, rows } from "../../../Utils/testingData";
 import DataTable from "../../../Components/DataTable";
 import { fetchRequestApprovedData } from "./returnsApi";
 import { requestTypes } from "../../../Utils/constants";
 import "./Returns.css";
+
+const noDataStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+};
 
 const Returns = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -95,6 +100,11 @@ const Returns = () => {
       </Box>
 
       <Box className="return-table">
+        {!tableData.length && (
+          <div className="container" style={noDataStyle}>
+            No data available
+          </div>
+        )}
         <DataTable rows={tableData} linkString={`/viewReturn/`} />
       </Box>
     </Box>

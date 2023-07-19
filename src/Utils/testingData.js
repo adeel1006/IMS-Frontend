@@ -46,8 +46,14 @@ export const data = [
 //Complaints Testing data
 export const options = [
   { value: "Gigalabs", label: "Gigalabs" },
-  { value: "Nextbridge", label: "Netbridge" },
+  { value: "Nextbridge", label: "Nextbridge" },
   { value: "Systems", label: "Systems" },
+];
+
+export const options2 = [
+  { value: "Giga", label: "Giga" },
+  { value: "Next", label: "Next" },
+  { value: "Sys", label: "Sys" },
 ];
 
 export const status = [

@@ -9,12 +9,18 @@ import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import { fetchUserComplaints } from "./ComplainApi";
 import { updateUserComplaints } from "../../../Redux/Reducers/complaintSlice";
 import "./Complaints.css";
-
-const btnStyle = {
-  color: "white",
-  backgroundColor: seaGreenBtn,
-  fontSize: "smaller",
-  borderRadius: "10px",
+const styles = {
+  btnStyle: {
+    color: "white",
+    backgroundColor: seaGreenBtn,
+    fontSize: "smaller",
+    borderRadius: "10px",
+  },
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 const Complaints = () => {
@@ -72,13 +78,18 @@ const Complaints = () => {
           </Box>
 
           <Box className="complaints-right-header">
-            <Button onClick={handleAddRequest} style={btnStyle}>
+            <Button onClick={handleAddRequest} style={styles.btnStyle}>
               <AddIcon />
               Create Complain
             </Button>
           </Box>
         </Box>
         <Box className="complaints-table">
+          {!specificUserComplaintTableData.length && (
+            <div className="container" style={styles.noData}>
+              No data available
+            </div>
+          )}
           <DataTable
             rows={specificUserComplaintTableData}
             linkString={`/complaintDetail/`}

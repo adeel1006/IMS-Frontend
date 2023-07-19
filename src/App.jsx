@@ -147,7 +147,7 @@ function App() {
         />
         <Route path="/vendors" exact element={<Vendors />} />
         <Route path="/addVendor" exact element={<AddVendors />} />
-        <Route path="/viewVendor" exact element={<ViewVendor />} />
+        <Route path="/viewVendor/:id" exact element={<ViewVendor />} />
 
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFoundPage />} />

@@ -1,68 +1,151 @@
-import React from 'react'
-import "./AddVendors";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery } from "react-query";
+import { TextField, Button, Box } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { grayBtn, seaGreenBtn } from '../../../Utils/ColorConstants';
-import { options } from '../../../Utils/testingData';
-import SelectBox from '../../../Components/SelectBox';
-import { useNavigate } from 'react-router-dom';
+import { grayBtn, seaGreenBtn } from "../../../Utils/ColorConstants";
+import { addVendor, fetchCategories } from "./vendorApi";
+import SelectBox from "../../../Components/SelectBox";
+import "./AddVendors";
+
+const styles = {
+  backBtn: { color: "gray" },
+  cancelBtn: {
+    color: "gray",
+    backgroundColor: grayBtn,
+    borderRadius: "10px",
+    marginRight: "8%",
+    padding: "5%",
+  },
+  saveBtn: {
+    color: "white",
+    backgroundColor: seaGreenBtn,
+    borderRadius: "10px",
+  },
+  fieldWidth: { width: "32%" },
+};
 
 const AddVendors = () => {
+  const [formValues, setFormValues] = useState({
+    vendorName: "",
+    contactNumber: "",
+    category: "",
+    subCategory: [],
+  });
   const navigateTo = useNavigate();
   const handleGoBack = () => {
     navigateTo(-1);
   };
+  const submitFormMutation = useMutation(addVendor);
+
+  const {
+    data: categories,
+    isLoading,
+    isError,
+  } = useQuery("categories", fetchCategories);
+
+  const categoriesList = categories?.map((item) => {
+    const { id, categoryName } = item;
+    return {
+      id: id,
+      value: id,
+      label: categoryName,
+    };
+  });
+
+  //Extracting the subcategory array to make specific props array
+  const subCategoryData = [];
+  categories?.forEach((item) => {
+    const { subcategories } = item;
+
+    subcategories?.forEach((data) => {
+      const { id, name } = data;
+      subCategoryData.push({
+        value: id,
+        label: name,
+      });
+    });
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    submitFormMutation.mutate(formValues);
+    navigateTo(-1);
+  };
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="container">Error occurred while fetching categories.</div>
+    );
+  }
 
   return (
-    <>
     <Box className="container">
       <Box className="header-mainItem">
-
         <Box className="left-header">
-          <Button onClick={handleGoBack} style={{color:"gray"}}>
+          <Button onClick={handleGoBack} style={styles.backBtn}>
             <KeyboardBackspaceIcon />
             Back
           </Button>
         </Box>
 
         <Box className="right-header">
-          <Button onClick={handleGoBack} style={{ color: "gray", backgroundColor: grayBtn , borderRadius:"10px", marginRight:"8%", padding:"5%"}}>
+          <Button onClick={handleGoBack} style={styles.cancelBtn}>
             Cancel
           </Button>
-          <Button style={{ color: "white", backgroundColor: seaGreenBtn, borderRadius:"10px" }}>
+          <Button style={styles.saveBtn} onClick={handleSubmit}>
             Save
           </Button>
         </Box>
-
-
       </Box>
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <Box className="data-field">
           <span className="form-left">Name</span>
           <TextField
             required
             size="small"
             placeholder="Name"
-            style={{ width: "32%" }}
-          ></TextField>
+            style={styles.fieldWidth}
+            name="vendorName"
+            value={formValues.vendorName}
+            onChange={handleChange}
+          />
         </Box>
         <Box className="data-field">
           <span className="form-left">Contact Number</span>
           <TextField
             required
+            type="number"
             size="small"
             placeholder="Enter Contact number"
-            style={{ width: "32%" }}
-          ></TextField>
+            name="contactNumber"
+            value={formValues.contactNumber}
+            onChange={handleChange}
+            style={styles.fieldWidth}
+          />
         </Box>
-       
+
         <Box className="data-field">
           <span className="form-left">Category</span>
           <SelectBox
             marginLeft={0}
             minWidth={500}
-            options={options}
+            options={categoriesList}
             placeHolder={"Select Category"}
+            name="category"
+            value={formValues.category}
+            onChange={handleChange}
           />
         </Box>
         <Box className="data-field">
@@ -70,15 +153,17 @@ const AddVendors = () => {
           <SelectBox
             marginLeft={0}
             minWidth={500}
-            options={options}
+            options={subCategoryData}
             placeHolder={"Select Sub-category"}
+            name="subCategory"
+            value={formValues.subCategory}
+            onChange={handleChange}
+            multiple
           />
         </Box>
-
       </form>
     </Box>
-  </>
-  )
-}
+  );
+};
 
-export default AddVendors
+export default AddVendors;

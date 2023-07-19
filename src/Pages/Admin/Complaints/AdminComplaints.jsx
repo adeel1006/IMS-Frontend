@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import {
   fetchEmployeesComplaints,
 } from "./AdminComplainApi";
 import { complaintStatus } from "../../../Utils/constants";
+import { updateAdmUserComplaints } from "../../../Redux/Reducers/complaintSlice";
 import "./AdminComplaints.css";
 
 const styles = {
@@ -29,6 +30,11 @@ const styles = {
     fontWeight: "bold",
   },
   blackTextBtn: { color: "black" },
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 };
 
 const AdminComplaints = () => {
@@ -111,6 +117,11 @@ const AdminComplaints = () => {
       );
     }
   );
+  //Store in redux store for the usage in admin dashboard
+  useEffect(() => {
+    dispatch(updateAdmUserComplaints(specificAdmComplaintTableData));
+  }, [admUserComplaints]);
+
   if (isLoading || isAdmLoading) {
     return <div className="container">Loading...</div>;
   }
@@ -177,6 +188,11 @@ const AdminComplaints = () => {
           <>
             {employeeTab && (
               <Box className="inventory-table">
+                {!empTableData.length && (
+                  <div className="container" style={styles.noData}>
+                    No data available
+                  </div>
+                )}
                 <DataTable
                   rows={empTableData}
                   linkString={`/adminViewComplaints/`}
@@ -187,6 +203,11 @@ const AdminComplaints = () => {
           <>
             {SubmittedTab && (
               <Box className="request-table">
+                {!submittedAdmTableData.length && (
+                  <div className="container" style={styles.noData}>
+                    No data available
+                  </div>
+                )}
                 <DataTable
                   rows={submittedAdmTableData}
                   linkString={`/adminViewComplaints/`}

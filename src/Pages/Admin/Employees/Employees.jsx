@@ -11,6 +11,18 @@ import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import { fetchEmployeesList } from "./AdminEmployeeApi";
 import "./Employees.css";
 
+const styles = {
+  addBtnStyle: {
+    color: "white",
+    backgroundColor: seaGreenBtn,
+    borderRadius: "10px",
+  },
+  noData: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+};
 const addBtnStyle = {
   color: "white",
   backgroundColor: seaGreenBtn,
@@ -86,7 +98,7 @@ const Employees = () => {
         </Box>
 
         <Box className="emp-right-header">
-          <Button style={addBtnStyle}>
+          <Button style={styles.addBtnStyle}>
             <AddIcon />
             <Link className="link-style" to="/addEmployee">
               Add Employee
@@ -102,6 +114,11 @@ const Employees = () => {
         </Box> */}
 
       <Box className="emp-table">
+        {!tableData.length && (
+          <div className="container" style={styles.noData}>
+            No data available
+          </div>
+        )}
         <DataTable rows={tableData} linkString={`/viewEmployee/`} />
       </Box>
     </Box>

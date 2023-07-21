@@ -3,12 +3,11 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { options, rows } from "../../../Utils/testingData";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import SelectBox from "../../../Components/SelectBox";
 import SearchBar from "../../../Components/SearchBar";
 import DataTable from "../../../Components/DataTable";
-import { fetchCategoriesList, fetchVendorsList } from "./vendorApi";
+import { fetchCategories, fetchVendorsList } from "./vendorApi";
 import "./Vendors.css";
 
 const styles = {
@@ -31,8 +30,7 @@ const Vendors = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
-  // const [selectedSubCategory, setSelectedSubCategory] = useState("");
-
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const {
     data: vendorsList,
     isLoading,
@@ -43,13 +41,13 @@ const Vendors = () => {
     data: categoriesList,
     isLoading: isCateLoading,
     isError: isCateError,
-  } = useQuery("categoriesList", fetchCategoriesList);
+  } = useQuery("categoriesList", fetchCategories);
 
   const categoryList = categoriesList?.map((item) => {
     const { id, categoryName } = item;
     return {
       id: id,
-      value: id,
+      value: categoryName + id,
       label: categoryName,
     };
   });
@@ -82,8 +80,10 @@ const Vendors = () => {
     const VendorName = vendorName || notAvailable;
     const Contact = contactNumber || notAvailable;
     const Category = category?.categoryName || notAvailable;
+    const CategoryID = category?.id || notAvailable;
+    const SubcategoryID = subcategories?.id || notAvailable;
     const Subcategories =
-      subcategories.map((subcategory) => subcategory.name).join(", ") ||
+      subcategories?.map((subcategory) => subcategory.name).join(", ") ||
       notAvailable;
     const TotalSpendings = totalSpendings || notAvailable;
     const Action = action || "View";
@@ -96,11 +96,14 @@ const Vendors = () => {
       Subcategory: Subcategories,
       TotalSpendings: TotalSpendings,
       Action: Action,
+      CategoryID: CategoryID,
+      SubcategoryID: SubcategoryID,
     };
   });
 
   const tableData = specificVendorTableData?.filter((item) => {
-    const { Vendor, Category, TotalSpendings } = item;
+    const { Vendor, Category, CategoryID, SubcategoryID, TotalSpendings } =
+      item;
 
     if (
       searchQuery &&
@@ -109,7 +112,11 @@ const Vendors = () => {
       return false;
     }
 
-    if (selectedCategory && selectedCategory.value !== Category) {
+    if (selectedCategory && selectedCategory !== Category + CategoryID) {
+      return false;
+    }
+
+    if (selectedSubCategory && selectedSubCategory !== SubcategoryID) {
       return false;
     }
 
@@ -153,13 +160,14 @@ const Vendors = () => {
             className="selectBox"
             placeHolder={"Select Category"}
             options={categoryList}
-            onChange={(selectedValue) => setSelectedCategory(selectedValue)}
+            onChange={(e) => setSelectedCategory(e.target.value)}
           />
-          {/* <SelectBox
+          <SelectBox
             className="selectBox"
             placeHolder={"Select Sub-Category"}
             options={subCategoryData}
-          /> */}
+            onChange={(e) => setSelectedSubCategory(e.target.value)}
+          />
         </Box>
 
         <Box className="ven-right-header">
@@ -198,7 +206,10 @@ const Vendors = () => {
             No data available
           </div>
         )}
-        <DataTable rows={tableData} linkString={`/viewVendor/`} />
+        <DataTable
+          rows={tableData.map(({ CategoryID, ...rest }) => rest)}
+          linkString={`/viewVendor/`}
+        />
       </Box>
     </Box>
   );

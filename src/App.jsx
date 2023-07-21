@@ -125,7 +125,7 @@ function App() {
         />
         <Route path="/adminInventory" exact element={<Inventory />} />
         <Route path="/addItem" exact element={<AddItem />} />
-        <Route path="/viewItem" exact element={<ViewItem />} />
+        <Route path="/viewItem/:id" exact element={<ViewItem />} />
         <Route path="/categories" exact element={<Categories />} />
         <Route path="/addCategory" exact element={<AddCategory />} />
         <Route path="/viewCategory" exact element={<ViewCategory />} />

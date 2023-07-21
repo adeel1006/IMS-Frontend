@@ -33,6 +33,14 @@ const ViewVendor = () => {
     navigateTo(-1);
   };
 
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return <div className="container">Error occurred while fetching Data.</div>;
+  }
+
   return (
     <Box className="container">
       <Box className="component-header">

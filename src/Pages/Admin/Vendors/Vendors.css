@@ -1,53 +1,52 @@
 .ven-container {
-    width: 85%;
-    background-color: white;
+  width: 85%;
+  background-color: white;
+  margin: 3%;
+  padding: 3%;
+  border-radius: 20px;
+}
+
+.ven-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price-fields {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.filter-btns {
+  color: white;
+  border-radius: 20px;
+  margin: 1% 0.5%;
+}
+
+.ven-left-header {
+  display: flex;
+  align-items: center;
+  width: 55%;
+  justify-content: space-between;
+}
+.ven-right-header {
+  background-color: white;
+  border-radius: 10px;
+}
+
+/* Media query for responsivenes Md  */
+@media (max-width: 990px) {
+  .ven-container {
+    width: 90%;
     margin: 3%;
-    padding: 3%;
-    border-radius: 20px;
-  }
-  
-  .ven-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    padding: 2%;
   }
 
-  .price-fields{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  .filter-btns{
-    color: white;
-    border-radius: 20px;
-    margin: 1% 0.5%
-  }
-  
   .ven-left-header {
-    display: flex;
-    align-items: center;
-    width: 55%;
-    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1rem;
   }
-  .ven-right-header{
-    background-color: white;
-    border-radius: 10px;
-  }
-  
-  /* Media query for responsivenes Md  */
-  @media (max-width: 768px) {
-    .ven-container {
-      width: 90%;
-      margin: 3%;
-      padding: 2%;
-    }
-  
-    .ven-left-header {
-      width: 100%;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 1rem;
-    }
-  }
-  
+}

@@ -18,3 +18,16 @@ export const addCategory = async (formData) => {
     throw new Error("Failed to add category" + error.message);
   }
 };
+
+export const fetchCategories = async () => {
+  try {
+    const response = await axios.get(`${httpRequest}/category/list`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch Categories." + error.message);
+  }
+};

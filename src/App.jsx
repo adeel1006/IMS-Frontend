@@ -128,7 +128,7 @@ function App() {
         <Route path="/viewItem/:id" exact element={<ViewItem />} />
         <Route path="/categories" exact element={<Categories />} />
         <Route path="/addCategory" exact element={<AddCategory />} />
-        <Route path="/viewCategory" exact element={<ViewCategory />} />
+        <Route path="/viewCategory/:id" exact element={<ViewCategory />} />
         <Route path="/employees" exact element={<Employees />} />
         <Route path="/addEmployee" exact element={<AddEmployee />} />
         <Route path="/viewEmployee/:id" exact element={<ViewEmployee />} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
@@ -8,6 +8,7 @@ import SearchBar from "../../../Components/SearchBar";
 import CollapsibleTable from "../../../Components/CollapsibleTable";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import { rows } from "../../../Utils/collapsibleData";
+import { fetchCategories } from "./CategoriesApi";
 import "./Categories.css";
 
 const styles = {
@@ -20,6 +21,26 @@ const styles = {
 };
 
 const Categories = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const {
+    data: categoriesList,
+    isLoading,
+    isError,
+  } = useQuery("categoriesList", fetchCategories);
+
+  // console.log(JSON.stringify(categoriesList, null, 2));
+
+  const filteredCategories = categoriesList?.filter((category) =>
+    category.CategoryName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  if (isLoading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (isError) {
+    return <div className="container">Error occurred while fetching Data.</div>;
+  }
   return (
     <Box className="cate-container">
       <Box className="cate-header">
@@ -27,7 +48,7 @@ const Categories = () => {
           <Typography sx={styles.heading} variant="h3">
             Categories
           </Typography>
-          <SearchBar className="searchBar" />
+          <SearchBar className="searchBar" setSearchQuery={setSearchQuery} />
         </Box>
 
         <Box className="cate-right-header">
@@ -47,7 +68,10 @@ const Categories = () => {
       </Box>
 
       <Box className="cate-table">
-        <CollapsibleTable rows={rows} />
+        <CollapsibleTable
+          rows={filteredCategories}
+          linkString={`/viewCategory/`}
+        />
       </Box>
     </Box>
   );

@@ -8,3 +8,5 @@ export const dangerButton = '#DE0303';
 export const grayBtn = '#ededed';
 //red Button
 export const redBtn = 'red';
+//Gray 50% opacity
+export const grayOp = 'rgba(0, 0, 0, 0.5)'

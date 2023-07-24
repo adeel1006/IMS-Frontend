@@ -1,158 +1,4 @@
-// import * as React from "react";
-// import PropTypes from "prop-types";
-// import Box from "@mui/material/Box";
-// import Collapse from "@mui/material/Collapse";
-// import IconButton from "@mui/material/IconButton";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Typography from "@mui/material/Typography";
-// import Paper from "@mui/material/Paper";
-// import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-// import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-
-// function createData(name, calories, fat, carbs, protein, price) {
-//   return {
-//     name,
-//     calories,
-//     fat,
-//     carbs,
-//     protein,
-//     price,
-//     history: [
-//       {
-//         date: "2020-01-05",
-//         customerId: "11091700",
-//         amount: 3,
-//       },
-//       {
-//         date: "2020-01-02",
-//         customerId: "Anonymous",
-//         amount: 1,
-//       },
-//     ],
-//   };
-// }
-
-// function Row(props) {
-//   const { row } = props;
-//   const [open, setOpen] = React.useState(false);
-
-//   return (
-//     <React.Fragment>
-//       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-//         <TableCell component="th" scope="row">
-//           {row.name}
-//         </TableCell>
-//         <TableCell align="left">{row.calories}</TableCell>
-//         <TableCell align="left">{row.fat}</TableCell>
-//         <TableCell align="left">{row.carbs}</TableCell>
-//         <TableCell align="left">{row.protein}</TableCell>
-//         <TableCell>
-//           <IconButton
-//             aria-label="expand row"
-//             size="small"
-//             onClick={() => setOpen(!open)}
-//           >
-//             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-//           </IconButton>
-//         </TableCell>
-//       </TableRow>
-//       <TableRow>
-//         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-//           <Collapse in={open} timeout="auto" unmountOnExit>
-//             <Box sx={{ margin: 1 }}>
-//               <Typography variant="h6" gutterBottom component="div">
-//                 History
-//               </Typography>
-//               <Table size="small" aria-label="purchases">
-//                 <TableHead>
-//                   <TableRow>
-//                     <TableCell>Date</TableCell>
-//                     <TableCell>Customer</TableCell>
-//                     <TableCell align="right">Amount</TableCell>
-//                     <TableCell align="right">Total price ($)</TableCell>
-//                   </TableRow>
-//                 </TableHead>
-//                 <TableBody>
-//                   {row.history.map((historyRow) => (
-//                     <TableRow key={historyRow.date}>
-//                       <TableCell component="th" scope="row">
-//                         {historyRow.date}
-//                       </TableCell>
-//                       <TableCell>{historyRow.customerId}</TableCell>
-//                       <TableCell align="right">{historyRow.amount}</TableCell>
-//                       <TableCell align="right">
-//                         {Math.round(historyRow.amount * row.price * 100) / 100}
-//                       </TableCell>
-//                     </TableRow>
-//                   ))}
-//                 </TableBody>
-//               </Table>
-//             </Box>
-//           </Collapse>
-//         </TableCell>
-//       </TableRow>
-//     </React.Fragment>
-//   );
-// }
-
-// Row.propTypes = {
-//   row: PropTypes.shape({
-//     calories: PropTypes.number.isRequired,
-//     carbs: PropTypes.number.isRequired,
-//     fat: PropTypes.number.isRequired,
-//     history: PropTypes.arrayOf(
-//       PropTypes.shape({
-//         amount: PropTypes.number.isRequired,
-//         customerId: PropTypes.string.isRequired,
-//         date: PropTypes.string.isRequired,
-//       })
-//     ).isRequired,
-//     name: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     protein: PropTypes.number.isRequired,
-//   }).isRequired,
-// };
-
-// const rows = [
-//   createData("Frozen yoghurt", 159, 6.0, 24, 4.0, 3.99),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3, 4.99),
-//   createData("Eclair", 262, 16.0, 24, 6.0, 3.79),
-//   createData("Cupcake", 305, 3.7, 67, 4.3, 2.5),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9, 1.5),
-// ];
-
-// export default function CollapsibleTable() {
-//   return (
-//     <TableContainer component={Paper}>
-//       <Table aria-label="collapsible table">
-//         <TableHead>
-//           <TableRow>
-//             <TableCell align="left">Dessert (100g serving)</TableCell>
-//             <TableCell align="left">Calories</TableCell>
-//             <TableCell align="left">Fat&nbsp;(g)</TableCell>
-//             <TableCell align="left">Carbs&nbsp;(g)</TableCell>
-//             <TableCell align="left">Protein&nbsp;(g)</TableCell>
-//           </TableRow>
-//         </TableHead>
-//         <TableBody>
-//           {rows.map((row) => (
-//             <Row key={row.name} row={row} />
-//           ))}
-//         </TableBody>
-//       </Table>
-//     </TableContainer>
-//   );
-// }
-
-
-//myTable
-
-import React from "react";
+import React, { useState } from "react";
 import {
   Table,
   TableHead,
@@ -160,21 +6,41 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Typography,
-  Paper,
-  Box,
   Collapse,
   IconButton,
+  Box,
+  Paper,
+  Button,
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { cornFlowerBlue } from "../Utils/ColorConstants";
+import AddIcon from "@mui/icons-material/Add";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import {
+  cornFlowerBlue,
+  dangerButton,
+  grayOp,
+  seaGreenBtn,
+} from "../Utils/ColorConstants";
+import { Link } from "react-router-dom";
 
-const headerRowClr = {color:"white"}
+const styles = {
+  headerRowClr: { color: "white" },
+  add: { color: seaGreenBtn },
+  edit: { color: grayOp },
+  delete: { color: dangerButton },
+  tableWidth: { minWidth: 700 },
+  tableHead: { backgroundColor: cornFlowerBlue, color: "white" },
+  collapseMargin: { margin: 1 },
+};
 
-const DataTable = ({rows}) => {
-  // State to keep track of the opened row
-  const [openRow, setOpenRow] = React.useState(null);
+const DataTable = ({ rows, linkString }) => {
+  const [openRow, setOpenRow] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 7;
 
   const handleRowClick = (index) => {
     if (openRow === index) {
@@ -184,30 +50,85 @@ const DataTable = ({rows}) => {
     }
   };
 
+  const handleAddAction = (id) => {
+    console.log(id);
+  };
+
+  const handleEditAction = (id) => {
+    console.log(id);
+  };
+
+  const handleDeleteAction = (id) => {
+    console.log(id);
+  };
+
+  // Calculate the index of the first and last row to display based on the current page and rowsPerPage.
+  const firstRowIndex = (currentPage - 1) * rowsPerPage;
+  const lastRowIndex = Math.min(firstRowIndex + rowsPerPage, rows?.length);
+
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead style={{backgroundColor:cornFlowerBlue, color:"white"}}>
+      <Table sx={styles.tableWidth} aria-label="collapsible table">
+        <TableHead style={styles.tableHead}>
           <TableRow>
-            <TableCell sx={headerRowClr} align="left">Dessert (100g serving)</TableCell>
-            <TableCell sx={headerRowClr} align="left">Calories</TableCell>
-            <TableCell sx={headerRowClr} align="left">Fat&nbsp;(g)</TableCell>
-            <TableCell sx={headerRowClr} align="left">Carbs&nbsp;(g)</TableCell>
-            <TableCell sx={headerRowClr} align="left">Protein&nbsp;(g)</TableCell>
-            <TableCell sx={headerRowClr} align="left"></TableCell>
+            <TableCell sx={styles.headerRowClr} align="left">
+              ID
+            </TableCell>
+            <TableCell sx={styles.headerRowClr} align="left">
+              Category Name
+            </TableCell>
+            <TableCell sx={styles.headerRowClr} align="center">
+              Number of Subcategories
+            </TableCell>
+            <TableCell sx={styles.headerRowClr} align="center">
+              Number of Vendors
+            </TableCell>
+            <TableCell sx={styles.headerRowClr} align="center">
+              Action
+            </TableCell>
+            <TableCell sx={styles.headerRowClr} align="left"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
-            <React.Fragment key={row.name}>
+          {rows?.slice(firstRowIndex, lastRowIndex).map((row, index) => (
+            <React.Fragment key={row.ID}>
               <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  {row.ID}
                 </TableCell>
-                <TableCell align="left">{row.calories}</TableCell>
-                <TableCell align="left">{row.fat}</TableCell>
-                <TableCell align="left">{row.carbs}</TableCell>
-                <TableCell align="left">{row.protein}</TableCell>
+                <TableCell component="th" scope="row">
+                  {row.CategoryName}
+                </TableCell>
+                <TableCell align="center">
+                  {row.NumberofSubcategories}
+                </TableCell>
+                <TableCell align="center">{row.NumberOfVendors}</TableCell>
+                <TableCell align="center">
+                  {row.Action === "Add or Delete" ? (
+                    <>
+                      <Button
+                        style={styles.add}
+                        onClick={() => handleAddAction(row.ID)}
+                      >
+                        <AddIcon />
+                      </Button>
+                      <Button
+                        style={styles.edit}
+                        onClick={() => handleEditAction(row.ID)}
+                      >
+                        <EditOutlinedIcon />
+                      </Button>
+                      <Button
+                        style={styles.delete}
+                        onClick={() => handleDeleteAction(row.ID)}
+                      >
+                        <DeleteOutlineIcon />
+                      </Button>
+                    </>
+                  ) : (
+                    row.Action
+                  )}
+                </TableCell>
                 <TableCell>
                   <IconButton
                     aria-label="expand row"
@@ -223,33 +144,42 @@ const DataTable = ({rows}) => {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell
+                  style={{ paddingBottom: 0, paddingTop: 0 }}
+                  colSpan={6}
+                >
                   <Collapse in={openRow === index} timeout="auto" unmountOnExit>
-                    <Box sx={{ margin: 1 }}>
-                      <Typography variant="h6" gutterBottom component="div">
-                        History
-                      </Typography>
-                      <Table size="small" aria-label="purchases">
+                    <Box sx={styles.collapseMargin}>
+                      <Table size="small" aria-label="subcategories">
                         <TableHead>
                           <TableRow>
-                            <TableCell>Date</TableCell>
-                            <TableCell>Customer</TableCell>
-                            <TableCell align="right">Amount</TableCell>
-                            <TableCell align="right">Total price ($)</TableCell>
+                            <TableCell>Subcategory Name</TableCell>
+                            <TableCell>Vendor Name</TableCell>
+                            <TableCell align="right">Items Quantity</TableCell>
+                            <TableCell>Action</TableCell>
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {row.history.map((historyRow) => (
-                            <TableRow key={historyRow.date}>
+                          {row.subcategories.map((subcat, subIndex) => (
+                            <TableRow key={subIndex}>
                               <TableCell component="th" scope="row">
-                                {historyRow.date}
+                                {subcat.SubcategoryName}
                               </TableCell>
-                              <TableCell>{historyRow.customerId}</TableCell>
-                              <TableCell align="right">{historyRow.amount}</TableCell>
+                              <TableCell>{subcat.VendorName}</TableCell>
                               <TableCell align="right">
-                                {Math.round(
-                                  historyRow.amount * row.price * 100
-                                ) / 100}
+                                {subcat.ItemsQuantity}
+                              </TableCell>
+                              <TableCell>
+                                <Link to={linkString + `${row.ID}`}>
+                                  <Button
+                                    sx={{
+                                      fontSize: "x-small",
+                                      marginLeft: "-12px",
+                                    }}
+                                  >
+                                    {subcat.Action}
+                                  </Button>
+                                </Link>
                               </TableCell>
                             </TableRow>
                           ))}
@@ -263,6 +193,21 @@ const DataTable = ({rows}) => {
           ))}
         </TableBody>
       </Table>
+      {rows?.length > rowsPerPage && (
+        <Box>
+          <Stack spacing={2} sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+            <Box sx={{ marginLeft: "auto" }}>
+              <Pagination
+                count={Math.ceil(rows.length / rowsPerPage)}
+                page={currentPage}
+                onChange={(event, page) => setCurrentPage(page)}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Box>
+          </Stack>
+        </Box>
+      )}
     </TableContainer>
   );
 };

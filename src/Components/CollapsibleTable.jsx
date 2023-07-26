@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { useMutation } from "react-query";
 import {
   Table,
   TableHead,
@@ -11,6 +13,7 @@ import {
   Box,
   Paper,
   Button,
+  Alert,
 } from "@mui/material";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
@@ -19,13 +22,13 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { deleteCategory } from "../Pages/Admin/Categories/CategoriesApi";
 import {
   cornFlowerBlue,
   dangerButton,
   grayOp,
   seaGreenBtn,
 } from "../Utils/ColorConstants";
-import { Link } from "react-router-dom";
 
 const styles = {
   headerRowClr: { color: "white" },
@@ -35,12 +38,22 @@ const styles = {
   tableWidth: { minWidth: 700 },
   tableHead: { backgroundColor: cornFlowerBlue, color: "white" },
   collapseMargin: { margin: 1 },
+  stack: { marginTop: "1rem", marginBottom: "1rem" },
 };
 
 const DataTable = ({ rows, linkString }) => {
+  const navigateTo = useNavigate();
   const [openRow, setOpenRow] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 7;
+
+  const deleteCategoryMutation = useMutation(deleteCategory, {
+    onSuccess: (data) => {
+      setShowAlert(data.message);
+      setTimeout(() => setShowAlert(false), 5000);
+    },
+  });
 
   const handleRowClick = (index) => {
     if (openRow === index) {
@@ -51,23 +64,28 @@ const DataTable = ({ rows, linkString }) => {
   };
 
   const handleAddAction = (id) => {
-    console.log(id);
+    // console.log(id);
+    navigateTo("/addCategory");
   };
 
   const handleEditAction = (id) => {
-    console.log(id);
+    navigateTo(`/editCategory/${id}`);
   };
 
   const handleDeleteAction = (id) => {
-    console.log(id);
+    deleteCategoryMutation.mutate(id);
   };
 
-  // Calculate the index of the first and last row to display based on the current page and rowsPerPage.
   const firstRowIndex = (currentPage - 1) * rowsPerPage;
   const lastRowIndex = Math.min(firstRowIndex + rowsPerPage, rows?.length);
 
   return (
     <TableContainer component={Paper}>
+      {showAlert && (
+        <Alert severity="success" onClose={() => setShowAlert(false)}>
+          {showAlert}
+        </Alert>
+      )}
       <Table sx={styles.tableWidth} aria-label="collapsible table">
         <TableHead style={styles.tableHead}>
           <TableRow>
@@ -195,7 +213,7 @@ const DataTable = ({ rows, linkString }) => {
       </Table>
       {rows?.length > rowsPerPage && (
         <Box>
-          <Stack spacing={2} sx={{ marginTop: "1rem", marginBottom: "1rem" }}>
+          <Stack spacing={2} sx={styles.stack}>
             <Box sx={{ marginLeft: "auto" }}>
               <Pagination
                 count={Math.ceil(rows.length / rowsPerPage)}

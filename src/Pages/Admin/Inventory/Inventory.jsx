@@ -153,7 +153,7 @@ const Inventory = () => {
         </Box>
       </Box>
 
-      <Box className="sort-btns">
+      {/* <Box className="sort-btns">
         <Box className="filter-btn">
           <SortIcon defaultDirection="asc" value="AZ" />
         </Box>
@@ -161,7 +161,7 @@ const Inventory = () => {
         <Box className="filter-btn">
           <SortIcon defaultDirection="asc" value="09" />
         </Box>
-      </Box>
+      </Box> */}
 
       <Box className="inv-table">
         {!tableData.length && (

@@ -7,7 +7,6 @@ import SortIcon from "../../../Components/SortIcon";
 import SearchBar from "../../../Components/SearchBar";
 import CollapsibleTable from "../../../Components/CollapsibleTable";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import { rows } from "../../../Utils/collapsibleData";
 import { fetchCategories } from "./CategoriesApi";
 import "./Categories.css";
 
@@ -22,17 +21,30 @@ const styles = {
 
 const Categories = () => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [sortDirection, setSortDirection] = useState("AZ");
   const {
     data: categoriesList,
     isLoading,
     isError,
   } = useQuery("categoriesList", fetchCategories);
 
-  // console.log(JSON.stringify(categoriesList, null, 2));
+  const handleSort = () => {
+    setSortDirection(sortDirection === "AZ" ? "ZA" : "AZ");
+  };
 
-  const filteredCategories = categoriesList?.filter((category) =>
-    category.CategoryName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredCategories = categoriesList
+    ?.filter((category) =>
+      category?.CategoryName?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      const nameA = a.CategoryName.toLowerCase();
+      const nameB = b.CategoryName.toLowerCase();
+      if (sortDirection === "AZ") {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
 
   if (isLoading) {
     return <div className="container">Loading...</div>;
@@ -62,8 +74,8 @@ const Categories = () => {
       </Box>
 
       <Box className="sort-btns">
-        <Box className="filter-btn">
-          <SortIcon defaultDirection="asc" value="AZ" />
+        <Box className="filter-btn" onClick={handleSort}>
+          <SortIcon defaultDirection="AZ" value={sortDirection} />
         </Box>
       </Box>
 

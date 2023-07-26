@@ -31,6 +31,7 @@ const Vendors = () => {
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
   const {
     data: vendorsList,
     isLoading,
@@ -207,7 +208,7 @@ const Vendors = () => {
           </div>
         )}
         <DataTable
-          rows={tableData.map(({ CategoryID, ...rest }) => rest)}
+          rows={tableData.map(({ CategoryID, SubcategoryID, ...rest }) => rest)}
           linkString={`/viewVendor/`}
         />
       </Box>

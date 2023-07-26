@@ -30,6 +30,7 @@ import ViewItem from "./Pages/Admin/Inventory/ViewItem";
 import Categories from "./Pages/Admin/Categories/Categories";
 import AddCategory from "./Pages/Admin/Categories/AddCategory";
 import ViewCategory from "./Pages/Admin/Categories/ViewCategory";
+import EditCategory from "./Pages/Admin/Categories/EditCategory";
 import Employees from "./Pages/Admin/Employees/Employees";
 import AddEmployee from "./Pages/Admin/Employees/AddEmployee";
 import ViewEmployee from "./Pages/Admin/Employees/ViewEmployee";
@@ -129,6 +130,7 @@ function App() {
         <Route path="/categories" exact element={<Categories />} />
         <Route path="/addCategory" exact element={<AddCategory />} />
         <Route path="/viewCategory/:id" exact element={<ViewCategory />} />
+        <Route path="/editCategory/:id" exact element={<EditCategory />} />
         <Route path="/employees" exact element={<Employees />} />
         <Route path="/addEmployee" exact element={<AddEmployee />} />
         <Route path="/viewEmployee/:id" exact element={<ViewEmployee />} />

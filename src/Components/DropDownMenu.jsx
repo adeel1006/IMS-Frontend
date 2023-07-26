@@ -5,9 +5,12 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { cornFlowerBlue } from "../Utils/ColorConstants";
+
+const styles = {
+  mainBtn: { backgroundColor: cornFlowerBlue },
+  divider: { my: 0.5 },
+};
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -52,20 +55,29 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function DropDownMenu() {
+const DropDownMenu = ({ options }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleOptionClick = (option) => {
+    setAnchorEl(null);
+    if (option.handler) {
+      option.handler();
+    }
   };
 
   return (
     <div>
       <Button
-        sx={{ backgroundColor: cornFlowerBlue }}
+        sx={styles.mainBtn}
         id="demo-customized-button"
         aria-controls={open ? "demo-customized-menu" : undefined}
         aria-haspopup="true"
@@ -85,16 +97,19 @@ export default function DropDownMenu() {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
-          <EditOutlinedIcon />
-          Edit
-        </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
-          <DeleteOutlineOutlinedIcon sx={{ color: "red" }} />
-          Delete
-        </MenuItem>
+        {options?.map((option, index) => (
+          <div key={index}>
+            {option.dividerBefore && <Divider sx={styles.divider} />}
+            <MenuItem onClick={() => handleOptionClick(option)} disableRipple>
+              {option.icon}
+              {option.label}
+            </MenuItem>
+            {option.dividerAfter && <Divider sx={styles.divider} />}
+          </div>
+        ))}
       </StyledMenu>
     </div>
   );
-}
+};
+
+export default DropDownMenu;

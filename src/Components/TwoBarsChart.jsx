@@ -1,7 +1,7 @@
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 import { cornFlowerBlue, seaGreenBtn } from "../Utils/ColorConstants";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 const styles = {
   style1: {
     color: "gray",

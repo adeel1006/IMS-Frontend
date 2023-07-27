@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { saveAs } from "file-saver";
 import { Box, Button } from "@mui/material";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import TwoBarsChart from "../../../Components/TwoBarsChart";
@@ -12,6 +13,8 @@ import {
   fetchEmployeesCount,
   fetchInventoryItems,
   fetchVendorCount,
+  fetchCategoryItemCount,
+  fetchEmpComplaintCountByMonth,
 } from "./AdminDashboardApi";
 import {
   adminChartInventory,
@@ -63,14 +66,48 @@ const AdminDashboard = () => {
     isError: isCategoryError,
   } = useQuery("categoryCount", fetchCategoryCount);
 
-  const complaintsTableData = complaintData.slice(-4)
+  // Categories inventory of chart
+  const {
+    data: categoryInvCount,
+    isLoading: isCategoryInvLoading,
+    isError: isCategoryInvError,
+  } = useQuery("categoryInvCount", fetchCategoryItemCount);
 
-  if (isAdmLoading || isInvLoading || isVendorLoading || isCategoryLoading) {
+  // Complaint count of employees by month
+  const {
+    data: EmpComplaintCountByMonth,
+    isLoading: EmpComplaintCountLoading,
+    isError: EmpComplaintCountError,
+  } = useQuery("EmpComplaintCountByMonth", fetchEmpComplaintCountByMonth);
+
+  const complaintsTableData = complaintData.slice(-4);
+
+  const handleDownloadReport = (data) => {
+    const formattedData = JSON.stringify(data, null, 2);
+    const blob = new Blob([formattedData], { type: "application/json" });
+    saveAs(blob, "report.json");
+  };
+
+  if (
+    isAdmLoading ||
+    isInvLoading ||
+    isVendorLoading ||
+    isCategoryLoading ||
+    isCategoryInvLoading ||
+    EmpComplaintCountLoading
+  ) {
     return (
       <p className="dashboard-container">Loading Please Wait for a while...</p>
     );
   }
-  if (isAdmError || isInvError || isVendorError || isCategoryError) {
+  if (
+    isAdmError ||
+    isInvError ||
+    isVendorError ||
+    isCategoryError ||
+    isCategoryInvError ||
+    EmpComplaintCountError
+  ) {
     return (
       <p className="dashboard-container">
         Error while loading... Please try again later.
@@ -112,25 +149,31 @@ const AdminDashboard = () => {
         <Box className="inventory-chart">
           <Box className="chart-header">
             <span className="chart-heading">Inventory Items</span>
-            <Button style={styles.fileDownBtn}>
+            <Button
+              style={styles.fileDownBtn}
+              onClick={() => handleDownloadReport(categoryInvCount)}
+            >
               <FileDownloadOutlinedIcon />
               Download report
             </Button>
           </Box>
           <Box className="chart">
-            <TwoBarsChart data={adminChartInventory} />
+            <TwoBarsChart data={categoryInvCount} />
           </Box>
         </Box>
         <Box className="complaints-chart">
           <Box className="chart-header">
             <span className="chart-heading">Complaints</span>
-            <Button style={styles.fileDownBtn}>
+            <Button
+              style={styles.fileDownBtn}
+              onClick={() => handleDownloadReport(EmpComplaintCountByMonth)}
+            >
               <FileDownloadOutlinedIcon />
               Download report
             </Button>
           </Box>
           <Box className="chart">
-            <TwoBarsChart data={adminChartComplain} />
+            <TwoBarsChart data={EmpComplaintCountByMonth} />
           </Box>
         </Box>
       </Box>

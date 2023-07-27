@@ -72,6 +72,8 @@ const ComplaintsDetail = () => {
     }
   };
 
+  console.log(complaintData?.complaint?.status);
+
   const mutation = useMutation(handleMarkResolved);
 
   if (!complaintData) {
@@ -94,13 +96,16 @@ const ComplaintsDetail = () => {
           </Box>
 
           <Box className="right-header-content">
-            <Button
-              style={styles.resolvedBtn}
-              onClick={mutation.mutate}
-              disabled={mutation.isLoading}
-            >
-              {mutation.isLoading ? "Loading..." : "Mark as resolved"}
-            </Button>
+            {(!complaintData.complaint.status ||
+              complaintData.complaint.status === "Pending") && (
+              <Button
+                style={styles.resolvedBtn}
+                onClick={mutation.mutate}
+                disabled={mutation.isLoading}
+              >
+                {mutation.isLoading ? "Loading..." : "Mark as resolved"}
+              </Button>
+            )}
           </Box>
         </Box>
 

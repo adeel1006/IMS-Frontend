@@ -52,6 +52,32 @@ export const fetchCategoryCount = async () => {
     });
     return response.data;
   } catch (error) {
-    throw new Error("Failed to fetch vendor count." + error.message);
+    throw new Error("Failed to fetch category count." + error.message);
+  }
+};
+
+export const fetchCategoryItemCount = async () => {
+  try {
+    const response = await axios.get(`${httpRequest}/category/inventory`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch category count." + error.message);
+  }
+};
+
+export const fetchEmpComplaintCountByMonth = async () => {
+  try {
+    const response = await axios.get(`${httpRequest}/complaints/empComplaintCount`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to fetch category count." + error.message);
   }
 };

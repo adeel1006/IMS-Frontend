@@ -70,7 +70,6 @@ const Dashboard = () => {
     isError: isOrgMonthError,
   } = useQuery(queryKeys.orgByMonth, fetchOrgByMonth);
 
-
   if (
     isOrgLoading ||
     isAdminLoading ||
@@ -107,95 +106,93 @@ const Dashboard = () => {
   const complaintTableData = filteredTableData.slice(-4);
 
   return (
-    <>
-      <Box className="dashboard-container">
-        <Box className="dashboard-content">
-          <Box className="card-header">
-            <h1>Dashboard</h1>
-          </Box>
-          <Box className="card-data">
-            <DashboardCard
-              title={organizations?.title || notAvailable}
-              number={organizations?.number || notAvailable}
-              icon={organizations?.icon} 
-              tagline={organizations?.tagline || notAvailable}
-            />
-            <DashboardCard
-              title={admins?.title || notAvailable}
-              number={admins?.number || notAvailable}
-              icon={admins?.icon}
-              tagline={admins?.tagline || notAvailable}
-            />
-            <DashboardCard
-              title={pendingComplaints?.title || notAvailable}
-              number={pendingComplaints?.number || notAvailable}
-              icon={pendingComplaints?.icon}
-              tagline={pendingComplaints?.tagline || notAvailable}
-            />
-            <DashboardCard
-              title={resolvedComplaints?.title || notAvailable}
-              number={resolvedComplaints?.number || notAvailable}
-              icon={resolvedComplaints?.icon}
-              tagline={resolvedComplaints?.tagline || notAvailable}
-              notShowRightBorder={true}
-            />
-          </Box>
-          <Box className="card-graph">
-            <Box className="graph-header">
-              <Box className="graph-left-buttons">
-                <span className="sub-heading">Analytics</span>
-                <button
-                  className="rep-download chart-btn"
-                  onClick={() => handleDownloadReport(adminByMonth)}
-                >
-                  <FileDownloadOutlinedIcon />
-                  Download Report
-                </button>
-              </Box>
-              <Box className="graph-right-buttons">
-                <button
-                  className="chart-btn swap-data-btn"
-                  onClick={() => setOrgTable(true)}
-                  style={
-                    organizationTable
-                      ? { color: seaGreenBtn, textDecoration: "underline" }
-                      : { color: "gray", textDecoration: "none" }
-                  }
-                >
-                  Organizations
-                </button>
-                <button
-                  className="chart-btn swap-data-btn"
-                  onClick={() => setOrgTable(false)}
-                  style={
-                    !organizationTable
-                      ? { color: seaGreenBtn, textDecoration: "underline" }
-                      : { color: "gray", textDecoration: "none" }
-                  }
-                >
-                  Admins
-                </button>
-              </Box>
+    <Box className="dashboard-container">
+      <Box className="dashboard-content">
+        <Box className="card-header">
+          <h1>Dashboard</h1>
+        </Box>
+        <Box className="card-data">
+          <DashboardCard
+            title={organizations?.title || notAvailable}
+            number={organizations?.number || notAvailable}
+            icon={organizations?.icon}
+            tagline={organizations?.tagline || notAvailable}
+          />
+          <DashboardCard
+            title={admins?.title || notAvailable}
+            number={admins?.number || notAvailable}
+            icon={admins?.icon}
+            tagline={admins?.tagline || notAvailable}
+          />
+          <DashboardCard
+            title={pendingComplaints?.title || notAvailable}
+            number={pendingComplaints?.number || notAvailable}
+            icon={pendingComplaints?.icon}
+            tagline={pendingComplaints?.tagline || notAvailable}
+          />
+          <DashboardCard
+            title={resolvedComplaints?.title || notAvailable}
+            number={resolvedComplaints?.number || notAvailable}
+            icon={resolvedComplaints?.icon}
+            tagline={resolvedComplaints?.tagline || notAvailable}
+            notShowRightBorder={true}
+          />
+        </Box>
+        <Box className="card-graph">
+          <Box className="graph-header">
+            <Box className="graph-left-buttons">
+              <span className="sub-heading">Analytics</span>
+              <button
+                className="rep-download chart-btn"
+                onClick={() => handleDownloadReport(adminByMonth)}
+              >
+                <FileDownloadOutlinedIcon />
+                Download Report
+              </button>
             </Box>
-            <Box className="graph">
-              {organizationTable && <DashboardChart data={orgByMonth} />}
-              {!organizationTable && <DashboardChart data={adminByMonth} />}
+            <Box className="graph-right-buttons">
+              <button
+                className="chart-btn swap-data-btn"
+                onClick={() => setOrgTable(true)}
+                style={
+                  organizationTable
+                    ? { color: seaGreenBtn, textDecoration: "underline" }
+                    : { color: "gray", textDecoration: "none" }
+                }
+              >
+                Organizations
+              </button>
+              <button
+                className="chart-btn swap-data-btn"
+                onClick={() => setOrgTable(false)}
+                style={
+                  !organizationTable
+                    ? { color: seaGreenBtn, textDecoration: "underline" }
+                    : { color: "gray", textDecoration: "none" }
+                }
+              >
+                Admins
+              </button>
             </Box>
           </Box>
-          <Box className="card-table">
-            <Box className="table-header">
-              <span className="sub-heading">Recent Complaints</span>
-              <Link to="/superAdminComplaints" className="complaints-btn">
-                See all
-              </Link>
-            </Box>
-            <Box className="table">
-              <DataTable rows={complaintTableData} />
-            </Box>
+          <Box className="graph">
+            {organizationTable && <DashboardChart data={orgByMonth} />}
+            {!organizationTable && <DashboardChart data={adminByMonth} />}
+          </Box>
+        </Box>
+        <Box className="card-table">
+          <Box className="table-header">
+            <span className="sub-heading">Recent Complaints</span>
+            <Link to="/superAdminComplaints" className="complaints-btn">
+              See all
+            </Link>
+          </Box>
+          <Box className="table">
+            <DataTable rows={complaintTableData} />
           </Box>
         </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

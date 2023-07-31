@@ -45,10 +45,10 @@ const ViewEmployee = () => {
 
     const Category = category !== null ? category : "Not available";
     const subCategory = subcategory?.name || "Not available";
-    let actionBy
-    if(status === "pending"){
+    let actionBy;
+    if (status === "pending") {
       actionBy = "-";
-    }else {
+    } else {
       actionBy = localStorage.getItem("userRole");
     }
 
@@ -61,8 +61,6 @@ const ViewEmployee = () => {
       Action_By: actionBy,
     };
   });
-
-  // console.log(JSON.stringify(specificRequestsTableData, null, 2));
 
   const handleGoBack = () => {
     navigateTo(-1);
@@ -110,7 +108,7 @@ const ViewEmployee = () => {
           >
             General Information
           </Button>
-          <Button
+          {/* <Button
             style={inventoryTab ? styles.activeBtn : styles.blackTextBtn}
             onClick={() => {
               setGeneralInfo(false);
@@ -120,7 +118,7 @@ const ViewEmployee = () => {
             className="switch-btn"
           >
             Inventory
-          </Button>
+          </Button> */}
           <Button
             style={requestTab ? styles.activeBtn : styles.blackTextBtn}
             onClick={() => {

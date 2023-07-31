@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
-import axios from "axios";
 import { Box, TextField } from "@mui/material";
 import imgPlaceHolder from "../../../Assets/placeholder.jpg";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import {
-  addOrganization,
-  httpRequest,
-} from "../../../Utils/httpRequestsStrings";
+import { editOrganization } from "./organizationApi";
 import "./AddOrganization.css";
 
 const btnStyle = { backgroundColor: seaGreenBtn };
 
-const AddOrganization = () => {
+const EditOrganization = () => {
   const [formValues, setFormValues] = useState({
     logo: "",
     name: "",
@@ -29,30 +25,27 @@ const AddOrganization = () => {
     representativeContact: "",
     password: "",
   });
-
+  const { id } = useParams();
   const navigateTo = useNavigate();
   const handleGoBack = () => {
     navigateTo(-1);
   };
 
-  const submitFormMutation = useMutation(async (formData) => {
-    const response = await axios.post(
-      `${httpRequest + addOrganization}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    );
-    return response.data;
+  const submitFormMutation = useMutation(editOrganization, {
+    onSuccess: (data) => {
+      navigateTo(-1);
+    },
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    submitFormMutation.mutate(formValues);
-    navigateTo(-1);
+    const updatedFields = {};
+    for (const key in formValues) {
+      if (formValues.hasOwnProperty(key) && formValues[key] !== "") {
+        updatedFields[key] = formValues[key];
+      }
+    }
+    submitFormMutation.mutate({ id: id, formData: updatedFields });
   };
 
   const handleChange = (event) => {
@@ -88,7 +81,7 @@ const AddOrganization = () => {
             <KeyboardBackspaceIcon fontSize="small" />
             Back
           </button>
-          <h1>Add New Organization</h1>
+          <h1>Edit Organization</h1>
         </Box>
         <Box className="right-btns header-org-btns">
           <button onClick={handleGoBack} className="cancel-btn btn">
@@ -159,7 +152,7 @@ const AddOrganization = () => {
             <TextField
               required
               size="large"
-              placeholder="Short Bio here..."
+              placeholder="Update Short Bio here..."
               name="bio"
               value={formValues.bio}
               onChange={handleChange}
@@ -233,45 +226,10 @@ const AddOrganization = () => {
               onChange={handleChange}
             />
           </Box>
-
-          <Box className="credentials">
-            <span className="Box-heading">Credentials</span>
-            <p>
-              Below are the one-time created credentials. These will be sent to
-              the mentioned email.
-            </p>
-            <Box className="crd-email data-field" style={{ border: "none" }}>
-              <span className="form-left">Email Address</span>
-
-              <TextField
-                required
-                size="small"
-                type="text"
-                placeholder="Email Address"
-                name="email"
-                value={formValues.email}
-                onChange={handleChange}
-              />
-            </Box>
-
-            <Box className="crd-password data-field" style={{ border: "none" }}>
-              <span className="form-left">Password</span>
-
-              <TextField
-                required
-                size="small"
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={formValues.password}
-                onChange={handleChange}
-              />
-            </Box>
-          </Box>
         </form>
       </Box>
     </Box>
   );
 };
 
-export default AddOrganization;
+export default EditOrganization;

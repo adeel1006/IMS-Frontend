@@ -37,79 +37,77 @@ const AddComplain = () => {
   };
 
   return (
-    <>
-      <Box className="container">
-        <Box className="inner-content">
-          <Box className="new-org-header">
-            <Box className="left-btns header-org-btns">
-              <button onClick={handleGoBack} className="back-btn">
-                <KeyboardBackspaceIcon fontSize="small" />
-                Back
-              </button>
-              <h1>Add New Complain</h1>
-            </Box>
-            <Box className="right-btns header-org-btns">
-              <button onClick={handleGoBack} className="cancel-btn btn">
-                Cancel
-              </button>
-              <button
-                style={btnStyle}
-                className="save-btn btn"
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
-            </Box>
+    <Box className="container">
+      <Box className="inner-content">
+        <Box className="new-org-header">
+          <Box className="left-btns header-org-btns">
+            <button onClick={handleGoBack} className="back-btn">
+              <KeyboardBackspaceIcon fontSize="small" />
+              Back
+            </button>
+            <h1>Add New Complain</h1>
           </Box>
-
-          <Box className="new-complain-form">
-            <form onSubmit={handleSubmit}>
-              <Box className="name data-field">
-                <span className="form-left">Title</span>
-                <TextField
-                  className="input-field"
-                  placeholder="Enter Title..."
-                  name="title"
-                  value={formValues.title}
-                  onChange={handleChange}
-                  required
-                ></TextField>
-              </Box>
-
-              <Box className="email data-field">
-                <span className="form-left">Description</span>
-
-                <TextField
-                  className="input-field"
-                  multiline
-                  rows={6}
-                  placeholder="Enter Description..."
-                  name="description"
-                  value={formValues.description}
-                  onChange={handleChange}
-                  required
-                />
-              </Box>
-
-              <Box className="contact data-field">
-                <span className="form-left">Suggestion</span>
-                <TextField
-                  className="input-field"
-                  multiline
-                  rows={6}
-                  type="text"
-                  placeholder="Enter Suggestion..."
-                  name="suggestion"
-                  value={formValues.suggestion}
-                  onChange={handleChange}
-                  required
-                />
-              </Box>
-            </form>
+          <Box className="right-btns header-org-btns">
+            <button onClick={handleGoBack} className="cancel-btn btn">
+              Cancel
+            </button>
+            <button
+              style={btnStyle}
+              className="save-btn btn"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
           </Box>
         </Box>
+
+        <Box className="new-complain-form">
+          <form onSubmit={handleSubmit}>
+            <Box className="name data-field">
+              <span className="form-left">Title</span>
+              <TextField
+                className="input-field"
+                placeholder="Enter Title..."
+                name="title"
+                value={formValues.title}
+                onChange={handleChange}
+                required
+              ></TextField>
+            </Box>
+
+            <Box className="email data-field">
+              <span className="form-left">Description</span>
+
+              <TextField
+                className="input-field"
+                multiline
+                rows={6}
+                placeholder="Enter Description..."
+                name="description"
+                value={formValues.description}
+                onChange={handleChange}
+                required
+              />
+            </Box>
+
+            <Box className="contact data-field">
+              <span className="form-left">Suggestion</span>
+              <TextField
+                className="input-field"
+                multiline
+                rows={6}
+                type="text"
+                placeholder="Enter Suggestion..."
+                name="suggestion"
+                value={formValues.suggestion}
+                onChange={handleChange}
+                required
+              />
+            </Box>
+          </form>
+        </Box>
       </Box>
-    </>
+    </Box>
   );
 };
 

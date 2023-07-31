@@ -46,7 +46,7 @@ const ComplaintsDetail = () => {
         );
         setComplaintData(response.data);
       } catch (error) {
-        console.error(error);
+        throw new Error(error.message)
       }
     };
 
@@ -68,11 +68,9 @@ const ComplaintsDetail = () => {
 
       navigateTo(-1);
     } catch (error) {
-      console.error(error);
+      throw new Error(error.message)
     }
   };
-
-  console.log(complaintData?.complaint?.status);
 
   const mutation = useMutation(handleMarkResolved);
 

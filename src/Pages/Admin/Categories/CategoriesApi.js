@@ -47,7 +47,6 @@ export const fetchCategoryDetail = async (id) => {
 
 export const deleteCategory = async (id) => {
   try {
-    console.log(id);
     const response = await axios.delete(`${httpRequest}/category/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

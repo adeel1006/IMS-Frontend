@@ -24,8 +24,6 @@ const Returns = () => {
     isError,
   } = useQuery("returnData", fetchRequestApprovedData);
 
-  // console.log(JSON.stringify(returnData, null, 2));
-
   const specificReturnTableData = returnData?.map((item) => {
     const {
       id,

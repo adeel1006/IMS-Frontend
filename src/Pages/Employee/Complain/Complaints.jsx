@@ -70,33 +70,31 @@ const Complaints = () => {
   }
 
   return (
-    <>
-      <Box className="complaints-container">
-        <Box className="complaints-header">
-          <Box className="complaints-left-header">
-            <Typography variant="h3">Complaints</Typography>
-          </Box>
-
-          <Box className="complaints-right-header">
-            <Button onClick={handleAddRequest} style={styles.btnStyle}>
-              <AddIcon />
-              Create Complain
-            </Button>
-          </Box>
+    <Box className="complaints-container">
+      <Box className="complaints-header">
+        <Box className="complaints-left-header">
+          <Typography variant="h3">Complaints</Typography>
         </Box>
-        <Box className="complaints-table">
-          {!specificUserComplaintTableData.length && (
-            <div className="container" style={styles.noData}>
-              No data available
-            </div>
-          )}
-          <DataTable
-            rows={specificUserComplaintTableData}
-            linkString={`/complaintDetail/`}
-          />
+
+        <Box className="complaints-right-header">
+          <Button onClick={handleAddRequest} style={styles.btnStyle}>
+            <AddIcon />
+            Create Complain
+          </Button>
         </Box>
       </Box>
-    </>
+      <Box className="complaints-table">
+        {!specificUserComplaintTableData.length && (
+          <div className="container" style={styles.noData}>
+            No data available
+          </div>
+        )}
+        <DataTable
+          rows={specificUserComplaintTableData}
+          linkString={`/complaintDetail/`}
+        />
+      </Box>
+    </Box>
   );
 };
 

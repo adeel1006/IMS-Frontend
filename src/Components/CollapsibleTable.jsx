@@ -64,7 +64,6 @@ const DataTable = ({ rows, linkString }) => {
   };
 
   const handleAddAction = (id) => {
-    // console.log(id);
     navigateTo("/addCategory");
   };
 

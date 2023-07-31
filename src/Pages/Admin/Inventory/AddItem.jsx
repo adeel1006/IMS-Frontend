@@ -68,7 +68,6 @@ const AddItem = () => {
       label: categoryName,
     };
   });
-  // console.log(JSON.stringify(vendors, null, 2));
 
   useEffect(() => {
     if (formValues.category && categories) {

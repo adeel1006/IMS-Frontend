@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { fetchAdmins, fetchOrganizations } from "./AdminApi";
 import { Box, Typography, Button } from "@mui/material";
 import SearchBar from "../../../Components/SearchBar";
@@ -26,6 +26,7 @@ const styles = {
 const AdminList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedOrganization, setSelectedOrganization] = useState("");
+  const navigateTo = useNavigate();
 
   const {
     data: adminsList,
@@ -46,6 +47,10 @@ const AdminList = () => {
   if (adminsError || orgError) {
     return <div className="container">Error occurred while fetching data.</div>;
   }
+
+  const handleAddBtn = () => {
+    navigateTo(`/addAdmin`);
+  };
 
   const specificAdminsList = adminsList.map((item) => {
     const { id, image, username, email, contact, organization } = item;
@@ -96,11 +101,9 @@ const AdminList = () => {
           </Box>
 
           <Box className="adm-right-header">
-            <Button style={styles.btnStyle}>
+            <Button style={styles.btnStyle} onClick={handleAddBtn}>
               <AddIcon />
-              <Link className="link-style" to="/addAdmin">
-                Add
-              </Link>
+              Add
             </Button>
           </Box>
         </Box>

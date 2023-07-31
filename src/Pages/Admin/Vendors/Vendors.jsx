@@ -66,8 +66,6 @@ const Vendors = () => {
     });
   });
 
-  // console.log(JSON.stringify(categoriesList, null, 2));
-
   const specificVendorTableData = vendorsList?.map((item) => {
     const {
       id,

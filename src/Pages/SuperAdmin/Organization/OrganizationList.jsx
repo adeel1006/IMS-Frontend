@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import SearchBar from "../../../Components/SearchBar";
 import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
 import OrgDataTable from "./OrgDataTable";
-import {
-  httpRequest,
-  fetchOrganizationsList,
-} from "../../../Utils/httpRequestsStrings";
 import placeHolderImg from "../../../Assets/placeholder.jpg";
+import { fetchOrg } from "./organizationApi";
 import "./OrganizationList.css";
 
 const styles = {
@@ -31,18 +27,10 @@ const styles = {
 const OrganizationList = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
+  const navigateTo = useNavigate();
 
-  const fetchOrg = async () => {
-    let accessToken = localStorage.getItem("accessToken");
-    const response = await axios.get(
-      `${httpRequest + fetchOrganizationsList}`,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-    return response.data;
+  const handleAddBtn = () => {
+    navigateTo(`/superAdminOrganization`);
   };
 
   const { data: org, isLoading, isError } = useQuery("org", fetchOrg);
@@ -105,41 +93,37 @@ const OrganizationList = () => {
   });
 
   return (
-    <>
-      <Box className="org-container">
-        <Box className="org-header">
-          <Box className="org-left-header">
-            <Typography variant="h3">Organizations</Typography>
-            <SearchBar setSearchQuery={setSearchQuery} />
-            <SelectBox
-              className="selectBox"
-              placeHolder={"Select Locations"}
-              value={selectedLocation}
-              options={removeDuplicateLocations}
-              onChange={(e) => setSelectedLocation(e.target.value)}
-            />
-          </Box>
-
-          <Box className="org-right-header">
-            <Button style={styles.btnStyle}>
-              <AddIcon />
-              <Link className="link-style" to="/superAdminOrganization">
-                Add
-              </Link>
-            </Button>
-          </Box>
+    <Box className="org-container">
+      <Box className="org-header">
+        <Box className="org-left-header">
+          <Typography variant="h3">Organizations</Typography>
+          <SearchBar setSearchQuery={setSearchQuery} />
+          <SelectBox
+            className="selectBox"
+            placeHolder={"Select Locations"}
+            value={selectedLocation}
+            options={removeDuplicateLocations}
+            onChange={(e) => setSelectedLocation(e.target.value)}
+          />
         </Box>
-        <Box className="org-table">
-          {!filteredOrgTableData.length ? (
-            <div className="container" style={styles.noData}>
-              No data available
-            </div>
-          ) : (
-            <OrgDataTable rows={filteredOrgTableData} />
-          )}
+
+        <Box className="org-right-header">
+          <Button style={styles.btnStyle} onClick={handleAddBtn}>
+            <AddIcon />
+            Add
+          </Button>
         </Box>
       </Box>
-    </>
+      <Box className="org-table">
+        {!filteredOrgTableData.length ? (
+          <div className="container" style={styles.noData}>
+            No data available
+          </div>
+        ) : (
+          <OrgDataTable rows={filteredOrgTableData} />
+        )}
+      </Box>
+    </Box>
   );
 };
 

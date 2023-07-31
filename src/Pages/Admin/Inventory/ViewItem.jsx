@@ -32,7 +32,6 @@ const ViewItem = () => {
   const deprecatedValue = 0.3;
   const deprecatedPercentValue = deprecatedValue * 100 + "%";
   const deprecatePrice = deprecatedPrice(itemPrice, deprecatedValue);
-  console.log(JSON.stringify(viewItem, null, 2));
 
   const formattedDate = viewItem?.item?.createdAt
     ? new Date(viewItem?.item?.createdAt).toLocaleDateString("en-GB", {

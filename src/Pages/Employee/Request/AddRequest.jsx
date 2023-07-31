@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import { submitRequest, fetchCategories } from "./RequestApi";
@@ -7,10 +7,11 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import SelectBox from "../../../Components/SelectBox";
 import { requestTypes } from "../../../Utils/constants";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import "./AddRequest.css";
 const submitBtn = { backgroundColor: seaGreenBtn };
+import "./AddRequest.css";
 
 const AddRequest = () => {
+  const [filteredSubcategories, setFilteredSubcategories] = useState([]);
   const [formValues, setFormValues] = useState({
     itemName: "",
     requestType: "",
@@ -39,19 +40,21 @@ const AddRequest = () => {
     };
   });
 
-  //Extracting the subcategory array to make specific props array
-  const subCategoryData = [];
-  categories?.forEach((item) => {
-    const { subcategories } = item;
+  useEffect(() => {
+    if (formValues.category && categories) {
+      const selectedCategory = categories.find(
+        (item) => item.id === formValues.category
+      );
 
-    subcategories?.forEach((data) => {
-      const { id, name } = data;
-      subCategoryData.push({
-        value: id,
-        label: name,
-      });
-    });
-  });
+      if (selectedCategory) {
+        setFilteredSubcategories(selectedCategory.subcategories);
+        setFormValues((prevValues) => ({
+          ...prevValues,
+          subCategoryId: "",
+        }));
+      }
+    }
+  }, [formValues.category, categories]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -137,7 +140,15 @@ const AddRequest = () => {
                 placeHolder="Select Sub-Category"
                 minWidth="600px"
                 marginLeft="0"
-                options={subCategoryData}
+                options={
+                  filteredSubcategories.length === 0
+                    ? [{ id: "", value: "", label: "No subcategories found" }]
+                    : filteredSubcategories.map((item) => ({
+                        id: item.id,
+                        value: item.id,
+                        label: item.name,
+                      }))
+                }
                 name="subCategory"
                 value={formValues.subCategory}
                 onChange={handleChange}

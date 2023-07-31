@@ -12,11 +12,13 @@ import VerificationCode from "./Pages/Authentication/VerificationCode";
 // Super Admin Routes
 import Dashboard from "./Pages/SuperAdmin/Dashboard/Dashboard";
 import Admin from "./Pages/SuperAdmin/Admin/AddAdmin";
+import EditAdmin from "./Pages/SuperAdmin/Admin/EditAdmin";
 import AdminList from "./Pages/SuperAdmin/Admin/AdminList";
 import AdminDetails from "./Pages/SuperAdmin/Admin/AdminDetails";
 import SuperAdminComplaints from "./Pages/SuperAdmin/Complaints/Complaints";
 import ComplaintsDetail from "./Pages/SuperAdmin/Complaints/ComplaintsDetail";
 import AddOrganization from "./Pages/SuperAdmin/Organization/AddOrganization";
+import EditOrganization from "./Pages/SuperAdmin/Organization/EditOrganization";
 import OrganizationList from "./Pages/SuperAdmin/Organization/OrganizationList";
 import OrganizationDetail from "./Pages/SuperAdmin/Organization/OrganizationDetail";
 
@@ -76,6 +78,7 @@ function App() {
 
         <Route path="/superAdminDashboard" exact element={<Dashboard />} />
         <Route path="/addAdmin" exact element={<Admin />} />
+        <Route path="/editAdmin/:id" exact element={<EditAdmin />} />
         <Route path="/adminsList" exact element={<AdminList />} />
         <Route path="/adminsDetails/:id" exact element={<AdminDetails />} />
         <Route
@@ -92,6 +95,11 @@ function App() {
           path="/superAdminOrganization"
           exact
           element={<AddOrganization />}
+        />
+        <Route
+          path="/editOrganization/:id"
+          exact
+          element={<EditOrganization />}
         />
         <Route
           path="/superAdminOrganizationList"

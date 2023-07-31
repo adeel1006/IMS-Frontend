@@ -69,7 +69,6 @@ const Employees = () => {
       item.Department === selectedDepartment
     );
   });
-  // console.log(JSON.stringify(tableData, null, 2));
 
   if (isLoading) {
     return <div className="container">Loading...</div>;

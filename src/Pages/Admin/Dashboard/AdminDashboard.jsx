@@ -16,11 +16,6 @@ import {
   fetchCategoryItemCount,
   fetchEmpComplaintCountByMonth,
 } from "./AdminDashboardApi";
-import {
-  adminChartInventory,
-  adminChartComplain,
-  tableDataDashboard,
-} from "../../../Utils/testingData";
 import "./AdminDashboard.css";
 
 const styles = {

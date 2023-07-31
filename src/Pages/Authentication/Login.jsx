@@ -14,7 +14,6 @@ import { httpRequest, loginUrl } from "../../Utils/httpRequestsStrings";
 import "./Login.css";
 import logo from "../../Assets/logo.png";
 
-
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -135,8 +134,9 @@ const Login = () => {
             </button>
           </form>
           <p className="reset-password-link">
-            Forgot your Password?{" "}
-            <Link to="/forgotPassword">Reset Password</Link>
+            <Link to="/forgotPassword">
+              Forgot your Password? Reset Password
+            </Link>
           </p>
         </Box>
       </Box>

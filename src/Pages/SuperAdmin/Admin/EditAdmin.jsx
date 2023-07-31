@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import axios from "axios";
 import { Box, TextField } from "@mui/material";
@@ -8,20 +8,18 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import SelectBox from "../../../Components/SelectBox";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import { fetchOrganizations } from "./AdminApi";
+import { editAdmin, fetchOrganizations } from "./AdminApi";
 import { addAdminUser, httpRequest } from "../../../Utils/httpRequestsStrings";
 import "./AddAdmin.css";
 
-const AddAdmin = () => {
+const EditAdmin = () => {
   const [formValues, setFormValues] = useState({
     username: "",
     email: "",
-    role: "ADMIN",
     organization: "",
     contact: "",
-    password: "",
   });
-
+  const { id } = useParams();
   const navigateTo = useNavigate();
   const handleGoBack = () => {
     navigateTo(-1);
@@ -33,18 +31,10 @@ const AddAdmin = () => {
     isError,
   } = useQuery("organization", fetchOrganizations);
 
-  const submitFormMutation = useMutation(async (formData) => {
-    const response = await axios.post(
-      `${httpRequest + addAdminUser}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      }
-    );
-    return response.data;
+  const submitFormMutation = useMutation(editAdmin, {
+    onSuccess: (data) => {
+      navigateTo(-1);
+    },
   });
 
   const organizations = organizationList?.map((item) => {
@@ -54,8 +44,13 @@ const AddAdmin = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    submitFormMutation.mutate(formValues);
-    navigateTo(-1);
+    const updatedFields = {};
+    for (const key in formValues) {
+      if (formValues.hasOwnProperty(key) && formValues[key] !== "") {
+        updatedFields[key] = formValues[key];
+      }
+    }
+    submitFormMutation.mutate({ id: id, formData: updatedFields });
   };
 
   const handleChange = (event) => {
@@ -101,7 +96,7 @@ const AddAdmin = () => {
             <KeyboardBackspaceIcon fontSize="small" />
             Back
           </button>
-          <h1>Add New Admin</h1>
+          <h1>Update Admin</h1>
         </Box>
         <Box className="right-btns header-adm-btns">
           <button onClick={handleGoBack} className="cancel-btn btn">
@@ -124,7 +119,7 @@ const AddAdmin = () => {
               <img src={imgPlaceHolder} alt="image" />
             </Box>
             <Box className="heading">
-              <span className="Box-heading">Admin's Picture</span>
+              <span className="Box-heading">Update Admin's Picture</span>
               <span className="mandatory-asterik"> *</span>
               <p>Upload a high-res picture with face is clear</p>
             </Box>
@@ -146,7 +141,7 @@ const AddAdmin = () => {
             <TextField
               required
               size="small"
-              placeholder="Full Name"
+              placeholder="Updated Full Name..."
               name="username"
               value={formValues.username}
               onChange={handleChange}
@@ -172,7 +167,7 @@ const AddAdmin = () => {
               minWidth="238px"
               marginLeft="0px"
               marginRight="0px"
-              placeHolder="Select Organization"
+              placeHolder="Update Organization"
               options={organizations}
               name="organization"
               value={formValues.organization}
@@ -185,45 +180,11 @@ const AddAdmin = () => {
             <TextField
               required
               size="small"
-              type="number"
-              placeholder="Contact Number"
+              placeholder="Update Contact Number..."
               name="contact"
               value={formValues.contact}
               onChange={handleChange}
             />
-          </Box>
-
-          <Box className="credentials">
-            <span className="Box-heading">Credentials</span>
-            <p>
-              Below are the one-time created credentials. These will be sent to
-              the mentioned email.
-            </p>
-            <Box className="crd-email data-field" style={{ border: "none" }}>
-              <span className="form-left">Email Address</span>
-              <TextField
-                required
-                size="small"
-                type="text"
-                placeholder="Email Address"
-                name="email"
-                value={formValues.email}
-                onChange={handleChange}
-              />
-            </Box>
-
-            <Box className="crd-password data-field" style={{ border: "none" }}>
-              <span className="form-left">Password</span>
-              <TextField
-                required
-                size="small"
-                type="password"
-                placeholder="Password"
-                name="password"
-                value={formValues.password}
-                onChange={handleChange}
-              />
-            </Box>
           </Box>
         </form>
       </Box>
@@ -231,4 +192,4 @@ const AddAdmin = () => {
   );
 };
 
-export default AddAdmin;
+export default EditAdmin;

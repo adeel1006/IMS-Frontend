@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
@@ -26,11 +26,16 @@ const styles = {
 };
 const Vendors = () => {
   let notAvailable = "N/A";
+  const navigateTo = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
+
+  const handleAddBtn = () => {
+    navigateTo(`/addVendor`);
+  };
 
   const {
     data: vendorsList,
@@ -170,11 +175,9 @@ const Vendors = () => {
         </Box>
 
         <Box className="ven-right-header">
-          <Button style={styles.addBtn}>
+          <Button style={styles.addBtn} onClick={handleAddBtn}>
             <AddIcon />
-            <Link className="link-style" to="/addVendor">
-              Add Vendor
-            </Link>
+            Add Vendor
           </Button>
         </Box>
       </Box>

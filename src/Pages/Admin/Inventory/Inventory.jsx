@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Box, Typography, Button } from "@mui/material";
 import DataTable from "../../../Components/DataTable";
@@ -30,6 +30,11 @@ const Inventory = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const navigateTo = useNavigate();
+
+  const handleAddBtn = () => {
+    navigateTo(`/addItem`);
+  };
 
   const {
     data: categories,
@@ -144,11 +149,9 @@ const Inventory = () => {
         </Box>
 
         <Box className="inv-right-header">
-          <Button style={styles.addBtn}>
+          <Button style={styles.addBtn} onClick={handleAddBtn}>
             <AddIcon />
-            <Link className="link-style" to="/addItem">
-              Add Item
-            </Link>
+            Add Item
           </Button>
         </Box>
       </Box>

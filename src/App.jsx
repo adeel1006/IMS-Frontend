@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import AppBar from "./Components/AppBar";
-import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
-import Unauthorized from "./Pages/UnauthorizedPage/Unauthorized";
 
 // Public Routes
 import Login from "./Pages/Authentication/Login";
 import ForgotPassword from "./Pages/Authentication/ForgotPassword";
 import VerificationCode from "./Pages/Authentication/VerificationCode";
+import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
+import Unauthorized from "./Pages/UnauthorizedPage/Unauthorized";
 
 // Super Admin Routes
 import Dashboard from "./Pages/SuperAdmin/Dashboard/Dashboard";
@@ -54,110 +54,481 @@ import ViewComplain from "./Pages/Employee/Complain/ViewComplain";
 import Request from "./Pages/Employee/Request/Request";
 import ViewRequest from "./Pages/Employee/Request/ViewRequest";
 import AddRequest from "./Pages/Employee/Request/AddRequest";
+//Protected & CSS
+import ProtectedRoute from "./Routes/ProtectedRoute";
 import "./App.css";
 
 function App() {
   const navigate = useNavigate();
   const userRole = localStorage.getItem("userRole");
 
-  // useEffect(() => {
-  //   if (userRole === null) {
-  //     navigate("/login");
-  //   }
-  // }, [userRole, navigate]);
+  useEffect(() => {
+    if (userRole === null) {
+      navigate("/login");
+      ["accessToken", "userRole", "userId"].forEach((item) => {
+        localStorage.removeItem(item);
+      });
+    }
+  }, [userRole]);
 
   return (
     <React.Fragment>
       <AppBar userRole={userRole} />
 
       <Routes>
+        {/* Auth Routes */}
         <Route path="/" exact element={<Login />} />
         <Route path="/login" exact element={<Login />} />
         <Route path="/forgotPassword" exact element={<ForgotPassword />} />
         <Route path="/verificationCode" exact element={<VerificationCode />} />
 
-        <Route path="/superAdminDashboard" exact element={<Dashboard />} />
-        <Route path="/addAdmin" exact element={<Admin />} />
-        <Route path="/editAdmin/:id" exact element={<EditAdmin />} />
-        <Route path="/adminsList" exact element={<AdminList />} />
-        <Route path="/adminsDetails/:id" exact element={<AdminDetails />} />
+        {/* SuperAdmin Routes */}
+        <Route
+          path="/superAdminDashboard"
+          exact
+          element={
+            <ProtectedRoute
+              element={Dashboard}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/addAdmin"
+          exact
+          element={
+            <ProtectedRoute
+              element={Admin}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/editAdmin/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={EditAdmin}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/adminsList"
+          exact
+          element={
+            <ProtectedRoute
+              element={AdminList}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/adminsDetails/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={AdminDetails}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
         <Route
           path="/superAdminComplaints"
           exact
-          element={<SuperAdminComplaints />}
+          element={
+            <ProtectedRoute
+              element={SuperAdminComplaints}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
         <Route
           path="/superAdminComplaintDetails/:id"
           exact
-          element={<ComplaintsDetail />}
+          element={
+            <ProtectedRoute
+              element={ComplaintsDetail}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
         <Route
           path="/superAdminOrganization"
           exact
-          element={<AddOrganization />}
+          element={
+            <ProtectedRoute
+              element={AddOrganization}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
         <Route
           path="/editOrganization/:id"
           exact
-          element={<EditOrganization />}
+          element={
+            <ProtectedRoute
+              element={EditOrganization}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
         <Route
           path="/superAdminOrganizationList"
           exact
-          element={<OrganizationList />}
+          element={
+            <ProtectedRoute
+              element={OrganizationList}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
 
         <Route
           path="/superAdminOrganizationDetails/:id"
-          element={<OrganizationDetail />}
+          element={
+            <ProtectedRoute
+              element={OrganizationDetail}
+              allowedRoles={["SUPER_ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
+
+        {/* Admin Routes */}
 
         <Route
-          path="/employeeDashboard"
+          path="/adminDashboard"
           exact
-          element={<EmployeeDashboard />}
+          element={
+            <ProtectedRoute
+              element={AdminDashboard}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
-        <Route path="/editProfile" exact element={<EditProfile />} />
-        <Route path="/addComplaint" exact element={<AddComplain />} />
-        <Route path="/employeeComplaint" exact element={<Complaints />} />
-        <Route path="/complaintDetail/:id" exact element={<ViewComplain />} />
-        <Route path="/addRequest" exact element={<AddRequest />} />
-        <Route path="/requests" exact element={<Request />} />
-        <Route path="/requestDetail/:id" exact element={<ViewRequest />} />
-
-        <Route path="/adminDashboard" exact element={<AdminDashboard />} />
-        <Route path="/adminRequest" exact element={<Requests />} />
+        <Route
+          path="/adminRequest"
+          exact
+          element={
+            <ProtectedRoute
+              element={Requests}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
         <Route
           path="/adminViewRequest/:id"
           exact
-          element={<AdminViewRequest />}
+          element={
+            <ProtectedRoute
+              element={AdminViewRequest}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
-        <Route path="/adminInventory" exact element={<Inventory />} />
-        <Route path="/addItem" exact element={<AddItem />} />
-        <Route path="/viewItem/:id" exact element={<ViewItem />} />
-        <Route path="/categories" exact element={<Categories />} />
-        <Route path="/addCategory" exact element={<AddCategory />} />
-        <Route path="/viewCategory/:id" exact element={<ViewCategory />} />
-        <Route path="/editCategory/:id" exact element={<EditCategory />} />
-        <Route path="/employees" exact element={<Employees />} />
-        <Route path="/addEmployee" exact element={<AddEmployee />} />
-        <Route path="/viewEmployee/:id" exact element={<ViewEmployee />} />
-        <Route path="/returns" exact element={<Returns />} />
-        <Route path="/viewReturn/:id" exact element={<ViewReturn />} />
-        <Route path="/adminComplaints" exact element={<AdminComplaints />} />
+        <Route
+          path="/adminInventory"
+          exact
+          element={
+            <ProtectedRoute
+              element={Inventory}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/addItem"
+          exact
+          element={
+            <ProtectedRoute
+              element={AddItem}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/viewItem/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={ViewItem}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/categories"
+          exact
+          element={
+            <ProtectedRoute
+              element={Categories}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/addCategory"
+          exact
+          element={
+            <ProtectedRoute
+              element={AddCategory}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/viewCategory/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={ViewCategory}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/editCategory/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={EditCategory}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/employees"
+          exact
+          element={
+            <ProtectedRoute
+              element={Employees}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/addEmployee"
+          exact
+          element={
+            <ProtectedRoute
+              element={AddEmployee}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/viewEmployee/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={ViewEmployee}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/returns"
+          exact
+          element={
+            <ProtectedRoute
+              element={Returns}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/viewReturn/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={ViewReturn}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/adminComplaints"
+          exact
+          element={
+            <ProtectedRoute
+              element={AdminComplaints}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
         <Route
           path="/adminAddComplaints"
           exact
-          element={<AdminAddComplaint />}
+          element={
+            <ProtectedRoute
+              element={AdminAddComplaint}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
         <Route
           path="/adminViewComplaints/:id"
           exact
-          element={<ViewAdminComplaint />}
+          element={
+            <ProtectedRoute
+              element={ViewAdminComplaint}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
         />
-        <Route path="/vendors" exact element={<Vendors />} />
-        <Route path="/addVendor" exact element={<AddVendors />} />
-        <Route path="/viewVendor/:id" exact element={<ViewVendor />} />
+        <Route
+          path="/vendors"
+          exact
+          element={
+            <ProtectedRoute
+              element={Vendors}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/addVendor"
+          exact
+          element={
+            <ProtectedRoute
+              element={AddVendors}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+        <Route
+          path="/viewVendor/:id"
+          exact
+          element={
+            <ProtectedRoute
+              element={ViewVendor}
+              allowedRoles={["ADMIN"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        {/* Employee Routes */}
+
+        <Route
+          path="/employeeDashboard"
+          element={
+            <ProtectedRoute
+              element={EmployeeDashboard}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/editProfile"
+          element={
+            <ProtectedRoute
+              element={EditProfile}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/addComplaint"
+          element={
+            <ProtectedRoute
+              element={AddComplain}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/employeeComplaint"
+          element={
+            <ProtectedRoute
+              element={Complaints}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/complaintDetail/:id"
+          element={
+            <ProtectedRoute
+              element={ViewComplain}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/addRequest"
+          element={
+            <ProtectedRoute
+              element={AddRequest}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/requests"
+          element={
+            <ProtectedRoute
+              element={Request}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
+
+        <Route
+          path="/requestDetail/:id"
+          element={
+            <ProtectedRoute
+              element={ViewRequest}
+              allowedRoles={["EMPLOYEE"]}
+              userRole={userRole}
+            />
+          }
+        />
 
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFoundPage />} />

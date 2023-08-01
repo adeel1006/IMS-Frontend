@@ -14,7 +14,6 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../Assets/logo.png";
 import avatar from "../Assets/avatar.png";
-import { seaGreenBtn } from "../Utils/ColorConstants";
 
 const superAdminContent = [
   { label: "Dashboard", path: "/superAdminDashboard" },
@@ -217,14 +216,7 @@ function AppBarz({ userRole }) {
 
           <Box sx={{ flexGrow: 0 }}>
             {showLoginButton ? (
-              <Button
-                variant="contained"
-                component={Link}
-                to="/login"
-                sx={{ m: 1, backgroundColor: seaGreenBtn }}
-              >
-                Login
-              </Button>
+              <></>
             ) : (
               <>
                 <Tooltip title="Open settings">

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { httpRequest } from "../../../Utils/httpRequestsStrings";
+import { complaintByID, httpRequest } from "../../../Utils/httpRequestsStrings";
 
 export const fetchEmployeesComplaints = async () => {
   try {
@@ -62,3 +62,21 @@ export const fetchComplaintDetail = async (id) => {
     throw new Error("Failed to fetch complaints details" + error.message);
   }
 };
+
+export const updateComplaintStatus = async ({id, status})=>{
+  try {
+    const response = await axios.patch(
+      `${httpRequest}${complaintByID}${id}`,
+      { status: status },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to Resolve complaint" + error.message);
+  }
+}

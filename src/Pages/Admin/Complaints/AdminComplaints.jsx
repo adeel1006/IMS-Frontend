@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { Box, Button, Typography } from "@mui/material";
@@ -22,7 +22,6 @@ const styles = {
     color: "white",
     backgroundColor: seaGreenBtn,
     borderRadius: "10px",
-    padding: "6% 0%",
   },
   activeBtn: {
     color: "white",
@@ -43,6 +42,7 @@ const AdminComplaints = () => {
   const [selectedStatus, setSelectedStatus] = useState("");
   const [employeeTab, setEmployeeTab] = useState(true);
   const [SubmittedTab, setSubmittedTab] = useState(false);
+  const navigateTo = useNavigate();
 
   const {
     data: employeeComplaints,
@@ -55,6 +55,10 @@ const AdminComplaints = () => {
     isAdmLoading,
     isAdmError,
   } = useQuery("admUserComplaints", fetchAdminComplaints);
+
+  const handleAddBtn = () => {
+    navigateTo(`/adminAddComplaints`);
+  };
 
   const specificEmpComplaintTableData = employeeComplaints?.map((item) => {
     const { id, description, submissionDate, status, action, user } = item;
@@ -151,11 +155,9 @@ const AdminComplaints = () => {
             <SortIcon value="AZ" defaultDirection="asc" />
           </Box> */}
           <Box className="addcomp-btn">
-            <Button style={styles.addBtnStyle}>
+            <Button style={styles.addBtnStyle} onClick={handleAddBtn}>
               <AddIcon />
-              <Link className="link-style" to="/adminAddComplaints">
-                Add Complain
-              </Link>
+              Add Complaint
             </Button>
           </Box>
         </Box>

@@ -114,25 +114,25 @@ const Dashboard = () => {
         <Box className="card-data">
           <DashboardCard
             title={organizations?.title || notAvailable}
-            number={organizations?.number || notAvailable}
+            number={organizations?.number || "0"}
             icon={organizations?.icon}
             tagline={organizations?.tagline || notAvailable}
           />
           <DashboardCard
             title={admins?.title || notAvailable}
-            number={admins?.number || notAvailable}
+            number={admins?.number || "0"}
             icon={admins?.icon}
             tagline={admins?.tagline || notAvailable}
           />
           <DashboardCard
             title={pendingComplaints?.title || notAvailable}
-            number={pendingComplaints?.number || notAvailable}
+            number={pendingComplaints?.number || "0"}
             icon={pendingComplaints?.icon}
             tagline={pendingComplaints?.tagline || notAvailable}
           />
           <DashboardCard
             title={resolvedComplaints?.title || notAvailable}
-            number={resolvedComplaints?.number || notAvailable}
+            number={resolvedComplaints?.number || "0"}
             icon={resolvedComplaints?.icon}
             tagline={resolvedComplaints?.tagline || notAvailable}
             notShowRightBorder={true}

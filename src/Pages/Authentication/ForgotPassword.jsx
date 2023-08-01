@@ -18,6 +18,27 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // const forgotPasswordMutation = useMutation(
+  //   async (formData) => {
+  //     const response = await axios.post(
+  //       `${httpRequest + forgotPasswordUrl}`,
+  //       formData
+  //     );
+  //     return response.data;
+  //   },
+  //   {
+  //     onError: (error) => {
+  //       dispatch(setError(error.message));
+  //     },
+  //     onSuccess: () => {
+  //       setShowSuccessMessage(true);
+  //       setTimeout(() => {
+  //         navigate("/verificationCode");
+  //       }, 2000);
+  //     },
+  //   }
+  // );
+
   const forgotPasswordMutation = useMutation(
     async (formData) => {
       const response = await axios.post(
@@ -33,11 +54,12 @@ const ForgotPassword = () => {
       onSuccess: () => {
         setShowSuccessMessage(true);
         setTimeout(() => {
-          navigate("/verificationCode");
+          navigate("/verificationCode", { state: { email } });
         }, 2000);
       },
     }
   );
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -103,7 +125,7 @@ const ForgotPassword = () => {
           </form>
         </Box>
         <p className="reset-password-link">
-          Enterted wrong credentials? Go back to <Link to="/login">Login</Link>
+          <Link to="/login"> Enterted wrong credentials? Go back to Login</Link>
         </p>
       </Box>
     </>

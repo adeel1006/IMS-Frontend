@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import SelectBox from "../../../Components/SelectBox";
 import SearchBar from "../../../Components/SearchBar";
@@ -23,15 +23,16 @@ const styles = {
     alignItems: "center",
   },
 };
-const addBtnStyle = {
-  color: "white",
-  backgroundColor: seaGreenBtn,
-  borderRadius: "10px",
-};
+
 const Employees = () => {
   let notAvailable = "Not Available";
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
+  const navigateTo = useNavigate();
+
+  const handleAddBtn = () => {
+    navigateTo(`/addEmployee`);
+  };
 
   const {
     data: employeesList,
@@ -97,11 +98,9 @@ const Employees = () => {
         </Box>
 
         <Box className="emp-right-header">
-          <Button style={styles.addBtnStyle}>
+          <Button style={styles.addBtnStyle} onClick={handleAddBtn}>
             <AddIcon />
-            <Link className="link-style" to="/addEmployee">
-              Add Employee
-            </Link>
+            Add Employee
           </Button>
         </Box>
       </Box>

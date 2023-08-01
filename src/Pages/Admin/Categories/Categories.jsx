@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import SortIcon from "../../../Components/SortIcon";
@@ -22,11 +22,16 @@ const styles = {
 const Categories = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortDirection, setSortDirection] = useState("AZ");
+  const navigateTo = useNavigate();
   const {
     data: categoriesList,
     isLoading,
     isError,
   } = useQuery("categoriesList", fetchCategories);
+
+  const handleAddBtn = () => {
+    navigateTo(`/addCategory`);
+  };
 
   const handleSort = () => {
     setSortDirection(sortDirection === "AZ" ? "ZA" : "AZ");
@@ -64,11 +69,9 @@ const Categories = () => {
         </Box>
 
         <Box className="cate-right-header">
-          <Button style={styles.addBtn}>
+          <Button style={styles.addBtn} onClick={handleAddBtn}>
             <AddIcon />
-            <Link className="link-style" to="/addCategory">
-              Add Category
-            </Link>
+            Add Category
           </Button>
         </Box>
       </Box>

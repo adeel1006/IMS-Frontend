@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import { fetchUserData } from "./ComplainDashboardApi";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
@@ -10,10 +10,23 @@ import placeholder from "../../../Assets/placeholder.jpg";
 import DataTable from "../../../Components/DataTable";
 import "./EmployeeDashboard.css";
 
+const styles = {
+  editBtn: {
+    backgroundColor: seaGreenBtn,
+    color: "white",
+    borderRadius: 10,
+  },
+};
+
 const EmployeeDashboard = () => {
+  const navigateTo = useNavigate();
   const userReqData = useSelector(
     (state) => state.requestsData.userRequestsData
   );
+
+  const handleEditBtn = () => {
+    navigateTo("/editProfile");
+  };
 
   const userComplaintsData = useSelector(
     (state) => state.complaints.userComplaints
@@ -50,16 +63,13 @@ const EmployeeDashboard = () => {
         <Box className="dash-right-header">
           <Button
             className="btn-primary"
-            style={{
-              backgroundColor: seaGreenBtn,
-              color: "white",
-              borderRadius: 10,
-            }}
+            style={styles.editBtn}
+            onClick={handleEditBtn}
           >
             <EditOutlinedIcon />
-            <Link className="link-style" to="/editProfile">
-              Edit Profile
-            </Link>
+            {/* <Link className="link-style" to="/editProfile"> */}
+            Edit Profile
+            {/* </Link> */}
           </Button>
         </Box>
       </Box>

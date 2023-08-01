@@ -1,12 +1,15 @@
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Typography, Button } from "@mui/material";
 import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
 import placeholder from "../../../Assets/placeholder.jpg";
 import logo from "../../../Assets/logo.png";
 import { cornFlowerBlue, seaGreenBtn } from "../../../Utils/ColorConstants";
-import { fetchComplaintDetail } from "./AdminComplainApi";
+import {
+  fetchComplaintDetail,
+  updateComplaintStatus,
+} from "./AdminComplainApi";
 
 const styles = {
   backBtn: { color: "gray" },
@@ -35,8 +38,18 @@ const ViewAdminComplaint = () => {
     isError,
   } = useQuery(["viewComplaintDetail", id], () => fetchComplaintDetail(id));
 
+  const mutation = useMutation(updateComplaintStatus, {
+    onSuccess: (data) => {
+      navigateTo(-1);
+    },
+  });
+
   const handleGoBack = () => {
     navigateTo(-1);
+  };
+
+  const handleMarkResolved = async () => {
+    mutation.mutate({ id: id, status: "resolved" });
   };
 
   if (isLoading) {
@@ -50,7 +63,7 @@ const ViewAdminComplaint = () => {
       </div>
     );
   }
-
+  console.log(viewComplaintDetail.complaint.status);
   return (
     <Box className="container">
       <Box className="component-header">
@@ -66,12 +79,14 @@ const ViewAdminComplaint = () => {
             {viewComplaintDetail?.complaint?.status || notAvailable}
           </Button>
         </Box>
-
-        {viewComplaintDetail?.complaint?.user?.role == handleResolveBtn && (
-          <Box className="right-header-content">
-            <Button style={styles.resolvedBtn}>Mark as resolved</Button>
-          </Box>
-        )}
+        <Box className="right-header-content">
+          {(!viewComplaintDetail.complaint.status ||
+            viewComplaintDetail.complaint.status === "pending") && (
+            <Button style={styles.resolvedBtn} onClick={handleMarkResolved}>
+              Mark as resolved
+            </Button>
+          )}
+        </Box>
       </Box>
 
       <Box className="complaint-info">
@@ -83,13 +98,6 @@ const ViewAdminComplaint = () => {
           >
             {viewComplaintDetail?.complaint?.description || notAvailable}
           </Typography>
-
-          {/* <Typography sx={{ mt: 2 }} fontWeight="bold">
-              Attachments
-            </Typography>
-            <Box className="attachment-images">
-              <img src={logo} alt="logo" />
-            </Box> */}
         </Box>
       </Box>
       <Box className="complain-by">

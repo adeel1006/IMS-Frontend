@@ -20,3 +20,9 @@ export const requestTypes = [
   { value: "Inventory Acquisition", label: "Inventory Acquisition" },
   { value: "Faulty", label: "Faulty" },
 ];
+
+export const rolesTypes = {
+  SUPER_ADMIN: "SUPER_ADMIN",
+  ADMIN: "ADMIN",
+  EMPLOYEE: "EMPLOYEE",
+};

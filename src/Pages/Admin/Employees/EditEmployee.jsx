@@ -1,44 +1,38 @@
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
-import { useMutation, useQuery } from "react-query";
 import { Box, TextField } from "@mui/material";
+import { editEmp } from "./AdminEmployeeApi";
+import { departments } from "../../../Utils/constants";
 import imgPlaceHolder from "../../../Assets/placeholder.jpg";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import SelectBox from "../../../Components/SelectBox";
 import { seaGreenBtn } from "../../../Utils/ColorConstants";
-import { editAdmin, fetchOrganizations } from "./AdminApi";
-import "./AddAdmin.css";
+import "./AddEmployee.css";
 
-const EditAdmin = () => {
+const styles = {
+  fieldWidth: { width: "500px" },
+  saveBtn: { backgroundColor: seaGreenBtn },
+  fieldBorder: { border: "none" },
+};
+
+const EditEmployee = () => {
   const [formValues, setFormValues] = useState({
     username: "",
     email: "",
-    organization: "",
     contact: "",
+    role: "EMPLOYEE",
+    department: "",
+    password: "",
   });
-  const { id } = useParams();
   const navigateTo = useNavigate();
+  const { id } = useParams();
   const handleGoBack = () => {
     navigateTo(-1);
   };
 
-  const {
-    data: organizationList,
-    isLoading,
-    isError,
-  } = useQuery("organization", fetchOrganizations);
-
-  const submitFormMutation = useMutation(editAdmin, {
-    onSuccess: (data) => {
-      navigateTo(-1);
-    },
-  });
-
-  const organizations = organizationList?.map((item) => {
-    const { id, name } = item;
-    return { value: id, label: name };
-  });
+  const submitFormMutation = useMutation(editEmp);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,6 +43,7 @@ const EditAdmin = () => {
       }
     }
     submitFormMutation.mutate({ id: id, formData: updatedFields });
+    navigateTo(-1);
   };
 
   const handleChange = (event) => {
@@ -76,32 +71,22 @@ const EditAdmin = () => {
     formData.append("image", file);
   };
 
-  if (isLoading) {
-    return <div className="container">Loading...</div>;
-  }
-
-  if (isError) {
-    return (
-      <div className="container">Error occurred while fetching complaints.</div>
-    );
-  }
-
   return (
     <Box className="container">
-      <Box className="new-adm-header">
-        <Box className="left-btns header-adm-btns">
+      <Box className="new-emp-header">
+        <Box className="left-btns header-emp-btns">
           <button onClick={handleGoBack} className="back-btn">
             <KeyboardBackspaceIcon fontSize="small" />
             Back
           </button>
-          <h1>Update Admin</h1>
+          <h1>Update Employee</h1>
         </Box>
-        <Box className="right-btns header-adm-btns">
+        <Box className="right-btns header-emp-btns">
           <button onClick={handleGoBack} className="cancel-btn btn">
             Cancel
           </button>
           <button
-            style={{ backgroundColor: seaGreenBtn }}
+            style={styles.saveBtn}
             className="save-btn btn"
             onClick={handleSubmit}
           >
@@ -110,14 +95,14 @@ const EditAdmin = () => {
         </Box>
       </Box>
 
-      <Box className="new-adm-form">
+      <Box className="new-emp-form">
         <form onSubmit={handleSubmit}>
           <Box className="img-upload">
             <Box className="logo-upload">
               <img src={imgPlaceHolder} alt="image" />
             </Box>
             <Box className="heading">
-              <span className="Box-heading">Update Admin's Picture</span>
+              <span className="Box-heading">Update Employee's Picture</span>
               <span className="mandatory-asterik"> *</span>
               <p>Upload a high-res picture with face is clear</p>
             </Box>
@@ -137,9 +122,9 @@ const EditAdmin = () => {
           <Box className="name data-field">
             <span className="form-left">Name</span>
             <TextField
-              required
+              sx={styles.fieldWidth}
               size="small"
-              placeholder="Updated Full Name..."
+              placeholder="Full Name"
               name="username"
               value={formValues.username}
               onChange={handleChange}
@@ -148,8 +133,9 @@ const EditAdmin = () => {
 
           <Box className="email data-field">
             <span className="form-left">Email Address</span>
+
             <TextField
-              required
+              sx={styles.fieldWidth}
               size="small"
               placeholder="Email Address"
               name="email"
@@ -158,29 +144,31 @@ const EditAdmin = () => {
             />
           </Box>
 
-          <Box className="org-name data-field">
-            <span className="form-left">Organization Name</span>
-            <SelectBox
-              className="selectBox"
-              minWidth="238px"
-              marginLeft="0px"
-              marginRight="0px"
-              placeHolder="Update Organization"
-              options={organizations}
-              name="organization"
-              value={formValues.organization}
+          <Box className="contact data-field">
+            <span className="form-left">Contact Number</span>
+            <TextField
+              sx={styles.fieldWidth}
+              size="small"
+              type="number"
+              placeholder="Contact Number"
+              name="contact"
+              value={formValues.contact}
               onChange={handleChange}
             />
           </Box>
 
-          <Box className="contact data-field">
-            <span className="form-left">Contact Number</span>
-            <TextField
-              required
-              size="small"
-              placeholder="Update Contact Number..."
-              name="contact"
-              value={formValues.contact}
+          <Box className="org-name data-field">
+            <span className="form-left">Department</span>
+
+            <SelectBox
+              className="selectBox"
+              minWidth="500px"
+              marginLeft="0px"
+              marginRight="0px"
+              placeHolder={"Select Department"}
+              options={departments}
+              name="department"
+              value={formValues.department}
               onChange={handleChange}
             />
           </Box>
@@ -190,4 +178,4 @@ const EditAdmin = () => {
   );
 };
 
-export default EditAdmin;
+export default EditEmployee;

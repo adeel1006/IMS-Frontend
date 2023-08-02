@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 import { Box, Button, Typography } from "@mui/material";
-import SortIcon from "../../../Components/SortIcon";
 import SearchBar from "../../../Components/SearchBar";
 import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
@@ -151,9 +150,6 @@ const AdminComplaints = () => {
         </Box>
 
         <Box className="right-box">
-          {/* <Box className="s-icon">
-            <SortIcon value="AZ" defaultDirection="asc" />
-          </Box> */}
           <Box className="addcomp-btn">
             <Button style={styles.addBtnStyle} onClick={handleAddBtn}>
               <AddIcon />

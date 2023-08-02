@@ -19,12 +19,14 @@ import Requests from "./Pages/Admin/Requests/Requests";
 import AdminViewRequest from "./Pages/Admin/Requests/AdminViewRequest";
 import Inventory from "./Pages/Admin/Inventory/Inventory";
 import AddItem from "./Pages/Admin/Inventory/AddItem";
+import EditItem from "./Pages/Admin/Inventory/EditItem";
 import ViewItem from "./Pages/Admin/Inventory/ViewItem";
 import Categories from "./Pages/Admin/Categories/Categories";
 import AddCategory from "./Pages/Admin/Categories/AddCategory";
 import ViewCategory from "./Pages/Admin/Categories/ViewCategory";
 import EditCategory from "./Pages/Admin/Categories/EditCategory";
 import Employees from "./Pages/Admin/Employees/Employees";
+import EditEmployee from "./Pages/Admin/Employees/EditEmployee";
 import AddEmployee from "./Pages/Admin/Employees/AddEmployee";
 import ViewEmployee from "./Pages/Admin/Employees/ViewEmployee";
 import Returns from "./Pages/Admin/Returns/Returns";
@@ -34,6 +36,7 @@ import ViewAdminComplaint from "./Pages/Admin/Complaints/ViewAdminComplaint";
 import AdminAddComplaint from "./Pages/Admin/Complaints/AdminAddComplaint";
 import Vendors from "./Pages/Admin/Vendors/Vendors";
 import AddVendors from "./Pages/Admin/Vendors/AddVendors";
+import EditVendors from "./Pages/Admin/Vendors/EditVendor";
 import ViewVendor from "./Pages/Admin/Vendors/ViewVendor";
 
 import EmployeeDashboard from "./Pages/Employee/Dashboard/EmployeeDashboard";
@@ -172,6 +175,12 @@ const routesConfig = [
     allowedRoles: [rolesTypes.ADMIN],
   },
   {
+    path: "/editItem/:id",
+    exact: true,
+    component: EditItem,
+    allowedRoles: [rolesTypes.ADMIN],
+  },
+  {
     path: "/viewItem/:id",
     exact: true,
     component: ViewItem,
@@ -211,6 +220,12 @@ const routesConfig = [
     path: "/addEmployee",
     exact: true,
     component: AddEmployee,
+    allowedRoles: [rolesTypes.ADMIN],
+  },
+  {
+    path: "/editEmployee/:id",
+    exact: true,
+    component: EditEmployee,
     allowedRoles: [rolesTypes.ADMIN],
   },
   {
@@ -259,6 +274,12 @@ const routesConfig = [
     path: "/addVendor",
     exact: true,
     component: AddVendors,
+    allowedRoles: [rolesTypes.ADMIN],
+  },
+  {
+    path: "/editVendor/:id",
+    exact: true,
+    component: EditVendors,
     allowedRoles: [rolesTypes.ADMIN],
   },
   {

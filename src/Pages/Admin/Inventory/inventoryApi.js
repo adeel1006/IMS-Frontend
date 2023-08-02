@@ -70,3 +70,35 @@ export const fetchItem = async (id) => {
     throw new Error("Failed to fetch item." + error.message);
   }
 };
+
+export const editItem = async ({ id, formData }) => {
+  try {
+    const response = await axios.patch(
+      `${httpRequest + "/inventory/" + id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update Item" + error.message);
+  }
+};
+
+export const deleteItem = async (id) => {
+  try {
+    const response = await axios.delete(`${httpRequest}/inventory/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to delete Item." + error.message);
+  }
+};

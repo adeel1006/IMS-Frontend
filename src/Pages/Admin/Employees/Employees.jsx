@@ -104,13 +104,6 @@ const Employees = () => {
           </Button>
         </Box>
       </Box>
-
-      {/* <Box className="sort-btns">
-          <Box className="filter-btn">
-            <SortIcon defaultDirection="asc" value="AZ" />
-          </Box>
-        </Box> */}
-
       <Box className="emp-table">
         {!tableData.length && (
           <div className="container" style={styles.noData}>

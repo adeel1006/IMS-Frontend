@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-// import "./NotFoundPage.css";
 import logo from "../../Assets/logo.png";
 
 const Unauthorized = () => {
@@ -11,7 +10,7 @@ const Unauthorized = () => {
         Unauthorized!
       </Typography>
       <Typography className="not-found-message">
-        You have no access permission!
+        You have no permission access!
       </Typography>
     </Box>
   );

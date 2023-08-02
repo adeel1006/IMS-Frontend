@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
 import { Box, Button, Divider } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import DataTable from "../../../Components/DataTable";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DropDownMenu from "../../../Components/DropDownMenu";
 import avatar from "../../../Assets/avatar.png";
 import { rows } from "../../../Utils/testingData";
 import { cornFlowerBlue } from "../../../Utils/ColorConstants";
-import { fetchEmployeeDetail, fetchEmployeeRequest } from "./AdminEmployeeApi";
+import {
+  deleteEmp,
+  fetchEmployeeDetail,
+  fetchEmployeeRequest,
+} from "./AdminEmployeeApi";
 import "./ViewEmployee.css";
 
 const styles = {
@@ -27,6 +33,12 @@ const ViewEmployee = () => {
   const [generalInfo, setGeneralInfo] = useState(true);
   const [inventoryTab, setInventoryTab] = useState(false);
   const [requestTab, setRequestTab] = useState(false);
+
+  const deleteEmpMutation = useMutation(deleteEmp, {
+    onSuccess: (data) => {
+      navigateTo(-1);
+    },
+  });
 
   const {
     data: employeeDetail,
@@ -66,6 +78,27 @@ const ViewEmployee = () => {
     navigateTo(-1);
   };
 
+  const handleEdit = () => {
+    navigateTo(`/editEmployee/${id}`);
+  };
+
+  const handleDelete = () => {
+    deleteEmpMutation.mutate(id);
+  };
+  const menuOptions = [
+    {
+      label: "Edit",
+      icon: <EditOutlinedIcon />,
+      handler: handleEdit,
+      dividerAfter: true,
+    },
+    {
+      label: "Delete",
+      icon: <DeleteOutlineOutlinedIcon />,
+      handler: handleDelete,
+    },
+  ];
+
   if (isLoading || isEmpLoading) {
     return <div className="container">Loading...</div>;
   }
@@ -90,9 +123,9 @@ const ViewEmployee = () => {
             Back
           </Button>
         </Box>
-        {/* <Box className="right-header">
-          <DropDownMenu />
-        </Box> */}
+        <Box className="right-header">
+          <DropDownMenu options={menuOptions} />
+        </Box>
       </Box>
       <Divider />
       <Box className="content">

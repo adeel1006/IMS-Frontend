@@ -25,6 +25,9 @@ const complaintsSlice = createSlice({
   },
 });
 
-export const { updateFilteredData, updateUserComplaints, updateAdmUserComplaints } =
-  complaintsSlice.actions;
+export const {
+  updateFilteredData,
+  updateUserComplaints,
+  updateAdmUserComplaints,
+} = complaintsSlice.actions;
 export default complaintsSlice.reducer;

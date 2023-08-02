@@ -7,9 +7,9 @@ import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
 import DropDownMenu from "../../../Components/DropDownMenu";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import { deleteAdmin } from "./AdminApi";
 import placeholder from "../../../Assets/placeholder.jpg";
 import { httpRequest, adminByID } from "../../../Utils/httpRequestsStrings";
+import { deleteAdmin } from "./AdminApi";
 import "./AdminDetails.css";
 
 const AdminDetails = () => {

@@ -12,6 +12,10 @@ import { fetchOrganizations } from "./AdminApi";
 import { addAdminUser, httpRequest } from "../../../Utils/httpRequestsStrings";
 import "./AddAdmin.css";
 
+const styles = {
+  saveBtn: { backgroundColor: seaGreenBtn },
+};
+
 const AddAdmin = () => {
   const [formValues, setFormValues] = useState({
     username: "",
@@ -108,7 +112,7 @@ const AddAdmin = () => {
             Cancel
           </button>
           <button
-            style={{ backgroundColor: seaGreenBtn }}
+            style={styles.saveBtn}
             className="save-btn btn"
             onClick={handleSubmit}
           >

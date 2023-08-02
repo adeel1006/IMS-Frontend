@@ -56,3 +56,34 @@ export const fetchEmployeeRequest = async (id) => {
     throw new Error("Failed to fetch employee detail." + error.message);
   }
 };
+
+export const editEmp = async ({ id, formData }) => {
+  try {
+    const response = await axios.patch(
+      `${httpRequest + "/users/" + id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update Employee" + error.message);
+  }
+};
+
+export const deleteEmp = async (id) => {
+  try {
+    const response = await axios.delete(`${httpRequest}/users/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to delete Employee." + error.message);
+  }
+};

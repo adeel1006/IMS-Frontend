@@ -53,3 +53,34 @@ export const fetchVendor = async (id) => {
     throw new Error("Failed to fetch vendor." + error.message);
   }
 };
+
+export const editVendor = async ({ id, formData }) => {
+  try {
+    const response = await axios.patch(
+      `${httpRequest + "/vendor/" + id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update Vendor" + error.message);
+  }
+};
+
+export const deleteVendor = async (id) => {
+  try {
+    const response = await axios.delete(`${httpRequest}/vendor/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to delete Vendor." + error.message);
+  }
+};

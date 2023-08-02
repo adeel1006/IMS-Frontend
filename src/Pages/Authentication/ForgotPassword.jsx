@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@mui/material";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useMutation } from "react-query";
 import logo from "../../Assets/logo.png";
-import axios from "axios";
 import { setError } from "../../Redux/Reducers/authSlice";
 import { seaGreenBtn, redBtn } from "../../Utils/ColorConstants";
 import {
@@ -17,27 +17,6 @@ const ForgotPassword = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const forgotPasswordMutation = useMutation(
-  //   async (formData) => {
-  //     const response = await axios.post(
-  //       `${httpRequest + forgotPasswordUrl}`,
-  //       formData
-  //     );
-  //     return response.data;
-  //   },
-  //   {
-  //     onError: (error) => {
-  //       dispatch(setError(error.message));
-  //     },
-  //     onSuccess: () => {
-  //       setShowSuccessMessage(true);
-  //       setTimeout(() => {
-  //         navigate("/verificationCode");
-  //       }, 2000);
-  //     },
-  //   }
-  // );
 
   const forgotPasswordMutation = useMutation(
     async (formData) => {
@@ -59,7 +38,6 @@ const ForgotPassword = () => {
       },
     }
   );
-
 
   const handleSubmit = (event) => {
     event.preventDefault();

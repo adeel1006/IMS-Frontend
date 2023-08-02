@@ -83,11 +83,6 @@ const Returns = () => {
         <Box className="return-left-header">
           <Typography variant="h3">Returns</Typography>
           <SearchBar className="searchBar" setSearchQuery={setSearchQuery} />
-          {/* <SelectBox
-            className="selectBox"
-            placeHolder={"Select Status"}
-            options={options}
-          /> */}
           <SelectBox
             className="selectBox"
             placeHolder={"Select Type"}

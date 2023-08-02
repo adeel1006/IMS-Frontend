@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Box, Typography, Button } from "@mui/material";
 import DataTable from "../../../Components/DataTable";
-import SortIcon from "../../../Components/SortIcon";
 import SearchBar from "../../../Components/SearchBar";
 import SelectBox from "../../../Components/SelectBox";
 import AddIcon from "@mui/icons-material/Add";
@@ -155,16 +154,6 @@ const Inventory = () => {
           </Button>
         </Box>
       </Box>
-
-      {/* <Box className="sort-btns">
-        <Box className="filter-btn">
-          <SortIcon defaultDirection="asc" value="AZ" />
-        </Box>
-
-        <Box className="filter-btn">
-          <SortIcon defaultDirection="asc" value="09" />
-        </Box>
-      </Box> */}
 
       <Box className="inv-table">
         {!tableData.length && (

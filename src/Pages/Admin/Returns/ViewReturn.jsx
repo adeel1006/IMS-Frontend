@@ -4,8 +4,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import BackArrow from "@mui/icons-material/KeyboardBackspaceOutlined";
 import { Box, Typography, Button, Divider } from "@mui/material";
 import placeholder from "../../../Assets/placeholder.jpg";
-import SelectBox from "../../../Components/SelectBox";
-import { returnOptions } from "../../../Utils/testingData";
 import { cornFlowerBlue } from "../../../Utils/ColorConstants";
 import { fetchReturnUserInfo } from "./returnsApi";
 import "./ViewReturn.css";
@@ -68,15 +66,6 @@ const ViewReturn = () => {
               Submission Date: {formattedDate || notAvailable}
             </Typography>
           </Box>
-
-          {/* <Box className="right-header-content">
-            <SelectBox
-              minWidth={250}
-              className="selectBox"
-              placeHolder={"Mark as Repair/Replace"}
-              options={returnOptions}
-            />
-          </Box> */}
         </Box>
 
         <Box className="return-info">

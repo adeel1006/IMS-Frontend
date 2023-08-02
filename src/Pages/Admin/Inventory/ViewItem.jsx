@@ -1,11 +1,12 @@
 import React from "react";
-import { useQuery } from "react-query";
+import { useQuery, useMutation } from "react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import DropDownMenu from "../../../Components/DropDownMenu";
+import { Button, Box } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { Button, Box, Typography } from "@mui/material";
-import placeholder from "../../../Assets/placeholder.jpg";
-import { fetchItem } from "./inventoryApi";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DropDownMenu from "../../../Components/DropDownMenu";
+import { deleteItem, fetchItem } from "./inventoryApi";
 import "./ViewItem.css";
 
 const styles = {
@@ -28,6 +29,12 @@ const ViewItem = () => {
     isError,
   } = useQuery(["viewItem", id], () => fetchItem(id));
 
+  const deleteItemMutation = useMutation(deleteItem, {
+    onSuccess: (data) => {
+      navigateTo(-1);
+    },
+  });
+
   const itemPrice = viewItem?.item?.price;
   const deprecatedValue = 0.3;
   const deprecatedPercentValue = deprecatedValue * 100 + "%";
@@ -44,6 +51,27 @@ const ViewItem = () => {
   const handleGoBack = () => {
     navigateTo(-1);
   };
+
+  const handleEdit = () => {
+    navigateTo(`/editItem/${id}`);
+  };
+
+  const handleDelete = () => {
+    deleteItemMutation.mutate(id);
+  };
+  const menuOptions = [
+    {
+      label: "Edit",
+      icon: <EditOutlinedIcon />,
+      handler: handleEdit,
+      dividerAfter: true,
+    },
+    {
+      label: "Delete",
+      icon: <DeleteOutlineOutlinedIcon />,
+      handler: handleDelete,
+    },
+  ];
 
   if (isLoading) {
     return <div className="container">Loading...</div>;
@@ -64,7 +92,7 @@ const ViewItem = () => {
           </Box>
 
           <Box className="right-headerMenu">
-            <DropDownMenu />
+            <DropDownMenu options={menuOptions} />
           </Box>
         </Box>
 
@@ -123,25 +151,16 @@ const ViewItem = () => {
         <span className="Box-heading">Vendor</span>
         <Box className="data-field">
           <span className="form-left bold-txt">Name</span>
-          <p style={styles.fieldWidth}>{viewItem?.item?.vendor?.vendorName || notAvailable}</p>
+          <p style={styles.fieldWidth}>
+            {viewItem?.item?.vendor?.vendorName || notAvailable}
+          </p>
         </Box>
         <Box className="data-field">
           <span className="form-left bold-txt">Contact Number</span>
-          <p style={styles.fieldWidth}>{viewItem?.item?.vendor?.contactNumber || notAvailable}</p>
+          <p style={styles.fieldWidth}>
+            {viewItem?.item?.vendor?.contactNumber || notAvailable}
+          </p>
         </Box>
-
-        {/* <span className="box-heading">Assigned to:</span>
-        <Box className="user-card">
-          <Box className="profile-pic">
-            <img src={placeholder} alt="profile" />
-          </Box>
-          <Box className="details">
-            <Typography className="Box-heading">Steve Smith</Typography>
-            <Typography className="dept">Department: Development</Typography>
-            <Typography className="email">steve@gigalabs.co</Typography>
-            <Typography className="contact">(555) 555 555</Typography>
-          </Box>
-        </Box> */}
       </Box>
     </>
   );

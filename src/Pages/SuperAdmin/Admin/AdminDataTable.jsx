@@ -78,7 +78,7 @@ const AdminDataTable = ({ rows }) => {
           </TableHead>
           <TableBody>
             {rows.slice(startIndex, endIndex).map((row, rowIndex) => {
-              const { Id  } = row;
+              const { Id } = row;
               const cells = headerKeys.map((key, columnIndex) => {
                 if (key === "Image") {
                   return (

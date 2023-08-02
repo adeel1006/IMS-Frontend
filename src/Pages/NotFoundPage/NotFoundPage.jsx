@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import "./NotFoundPage.css";
 import logo from "../../Assets/logo.png";
+import "./NotFoundPage.css";
 
 const NotFoundPage = () => {
   return (

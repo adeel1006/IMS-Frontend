@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import axios from "axios";
@@ -20,7 +20,6 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
-  // const accessToken = useSelector((state) => state.auth.accessToken);
 
   const loginMutation = useMutation(
     async (formData) => {
@@ -42,7 +41,6 @@ const Login = () => {
     const decodedToken = JSON.parse(atob(accessToken.split(".")[1]));
     const userRole = decodedToken.role;
     const userId = decodedToken.userId;
-    // localStorage.setItem("accessToken", accessToken);
     dispatch(setUserRole(userRole));
     dispatch(setUserId(userId));
 

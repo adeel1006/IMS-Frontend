@@ -29,7 +29,6 @@ const styles = {
 
 const ViewAdminComplaint = () => {
   let notAvailable = "N/A";
-  let handleResolveBtn = "EMPLOYEE";
   const { id } = useParams();
   const navigateTo = useNavigate();
   const {
@@ -63,7 +62,7 @@ const ViewAdminComplaint = () => {
       </div>
     );
   }
-  console.log(viewComplaintDetail.complaint.status);
+  console.log(viewComplaintDetail?.complaint?.user?.role);
   return (
     <Box className="container">
       <Box className="component-header">
@@ -79,14 +78,16 @@ const ViewAdminComplaint = () => {
             {viewComplaintDetail?.complaint?.status || notAvailable}
           </Button>
         </Box>
-        <Box className="right-header-content">
-          {(!viewComplaintDetail.complaint.status ||
-            viewComplaintDetail.complaint.status === "pending") && (
-            <Button style={styles.resolvedBtn} onClick={handleMarkResolved}>
-              Mark as resolved
-            </Button>
-          )}
-        </Box>
+        {viewComplaintDetail?.complaint?.user?.role === "EMPLOYEE" && (
+          <Box className="right-header-content">
+            {(!viewComplaintDetail.complaint.status ||
+              viewComplaintDetail.complaint.status === "pending") && (
+              <Button style={styles.resolvedBtn} onClick={handleMarkResolved}>
+                Mark as resolved
+              </Button>
+            )}
+          </Box>
+        )}
       </Box>
 
       <Box className="complaint-info">

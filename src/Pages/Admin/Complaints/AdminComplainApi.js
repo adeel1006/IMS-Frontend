@@ -63,7 +63,7 @@ export const fetchComplaintDetail = async (id) => {
   }
 };
 
-export const updateComplaintStatus = async ({id, status})=>{
+export const updateComplaintStatus = async ({ id, status }) => {
   try {
     const response = await axios.patch(
       `${httpRequest}${complaintByID}${id}`,
@@ -74,9 +74,8 @@ export const updateComplaintStatus = async ({id, status})=>{
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error("Failed to Resolve complaint" + error.message);
   }
-}
+};

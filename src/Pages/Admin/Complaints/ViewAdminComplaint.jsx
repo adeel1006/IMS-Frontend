@@ -62,7 +62,7 @@ const ViewAdminComplaint = () => {
       </div>
     );
   }
-  console.log(viewComplaintDetail?.complaint?.user?.role);
+
   return (
     <Box className="container">
       <Box className="component-header">

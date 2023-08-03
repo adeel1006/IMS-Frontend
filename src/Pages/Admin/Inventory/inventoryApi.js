@@ -83,7 +83,6 @@ export const editItem = async ({ id, formData }) => {
         },
       }
     );
-    console.log(response.data);
     return response.data;
   } catch (error) {
     throw new Error("Failed to update Item" + error.message);

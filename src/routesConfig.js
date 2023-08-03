@@ -1,7 +1,3 @@
-import Login from "./Pages/Authentication/Login";
-import ForgotPassword from "./Pages/Authentication/ForgotPassword";
-import VerificationCode from "./Pages/Authentication/VerificationCode";
-
 import Dashboard from "./Pages/SuperAdmin/Dashboard/Dashboard";
 import Admin from "./Pages/SuperAdmin/Admin/AddAdmin";
 import EditAdmin from "./Pages/SuperAdmin/Admin/EditAdmin";
@@ -50,32 +46,6 @@ import AddRequest from "./Pages/Employee/Request/AddRequest";
 import { rolesTypes } from "./Utils/constants";
 
 const routesConfig = [
-  // Auth Routes
-  {
-    path: "/",
-    exact: true,
-    component: Login,
-    allowedRoles: [],
-  },
-  {
-    path: "/login",
-    exact: true,
-    component: Login,
-    allowedRoles: [],
-  },
-  {
-    path: "/forgotPassword",
-    exact: true,
-    component: ForgotPassword,
-    allowedRoles: [],
-  },
-  {
-    path: "/verificationCode",
-    exact: true,
-    component: VerificationCode,
-    allowedRoles: [],
-  },
-
   // SuperAdmin Routes
   {
     path: "/superAdminDashboard",

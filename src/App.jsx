@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import AppBar from "./Components/AppBar";
 import Login from "./Pages/Authentication/Login";
+import ForgotPassword from "./Pages/Authentication/ForgotPassword";
+import VerificationCode from "./Pages/Authentication/VerificationCode";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import Unauthorized from "./Pages/UnauthorizedPage/Unauthorized";
 import ProtectedRoute from "./Routes/ProtectedRoute";
@@ -28,6 +30,8 @@ function App() {
       <Routes>
         <Route path="/" exact element={<Login />} />
         <Route path="/login" exact element={<Login />} />
+        <Route path="/forgotPassword" exact element={<ForgotPassword />} />
+        <Route path="/verificationCode" exact element={<VerificationCode />} />
 
         {routesConfig.map((route) => (
           <Route

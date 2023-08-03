@@ -22,7 +22,8 @@ const styles = {
     borderRadius: "5px",
   },
   orgFont: { fontSize: "1.7em" },
-  description: { textAlign: "justify" }
+  description: { textAlign: "justify" },
+  backBtn: { color: "gray" },
 };
 
 const ComplaintsDetail = () => {
@@ -85,7 +86,7 @@ const ComplaintsDetail = () => {
     <Box className="container">
       <Box className="component-header">
         <Box className="left-header-content">
-          <Button style={{ color: "gray" }} onClick={handleGoBack}>
+          <Button style={styles.backBtn} onClick={handleGoBack}>
             <BackArrow />
             Back
           </Button>
@@ -157,12 +158,15 @@ const ComplaintsDetail = () => {
             />
           </Box>
           <Box className="admin-details">
-            <Typography className="pri-heading" style={styles.orgFont}>
-              {complaintData?.complaint?.user?.organization ||
-                notAvailable}
-            </Typography>
+            {complaintData?.complaint?.user?.organization ? (
+              <Typography className="pri-heading" style={styles.orgFont}>
+                {complaintData?.complaint?.user?.organization?.name ||
+                  notAvailable}
+              </Typography>
+            ) : null}
             <Typography className="gray-text">
-              {complaintData?.complaint?.user?.organization || notAvailable}
+              {complaintData?.complaint?.user?.organization?.email ||
+                notAvailable}
             </Typography>
           </Box>
         </Box>

@@ -16,7 +16,7 @@ const ProtectedRoute = ({ element: Element, allowedRoles, userRole }) => {
   }, [userRole, navigate, allowedRoles]);
 
   if (!allowedRoles.includes(userRole) || userRole === null) {
-    return null;
+    return null; 
   }
   return <Element />;
 };
